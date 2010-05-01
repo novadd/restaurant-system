@@ -1,6 +1,6 @@
 #sidebar index
 
-#Description of project
+#summary Description of project
 
 = Introduction =
 
