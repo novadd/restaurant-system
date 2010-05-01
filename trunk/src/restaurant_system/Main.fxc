@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model modelID="fxc" modelVersion="23" rootInstance="DesignModel1" version="1">
+    <Instance classID="DesignModel" instanceID="DesignModel1">
+        <List name="stateVariables">
+            <Item value="inst:StateVariableModel1"/>
+        </List>
+        <List name="resources"/>
+        <List name="dataSources"/>
+        <List name="effects"/>
+        <Reference name="scene" value="inst:SceneModel1"/>
+        <Reference name="designWidth" value="flt:480.0"/>
+        <Reference name="designHeight" value="flt:320.0"/>
+        <Reference name="designProfile" value="profile:DESKTOP"/>
+        <Reference name="synchronizeDeviceAndSceneSizes" value="bool:true"/>
+    </Instance>
+    <Instance classID="StateVariableModel" instanceID="StateVariableModel1">
+        <Reference name="instanceName" value="str:currentState"/>
+        <List name="states"/>
+        <Reference name="startState" value="null"/>
+        <Reference name="stateChangeType" value="statechange:PAUSE_AND_PLAY_FROM_START"/>
+    </Instance>
+    <Instance classID="SceneModel" instanceID="SceneModel1">
+        <Reference name="instanceName" value="str:scene"/>
+        <List name="nodes"/>
+        <Reference name="width" value="prop:25,anim:0,DISCRETE,flt:480.0,"/>
+        <Reference name="height" value="prop:25,anim:0,DISCRETE,flt:320.0,"/>
+        <Reference name="generateSceneInstance" value="bool:true"/>
+        <Reference name="generateScenePanel" value="bool:true"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="preInitCode" value="null"/>
+        <Reference name="postInitCode" value="null"/>
+    </Instance>
+</Model>
