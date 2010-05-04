@@ -12,6 +12,8 @@ package restaurant_system;
 public class Main {
 
     public-read var button: javafx.scene.control.Button;//GEN-BEGIN:main
+    public-read var label: javafx.scene.control.Label;
+    public-read var checkbox: javafx.scene.control.CheckBox;
     public-read var scene: javafx.scene.Scene;
     public-read var reflectionEffect: javafx.scene.effect.Reflection;
     
@@ -19,11 +21,21 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Init Block">
     init {
+        label = javafx.scene.control.Label {
+            layoutX: 349.0
+            layoutY: 62.0
+            text: "Label"
+        };
+        checkbox = javafx.scene.control.CheckBox {
+            layoutX: 337.0
+            layoutY: 25.0
+            text: "Button"
+        };
         reflectionEffect = javafx.scene.effect.Reflection {
         };
         button = javafx.scene.control.Button {
-            layoutX: 141.0
-            layoutY: 68.0
+            layoutX: 69.0
+            layoutY: 42.0
             width: 101.0
             height: 67.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -67,7 +79,7 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Design Functions">
     public function getDesignRootNodes () : javafx.scene.Node[] {
-        [ button, ]
+        [ button, label, checkbox, ]
     }
     
     public function getDesignScene (): javafx.scene.Scene {
