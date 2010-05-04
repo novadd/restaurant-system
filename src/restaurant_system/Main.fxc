@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Model modelID="fxc" modelVersion="23" rootInstance="DesignModel1" version="1">
+<Model modelID="fxc" modelVersion="40" rootInstance="DesignModel1" version="1">
     <Instance classID="DesignModel" instanceID="DesignModel1">
         <List name="stateVariables">
             <Item value="inst:StateVariableModel1"/>
         </List>
-        <List name="resources"/>
+        <List name="resources">
+            <Item value="inst:ReflectionEffectModel1"/>
+        </List>
         <List name="dataSources"/>
         <List name="effects"/>
         <Reference name="scene" value="inst:SceneModel1"/>
@@ -15,13 +17,29 @@
     </Instance>
     <Instance classID="StateVariableModel" instanceID="StateVariableModel1">
         <Reference name="instanceName" value="str:currentState"/>
-        <List name="states"/>
-        <Reference name="startState" value="null"/>
+        <List name="states">
+            <Item value="inst:StateModel1"/>
+        </List>
+        <Reference name="startState" value="inst:StateModel1"/>
         <Reference name="stateChangeType" value="statechange:PAUSE_AND_PLAY_FROM_START"/>
+        <Reference name="defaultInterpolator" value="interpolator:DISCRETE"/>
+        <Reference name="defaultDuration" value="int:0"/>
+    </Instance>
+    <Instance classID="StateModel" instanceID="StateModel1">
+        <Reference name="stateName" value="str:New State 1"/>
+        <Reference name="defaultInterpolator" value="interpolator:EASEIN"/>
+        <Reference name="defaultDuration" value="int:1000"/>
+    </Instance>
+    <Instance classID="ReflectionEffectModel" instanceID="ReflectionEffectModel1">
+        <Reference name="instanceName" value="str:reflectionEffect"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
     </Instance>
     <Instance classID="SceneModel" instanceID="SceneModel1">
         <Reference name="instanceName" value="str:scene"/>
-        <List name="nodes"/>
+        <List name="nodes">
+            <Item value="inst:ButtonModel1"/>
+        </List>
         <Reference name="width" value="prop:25,anim:0,DISCRETE,flt:480.0,"/>
         <Reference name="height" value="prop:25,anim:0,DISCRETE,flt:320.0,"/>
         <Reference name="generateSceneInstance" value="bool:true"/>
@@ -30,5 +48,17 @@
         <Reference name="postCreationCode" value="null"/>
         <Reference name="preInitCode" value="null"/>
         <Reference name="postInitCode" value="null"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel1">
+        <Reference name="instanceName" value="str:button"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:141.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:304.0,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:68.0,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:31.0,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:101.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:67.0,4,null,"/>
+        <Reference name="effect" value="prop:34,anim:,,inst:ReflectionEffectModel1,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:17,anim:,,str:Button,4,null,"/>
     </Instance>
 </Model>
