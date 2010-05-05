@@ -11,23 +11,29 @@ package restaurant_system;
  */
 public class Main {
 
-    public-read var button: javafx.scene.control.Button;//GEN-BEGIN:main
+    public-read var stack: javafx.scene.layout.Stack;//GEN-BEGIN:main
+    public-read var radioButton: javafx.scene.control.RadioButton;
     public-read var scene: javafx.scene.Scene;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
     
     // <editor-fold defaultstate="collapsed" desc="Generated Init Block">
     init {
-        button = javafx.scene.control.Button {
-            layoutX: 6.0
-            layoutY: 6.0
-            width: 48.0
-            height: 42.0
+        stack = javafx.scene.layout.Stack {
+            layoutX: 166.0
+            layoutY: 54.0
+            width: 100.0
+            height: 95.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind button.width
-                height: bind button.height
+                width: bind stack.width
+                height: bind stack.height
             }
-            text: "Button"
+            content: [ ]
+        };
+        radioButton = javafx.scene.control.RadioButton {
+            layoutX: 322.0
+            layoutY: 48.0
+            text: "RadioButton"
         };
         scene = javafx.scene.Scene {
             width: 480.0
@@ -45,13 +51,6 @@ public class Main {
                 if (actual == 0) {
                     javafx.animation.Timeline {
                         keyFrames: [
-                            javafx.animation.KeyFrame {
-                                time: 1000ms
-                                values: [
-                                    button.layoutX => 304.0 tween javafx.animation.Interpolator.EASEIN,
-                                    button.layoutY => 31.0 tween javafx.animation.Interpolator.EASEIN,
-                                ]
-                            }
                         ]
                     }
                 } else {
@@ -63,7 +62,7 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Design Functions">
     public function getDesignRootNodes () : javafx.scene.Node[] {
-        [ button, ]
+        [ stack, radioButton, ]
     }
     
     public function getDesignScene (): javafx.scene.Scene {
