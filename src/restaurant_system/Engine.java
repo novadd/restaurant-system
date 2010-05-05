@@ -86,7 +86,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE category='" + category + "'");
             while (rs.next()) {
-                list.add(rs.getString("name") + " " + rs.getString("price"));
+                list.add(rs.getString("name") + " (" + rs.getString("price") + " zł)");
             }
             rs.close();
             statement.close();
@@ -105,7 +105,26 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM menu");
             while (rs.next()) {
-                list.add(rs.getString("name") + " " + rs.getString("price"));
+                list.add(rs.getString("name") + " (" + rs.getString("price") + " zł)");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list.toArray();
+    }
+
+    public static Object[] menuListID() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM menu");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
             }
             rs.close();
             statement.close();
@@ -126,7 +145,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT menu.name AS name, (menu.price * (1-discounts.percentage/100)) AS price FROM menu, orders, bills " +
                     " WHERE bills.menu_id=menu.id, bills.discount_id=discounts.id, bills.bill_id="+billID);
             while (rs.next()) {
-                list.add(rs.getString("name") + " " + rs.getFloat("price"));
+                list.add(rs.getString("name") + " (" + rs.getFloat("price") + " zł)");
                 sum=(double)sum + rs.getInt("price");
             }
             rs.close();
@@ -136,7 +155,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        list.add("Sum: " + sum);
+        list.add("Sum: " + sum + " zł");
         return list.toArray();
     }
 
