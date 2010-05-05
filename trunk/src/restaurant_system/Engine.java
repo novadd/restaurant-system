@@ -60,12 +60,12 @@ public class Engine {
         return list.toArray();
     }
 
-    public static String decodeMenuID(int MenuID) {
+    public static String decodeMenuID(Object MenuID) {
         String name = new String();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE id=" + MenuID);
+            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE id=" + MenuID.toString());
             while (rs.next()) {
                 name = rs.getString("name");
             }
@@ -117,8 +117,8 @@ public class Engine {
         return list.toArray();
     }
 
-    public static Integer[] menuListID() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+    public static Object[] menuListID() {
+        ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
@@ -133,11 +133,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        Integer[] list2 = new Integer[list.size()];
-        for (int i=0; i<list.size(); i++) {
-            list2[i] = list.get(i);
-        }
-        return list2;
+        return list.toArray();
     }
 
     public static Object[] printBill(int billID) {
