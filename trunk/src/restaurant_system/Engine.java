@@ -117,8 +117,8 @@ public class Engine {
         return list.toArray();
     }
 
-    public static Object[] menuListID() {
-        ArrayList list = new ArrayList();
+    public static Integer[] menuListID() {
+        ArrayList<Integer> list = new ArrayList<Integer>();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
@@ -133,7 +133,11 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list.toArray();
+        Integer[] list2 = new Integer[list.size()];
+        for (int i=0; i<list.size(); i++) {
+            list2[i] = list.get(i);
+        }
+        return list2;
     }
 
     public static Object[] printBill(int billID) {
