@@ -104,11 +104,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.name AS name, menu.price AS price, orders.discount AS discount FROM menu, orders, bills " +
-                    " WHERE menu.id=orders.menu_id, orders.id=bills.order_id, bills.bill_id="+billID);
+            ResultSet rs = statement.executeQuery("SELECT menu.name AS name, (menu.price * (1-discounts.percentage/100)) AS price FROM menu, orders, bills " +
+                    " WHERE bills.menu_id=menu.id, bills.discount_id=discounts.id, bills.bill_id="+billID);
             while (rs.next()) {
-                list.add(rs.getString("name") + " " + rs.getInt("price")*(1-rs.getFloat("discount")));
-                sum=(double)(rs.getInt("price")*(1-rs.getFloat("discount")));
+                list.add(rs.getString("name") + " " + rs.getFloat("price"));
+                sum=(double)sum + rs.getInt("price");
             }
             rs.close();
             statement.close();
@@ -119,5 +119,20 @@ public class Engine {
         close(conn);
         list.add("Sum: " + sum);
         return list.toArray();
+    }
+
+    public static void addToBill(int billID, int menuID, int discountID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, status) "
+                + "VALUES "
+                + "(" + billID + ", " + menuID + ", " + discountID + ", waiting)");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
     }
 }
