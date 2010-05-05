@@ -64,7 +64,7 @@ public class Main {
                 width: bind listBill.width
                 height: bind listBill.height
             }
-            items: [ "a", "q", ]
+            items: null
         };
         listMenuID = javafx.scene.control.ListView {
             visible: true
