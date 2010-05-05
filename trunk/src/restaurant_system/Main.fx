@@ -16,6 +16,7 @@ public class Main {
     public-read var checkbox: javafx.scene.control.CheckBox;
     public-read var scene: javafx.scene.Scene;
     public-read var reflectionEffect: javafx.scene.effect.Reflection;
+    public-read var glowEffect: javafx.scene.effect.Glow;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
     
@@ -25,11 +26,6 @@ public class Main {
             layoutX: 349.0
             layoutY: 62.0
             text: "Label"
-        };
-        checkbox = javafx.scene.control.CheckBox {
-            layoutX: 337.0
-            layoutY: 25.0
-            text: "Button"
         };
         reflectionEffect = javafx.scene.effect.Reflection {
         };
@@ -43,6 +39,14 @@ public class Main {
                 height: bind button.height
             }
             effect: reflectionEffect
+            text: "Button"
+        };
+        glowEffect = javafx.scene.effect.Glow {
+        };
+        checkbox = javafx.scene.control.CheckBox {
+            layoutX: 337.0
+            layoutY: 25.0
+            effect: glowEffect
             text: "Button"
         };
         scene = javafx.scene.Scene {
