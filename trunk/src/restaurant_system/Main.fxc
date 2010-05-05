@@ -134,7 +134,7 @@
         <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel3,45,anim:,,str:listBilOnMouseClickedAtwaiterTable,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
-        <Reference name="items" value="prop:30,anim:,,sequence:5,str:a5,str:q,4,null,"/>
+        <Reference name="items" value="prop:11,anim:,,null,4,null,"/>
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel3">
         <Reference name="instanceName" value="str:listMenuID"/>
