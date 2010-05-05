@@ -178,6 +178,7 @@
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:240.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="items" value="prop:24,animcode:,,listViewItems,4,null,"/>
     </Instance>
     <Instance classID="ButtonModel" instanceID="ButtonModel1">
         <Reference name="instanceName" value="str:buttonLogin"/>

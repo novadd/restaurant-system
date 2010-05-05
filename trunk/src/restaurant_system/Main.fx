@@ -38,6 +38,7 @@ public class Main {
                 width: bind listView.width
                 height: bind listView.height
             }
+            items: listViewItems
         };
         buttonLogin = javafx.scene.control.Button {
             layoutX: 139.0
@@ -200,6 +201,8 @@ public class Main {
     public function getDesignScene (): javafx.scene.Scene {
         scene
     }// </editor-fold>//GEN-END:main
+
+    var listViewItems: Object[] = Engine.loginList();
 
     function buttonActionAtlogin(): Void {
         currentState.actual = currentState.findIndex("loggedInWaiter");
