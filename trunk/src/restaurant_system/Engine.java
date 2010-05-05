@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import com.mysql.jdbc.*;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -40,25 +43,22 @@ public class Engine {
     }
    
     public static Object[] loginList() {
-        Object[] array = null;
+        ArrayList list= new ArrayList();
         Connection conn = connect();
 
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name, surname FROM employees");
-
+            ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                array[array.length+1]=rs.getString("name") + " " + rs.getString("surname");
+                list.add(rs.getString("name") + " " + rs.getString("surname") + " (" + rs.getString("function") + ")");
             }
-
             rs.close();
             statement.close();
             conn.close();
         } catch (Exception e) {
                 e.printStackTrace();
         }
-
         close(conn);
-        return array;
+        return list.toArray();
     }
 }
