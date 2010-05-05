@@ -12,6 +12,7 @@ package restaurant_system;
 public class Main {
 
     public-read var button: javafx.scene.control.Button;//GEN-BEGIN:main
+    public-read var button2: javafx.scene.control.Button;
     public-read var scene: javafx.scene.Scene;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
@@ -27,6 +28,11 @@ public class Main {
                 width: bind button.width
                 height: bind button.height
             }
+            text: "Button"
+        };
+        button2 = javafx.scene.control.Button {
+            layoutX: 269.0
+            layoutY: 26.0
             text: "Button"
         };
         scene = javafx.scene.Scene {
@@ -63,7 +69,7 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Design Functions">
     public function getDesignRootNodes () : javafx.scene.Node[] {
-        [ button, ]
+        [ button, button2, ]
     }
     
     public function getDesignScene (): javafx.scene.Scene {
