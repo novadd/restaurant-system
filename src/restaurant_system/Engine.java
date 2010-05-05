@@ -173,4 +173,19 @@ public class Engine {
         }
         close(conn);
     }
+
+    public static void removeFromBill(int billID, int menuID, int discountID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM bills "
+                + "WHERE bill_id=" + billID + ", menu_id=" + menuID + ", discount_id=" + discountID
+                + "LIMIT 1");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
 }
