@@ -12,10 +12,12 @@ package restaurant_system;
 public class Main {
 
     public-read var loggedId: Integer;
+    public-read var billId: Integer;
 
     public-read var rectangle: javafx.scene.shape.Rectangle;//GEN-BEGIN:main
     public-read var listMenu: javafx.scene.control.ListView;
-    public-read var listBil: javafx.scene.control.ListView;
+    public-read var listBill: javafx.scene.control.ListView;
+    public-read var listMenuID: javafx.scene.control.ListView;
     public-read var waiterStolik: javafx.scene.layout.Panel;
     public-read var rectangle2: javafx.scene.shape.Rectangle;
     public-read var table1: javafx.scene.shape.Circle;
@@ -50,19 +52,31 @@ public class Main {
                 height: bind listMenu.height
             }
             onMouseClicked: listMenuOnMouseClicked
-            items: [ "bu\u0142ka", "chleb", "cola", ]
+            items: listMenuItems
         };
-        listBil = javafx.scene.control.ListView {
+        listBill = javafx.scene.control.ListView {
             disable: false
             layoutX: 297.0
             layoutY: 35.0
             width: 150.0
             height: 231.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind listBil.width
-                height: bind listBil.height
+                width: bind listBill.width
+                height: bind listBill.height
             }
             items: [ "a", "q", ]
+        };
+        listMenuID = javafx.scene.control.ListView {
+            visible: true
+            layoutX: 576.0
+            layoutY: 54.0
+            width: 62.0
+            height: 79.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind listMenuID.width
+                height: bind listMenuID.height
+            }
+            items: listMenuIDItems
         };
         table1 = javafx.scene.shape.Circle {
             visible: true
@@ -226,7 +240,7 @@ public class Main {
                 width: bind waiterStolik.width
                 height: bind waiterStolik.height
             }
-            content: [ rectangle, listMenu, listBil, ]
+            content: [ rectangle, listMenu, listBill, listMenuID, ]
         };
         scene = javafx.scene.Scene {
             width: 480.0
@@ -322,6 +336,7 @@ public class Main {
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
+                                    listBill.onMouseClicked = listBilOnMouseClickedAtwaiterTable;
                                     listView.select (0);
                                     buttonLogin.text = "Login";
                                 }
@@ -344,12 +359,16 @@ public class Main {
         scene
     }// </editor-fold>//GEN-END:main
 
+    function listBilOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
+        listBill.items[listBill.selectedIndex] = null;
+            }
+
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
         var length = 0;
-        while(listBil.items[length] != null){
+        while(listBill.items[length] != null){
                 length++;
                 }
-        listBil.items[length] = "cola";
+        listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
             }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
@@ -362,6 +381,8 @@ public class Main {
             }
 
     var listViewItems: Object[] = Engine.loginList();
+    var listMenuItems: Object[] = Engine.menuList();
+    var listMenuIDItems: Object[] = Engine.menuListID();
 
     function buttonActionAtlogin(): Void {
         loggedId = listView.selectedIndex;
