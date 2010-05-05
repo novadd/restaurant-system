@@ -39,7 +39,7 @@ public class Engine {
         }
     }
    
-    public Object[] loginList() {
+    public static Object[] loginList() {
         Object[] array = null;
         Connection conn = connect();
 
