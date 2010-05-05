@@ -6,6 +6,7 @@
         </List>
         <List name="resources">
             <Item value="inst:ReflectionEffectModel1"/>
+            <Item value="inst:GlowEffectModel1"/>
         </List>
         <List name="dataSources"/>
         <List name="effects"/>
@@ -32,6 +33,11 @@
     </Instance>
     <Instance classID="ReflectionEffectModel" instanceID="ReflectionEffectModel1">
         <Reference name="instanceName" value="str:reflectionEffect"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+    </Instance>
+    <Instance classID="GlowEffectModel" instanceID="GlowEffectModel1">
+        <Reference name="instanceName" value="str:glowEffect"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
     </Instance>
@@ -76,6 +82,7 @@
         <Reference name="instanceName" value="str:checkbox"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:337.0,4,null,"/>
         <Reference name="layoutY" value="prop:15,anim:,,flt:25.0,4,null,"/>
+        <Reference name="effect" value="prop:28,anim:,,inst:GlowEffectModel1,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
