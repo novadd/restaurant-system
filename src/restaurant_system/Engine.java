@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import com.mysql.jdbc.*;
 import java.util.ArrayList;
 
 
@@ -42,15 +41,16 @@ public class Engine {
         }
     }
    
-    public static Object[] loginList() {
-        ArrayList list= new ArrayList();
+    public static Object[][] loginList() {
+        ArrayList list1 = new ArrayList();
+        ArrayList list2 = new ArrayList();
         Connection conn = connect();
-
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                list.add(rs.getString("name") + " " + rs.getString("surname") + " (" + rs.getString("function") + ")");
+                list1.add(rs.getString("name") + " " + rs.getString("surname") + " (" + rs.getString("function") + ")");
+                list2.add(rs.getString("id"));
             }
             rs.close();
             statement.close();
@@ -59,6 +59,9 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list.toArray();
+        Object[][] ret = new Object[2][list1.size()];
+        ret[0] = list1.toArray();
+        ret[1] = list2.toArray();
+        return ret;
     }
 }
