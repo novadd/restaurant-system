@@ -53,14 +53,16 @@ public class Main {
             items: [ "bu\u0142ka", "chleb", "cola", ]
         };
         listBil = javafx.scene.control.ListView {
+            disable: false
             layoutX: 297.0
             layoutY: 35.0
             width: 150.0
-            height: 210.0
+            height: 231.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind listBil.width
                 height: bind listBil.height
             }
+            items: [ "a", "q", ]
         };
         table1 = javafx.scene.shape.Circle {
             visible: true
@@ -262,8 +264,6 @@ public class Main {
                                     logout.layoutY => 329.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
-                                    listBil.disable = false;
-                                    listBil.items = null;
                                     listView.select (-1);
                                     buttonLogin.text = "Login";
                                     buttonLogin.action = buttonActionAtlogin;
@@ -293,8 +293,6 @@ public class Main {
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
-                                    listBil.disable = false;
-                                    listBil.items = null;
                                     table1.onMouseClicked = table1OnMouseClickedAtwaiterTablePick;
                                     listView.select (-1);
                                     buttonLogin.text = "Login";
@@ -324,8 +322,6 @@ public class Main {
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
-                                    listBil.disable = false;
-                                    listBil.items = null;
                                     listView.select (0);
                                     buttonLogin.text = "Login";
                                 }
@@ -349,7 +345,11 @@ public class Main {
     }// </editor-fold>//GEN-END:main
 
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
-        //do zrobienia
+        var length = 0;
+        while(listBil.items[length] != null){
+                length++;
+                }
+        listBil.items[length] = "cola";
             }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
