@@ -60,6 +60,25 @@ public class Engine {
         return list.toArray();
     }
 
+    public static String decodeMenuID(int MenuID) {
+        String name = new String();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE id=" + MenuID);
+            while (rs.next()) {
+                name = rs.getString("name");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return name;
+    }
+
     public static Object[] menuCategory(String category) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
