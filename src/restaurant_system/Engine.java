@@ -41,16 +41,14 @@ public class Engine {
         }
     }
    
-    public static Object[][] loginList() {
-        ArrayList list1 = new ArrayList();
-        ArrayList list2 = new ArrayList();
+    public static Object[] loginList() {
+        ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                list1.add(rs.getString("name") + " " + rs.getString("surname") + " (" + rs.getString("function") + ")");
-                list2.add(rs.getString("id"));
+                list.add(rs.getString("id"));
             }
             rs.close();
             statement.close();
@@ -59,9 +57,6 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        Object[][] ret = new Object[2][list1.size()];
-        ret[0] = list1.toArray();
-        ret[1] = list2.toArray();
-        return ret;
+        return list.toArray();
     }
 }
