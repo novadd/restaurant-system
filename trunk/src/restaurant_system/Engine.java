@@ -65,7 +65,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE category=" + category);
+            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE category='" + category + "'");
             while (rs.next()) {
                 list.add(rs.getString("name") + " " + rs.getString("price"));
             }
