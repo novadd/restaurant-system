@@ -56,7 +56,7 @@
     </Instance>
     <Instance classID="ButtonModel" instanceID="ButtonModel2">
         <Reference name="instanceName" value="str:button2"/>
-        <Reference name="layoutX" value="prop:16,anim:,,flt:269.0,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:187.0,4,null,"/>
         <Reference name="layoutY" value="prop:15,anim:,,flt:26.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>

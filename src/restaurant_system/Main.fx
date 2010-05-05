@@ -31,7 +31,7 @@ public class Main {
             text: "Button"
         };
         button2 = javafx.scene.control.Button {
-            layoutX: 269.0
+            layoutX: 187.0
             layoutY: 26.0
             text: "Button"
         };
