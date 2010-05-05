@@ -22,6 +22,7 @@
         <List name="states">
             <Item value="inst:StateModel1"/>
             <Item value="inst:StateModel2"/>
+            <Item value="inst:StateModel3"/>
         </List>
         <Reference name="startState" value="inst:StateModel1"/>
         <Reference name="stateChangeType" value="statechange:PAUSE_AND_PLAY_FROM_START"/>
@@ -30,12 +31,17 @@
     </Instance>
     <Instance classID="StateModel" instanceID="StateModel1">
         <Reference name="stateName" value="str:login"/>
-        <Reference name="defaultInterpolator" value="interpolator:DISCRETE"/>
-        <Reference name="defaultDuration" value="null"/>
+        <Reference name="defaultInterpolator" value="interpolator:EASEBOTH"/>
+        <Reference name="defaultDuration" value="int:1000"/>
     </Instance>
     <Instance classID="StateModel" instanceID="StateModel2">
-        <Reference name="stateName" value="str:loggedInWaiter"/>
-        <Reference name="defaultInterpolator" value="interpolator:EASEOUT"/>
+        <Reference name="stateName" value="str:waiterTablePick"/>
+        <Reference name="defaultInterpolator" value="interpolator:EASEBOTH"/>
+        <Reference name="defaultDuration" value="int:1000"/>
+    </Instance>
+    <Instance classID="StateModel" instanceID="StateModel3">
+        <Reference name="stateName" value="str:waiterTable"/>
+        <Reference name="defaultInterpolator" value="interpolator:EASEBOTH"/>
         <Reference name="defaultDuration" value="int:1000"/>
     </Instance>
     <Instance classID="ColorModel" instanceID="ColorModel1">
@@ -60,13 +66,14 @@
     <Instance classID="SceneModel" instanceID="SceneModel1">
         <Reference name="instanceName" value="str:scene"/>
         <List name="nodes">
-            <Item value="inst:RectangleShapeModel1"/>
             <Item value="inst:PanelModel1"/>
             <Item value="inst:PanelModel2"/>
             <Item value="inst:PanelModel3"/>
+            <Item value="inst:PanelModel4"/>
         </List>
-        <Reference name="width" value="prop:25,anim:0,DISCRETE,flt:480.0,"/>
-        <Reference name="height" value="prop:25,anim:0,DISCRETE,flt:320.0,"/>
+        <Reference name="width" value="prop:16,anim:,,flt:480.0,"/>
+        <Reference name="height" value="prop:16,anim:,,flt:320.0,"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
         <Reference name="generateSceneInstance" value="bool:true"/>
         <Reference name="generateScenePanel" value="bool:true"/>
         <Reference name="preCreationCode" value="null"/>
@@ -74,90 +81,25 @@
         <Reference name="preInitCode" value="null"/>
         <Reference name="postInitCode" value="null"/>
     </Instance>
-    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel1">
-        <Reference name="instanceName" value="str:rectangle4"/>
-        <Reference name="layoutX" value="prop:17,anim:,,flt:-149.0,4,null,"/>
-        <Reference name="layoutY" value="prop:16,anim:,,flt:-70.0,4,null,"/>
-        <Reference name="preCreationCode" value="null"/>
-        <Reference name="postCreationCode" value="null"/>
-        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
-        <Reference name="width" value="prop:16,anim:,,flt:800.0,4,null,"/>
-        <Reference name="height" value="prop:16,anim:,,flt:500.0,4,null,"/>
-    </Instance>
     <Instance classID="PanelModel" instanceID="PanelModel1">
-        <Reference name="instanceName" value="str:login"/>
-        <Reference name="layoutX" value="prop:16,anim:,,flt:-20.0,4,null,"/>
-        <Reference name="layoutY" value="prop:14,anim:,,flt:0.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:494.0,4,null,"/>
-        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:320.0,4,null,"/>
-        <Reference name="preCreationCode" value="null"/>
-        <Reference name="postCreationCode" value="null"/>
-        <List name="content">
-            <Item value="inst:RectangleShapeModel2"/>
-        </List>
-    </Instance>
-    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel2">
-        <Reference name="instanceName" value="str:rectangle"/>
-        <Reference name="layoutX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="instanceName" value="str:waiterStolik"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:500.0,24,inst:StateVariableModel1,16,inst:StateModel3,14,anim:,,flt:2.0,"/>
         <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,4,null,"/>
-        <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
-        <Reference name="preCreationCode" value="null"/>
-        <Reference name="postCreationCode" value="null"/>
-        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
-        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
-        <Reference name="x" value="prop:14,anim:,,flt:0.0,4,null,"/>
-        <Reference name="y" value="prop:15,anim:,,flt:-2.0,4,null,"/>
-        <Reference name="width" value="prop:16,anim:,,flt:494.0,4,null,"/>
-        <Reference name="height" value="prop:16,anim:,,flt:319.0,4,null,"/>
-        <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
-        <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
-    </Instance>
-    <Instance classID="PanelModel" instanceID="PanelModel2">
-        <Reference name="instanceName" value="str:waiterTables"/>
-        <Reference name="layoutX" value="prop:16,anim:,,flt:-40.0,4,null,"/>
-        <Reference name="layoutY" value="prop:14,anim:,,flt:0.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:494.0,4,null,"/>
-        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:320.0,4,null,"/>
-        <Reference name="preCreationCode" value="null"/>
-        <Reference name="postCreationCode" value="null"/>
-        <List name="content">
-            <Item value="inst:RectangleShapeModel3"/>
-        </List>
-    </Instance>
-    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel3">
-        <Reference name="instanceName" value="str:rectangle2"/>
-        <Reference name="layoutX" value="prop:14,anim:,,flt:0.0,4,null,"/>
-        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,4,null,"/>
-        <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
-        <Reference name="preCreationCode" value="null"/>
-        <Reference name="postCreationCode" value="null"/>
-        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
-        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
-        <Reference name="strokeLineCap" value="prop:27,anim:,,strokelinecap:SQUARE,4,null,"/>
-        <Reference name="y" value="prop:15,anim:,,flt:-2.0,4,null,"/>
-        <Reference name="width" value="prop:16,anim:,,flt:494.0,4,null,"/>
-        <Reference name="height" value="prop:16,anim:,,flt:319.0,4,null,"/>
-        <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
-        <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
-    </Instance>
-    <Instance classID="PanelModel" instanceID="PanelModel3">
-        <Reference name="instanceName" value="str:panel"/>
-        <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,"/>
-        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,17,anim:,,flt:-350.0,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:472.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:312.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <List name="content">
-            <Item value="inst:RectangleShapeModel4"/>
+            <Item value="inst:RectangleShapeModel1"/>
             <Item value="inst:ListViewModel1"/>
-            <Item value="inst:ButtonModel1"/>
+            <Item value="inst:ListViewModel2"/>
         </List>
     </Instance>
-    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel4">
-        <Reference name="instanceName" value="str:rectangle3"/>
-        <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:4.0,"/>
-        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,"/>
+    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel1">
+        <Reference name="instanceName" value="str:rectangle"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:6.0,4,null,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,4,null,"/>
         <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
@@ -171,14 +113,149 @@
         <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel1">
+        <Reference name="instanceName" value="str:listMenu"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:111.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:150.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:232.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:33,anim:,,str:listMenuOnMouseClicked,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="items" value="prop:48,anim:,,sequence:9,str:bułka9,str:chleb8,str:cola,4,null,"/>
+    </Instance>
+    <Instance classID="ListViewModel" instanceID="ListViewModel2">
+        <Reference name="instanceName" value="str:listBil"/>
+        <Reference name="disable" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel3,17,anim:,,bool:false,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:297.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:150.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:210.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="items" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel3,11,anim:,,null,"/>
+    </Instance>
+    <Instance classID="PanelModel" instanceID="PanelModel2">
+        <Reference name="instanceName" value="str:waiterTables"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:500.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,16,inst:StateModel3,17,anim:,,flt:-500.0,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,16,inst:StateModel3,14,anim:,,flt:2.0,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:472.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:312.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <List name="content">
+            <Item value="inst:RectangleShapeModel2"/>
+            <Item value="inst:CircleShapeModel1"/>
+            <Item value="inst:CircleShapeModel2"/>
+            <Item value="inst:CircleShapeModel3"/>
+            <Item value="inst:CircleShapeModel4"/>
+            <Item value="inst:CircleShapeModel5"/>
+        </List>
+    </Instance>
+    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel2">
+        <Reference name="instanceName" value="str:rectangle2"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:6.0,4,null,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:1.0,4,null,"/>
+        <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
+        <Reference name="strokeLineCap" value="prop:27,anim:,,strokelinecap:SQUARE,4,null,"/>
+        <Reference name="x" value="prop:15,anim:,,flt:-2.0,24,inst:StateVariableModel1,16,inst:StateModel2,15,anim:,,flt:-2.0,16,inst:StateModel3,15,anim:,,flt:-2.0,"/>
+        <Reference name="y" value="prop:15,anim:,,flt:-2.0,4,null,"/>
+        <Reference name="width" value="prop:16,anim:,,flt:472.0,4,null,"/>
+        <Reference name="height" value="prop:16,anim:,,flt:312.0,4,null,"/>
+        <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
+        <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
+    </Instance>
+    <Instance classID="CircleShapeModel" instanceID="CircleShapeModel1">
+        <Reference name="instanceName" value="str:table1"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="translateX" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:162.0,"/>
+        <Reference name="translateY" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:86.0,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:101.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:-60.0,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:97.0,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:11.0,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table1OnMouseClickedAtwaiterTablePick,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
+    </Instance>
+    <Instance classID="CircleShapeModel" instanceID="CircleShapeModel2">
+        <Reference name="instanceName" value="str:table2"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:243.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:61.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
+    </Instance>
+    <Instance classID="CircleShapeModel" instanceID="CircleShapeModel3">
+        <Reference name="instanceName" value="str:table3"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:366.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:149.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
+    </Instance>
+    <Instance classID="CircleShapeModel" instanceID="CircleShapeModel4">
+        <Reference name="instanceName" value="str:table4"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:271.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:241.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
+    </Instance>
+    <Instance classID="CircleShapeModel" instanceID="CircleShapeModel5">
+        <Reference name="instanceName" value="str:table5"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:135.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:229.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
+    </Instance>
+    <Instance classID="PanelModel" instanceID="PanelModel3">
+        <Reference name="instanceName" value="str:login"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,16,inst:StateModel3,14,anim:,,flt:2.0,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,17,anim:,,flt:-350.0,16,inst:StateModel3,17,anim:,,flt:-350.0,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:472.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:312.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <List name="content">
+            <Item value="inst:RectangleShapeModel3"/>
+            <Item value="inst:ListViewModel3"/>
+            <Item value="inst:ButtonModel1"/>
+        </List>
+    </Instance>
+    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel3">
+        <Reference name="instanceName" value="str:rectangle3"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:4.0,16,inst:StateModel3,14,anim:,,flt:4.0,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,16,inst:StateModel3,14,anim:,,flt:2.0,"/>
+        <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
+        <Reference name="x" value="prop:15,anim:,,flt:-2.0,4,null,"/>
+        <Reference name="y" value="prop:15,anim:,,flt:-2.0,4,null,"/>
+        <Reference name="width" value="prop:16,anim:,,flt:472.0,4,null,"/>
+        <Reference name="height" value="prop:16,anim:,,flt:312.0,4,null,"/>
+        <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
+        <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
+    </Instance>
+    <Instance classID="ListViewModel" instanceID="ListViewModel3">
         <Reference name="instanceName" value="str:listView"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:139.0,4,null,"/>
-        <Reference name="layoutY" value="prop:15,anim:,,flt:15.0,4,null,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:9.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:181.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:240.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="items" value="prop:24,animcode:,,listViewItems,4,null,"/>
+        <Reference name="selectedIndex" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel3,12,anim:,,int:0,"/>
     </Instance>
     <Instance classID="ButtonModel" instanceID="ButtonModel1">
         <Reference name="instanceName" value="str:buttonLogin"/>
@@ -191,5 +268,42 @@
         <Reference name="graphicNode" value="null"/>
         <Reference name="text" value="prop:16,anim:,,str:Login,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,str:Login,"/>
         <Reference name="action" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel1,30,anim:,,str:buttonActionAtlogin,"/>
+    </Instance>
+    <Instance classID="PanelModel" instanceID="PanelModel4">
+        <Reference name="instanceName" value="str:logout"/>
+        <Reference name="layoutX" value="prop:17,anim:,,flt:-118.0,24,inst:StateVariableModel1,16,inst:StateModel1,17,anim:,,flt:-112.0,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:269.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:329.0,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:145.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:95.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <List name="content">
+            <Item value="inst:RectangleShapeModel4"/>
+            <Item value="inst:ButtonModel2"/>
+        </List>
+    </Instance>
+    <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel4">
+        <Reference name="instanceName" value="str:rectangle4"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,4,null,"/>
+        <Reference name="layoutY" value="prop:14,anim:,,flt:2.0,4,null,"/>
+        <Reference name="effect" value="prop:34,anim:,,inst:DropShadowEffectModel1,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
+        <Reference name="width" value="prop:16,anim:,,flt:200.0,4,null,"/>
+        <Reference name="height" value="prop:16,anim:,,flt:150.0,4,null,"/>
+        <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
+        <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel2">
+        <Reference name="instanceName" value="str:buttonLogout"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:133.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:15.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:17,anim:,,str:Logout,4,null,"/>
+        <Reference name="action" value="prop:29,anim:,,str:buttonLogoutAction,4,null,"/>
     </Instance>
 </Model>
