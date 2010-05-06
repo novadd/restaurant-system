@@ -159,13 +159,13 @@ public class Engine {
         return list.toArray();
     }
 
-    public static void addToBill(int billID, int menuID, int discountID) {
+    public static void addToBill(Object billID, Object menuID, Object discountID) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, status) "
                 + "VALUES "
-                + "(" + billID + ", " + menuID + ", " + discountID + ", waiting)");
+                + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", waiting)");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -174,12 +174,12 @@ public class Engine {
         close(conn);
     }
 
-    public static void removeFromBill(int billID, int menuID, int discountID) {
+    public static void removeFromBill(Object billID, Object menuID, Object discountID) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM bills "
-                + "WHERE bill_id=" + billID + ", menu_id=" + menuID + ", discount_id=" + discountID
+                + "WHERE bill_id=" + billID.toString() + ", menu_id=" + menuID.toString() + ", discount_id=" + discountID.toString()
                 + "LIMIT 1");
             statement.close();
             conn.close();
