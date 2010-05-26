@@ -7,7 +7,7 @@
 package restaurant_system;
 
 /**
- * @author Tomek
+ * @author Wojtek
  */
 public class Main {
 
@@ -18,7 +18,10 @@ public class Main {
     public-read var listMenu: javafx.scene.control.ListView;
     public-read var listBill: javafx.scene.control.ListView;
     public-read var listMenuID: javafx.scene.control.ListView;
-    public-read var waiterStolik: javafx.scene.layout.Panel;
+    public-read var billNr: javafx.scene.control.Label;
+    public-read var previousBill: javafx.scene.control.Button;
+    public-read var nextBill: javafx.scene.control.Button;
+    public-read var waiterTable: javafx.scene.layout.Panel;
     public-read var rectangle2: javafx.scene.shape.Rectangle;
     public-read var table1: javafx.scene.shape.Circle;
     public-read var table2: javafx.scene.shape.Circle;
@@ -27,16 +30,19 @@ public class Main {
     public-read var table5: javafx.scene.shape.Circle;
     public-read var waiterTables: javafx.scene.layout.Panel;
     public-read var rectangle3: javafx.scene.shape.Rectangle;
-    public-read var listView: javafx.scene.control.ListView;
+    public-read var listLogin: javafx.scene.control.ListView;
     public-read var buttonLogin: javafx.scene.control.Button;
+    public-read var listLoginID: javafx.scene.control.ListView;
     public-read var login: javafx.scene.layout.Panel;
     public-read var rectangle4: javafx.scene.shape.Rectangle;
     public-read var buttonLogout: javafx.scene.control.Button;
+    public-read var labelLogin: javafx.scene.control.Label;
     public-read var logout: javafx.scene.layout.Panel;
     public-read var scene: javafx.scene.Scene;
     public-read var colorBackground: javafx.scene.paint.Color;
     public-read var colorBlack: javafx.scene.paint.Color;
     public-read var dropShadowEffect: javafx.scene.effect.DropShadow;
+    public-read var fontStandard: javafx.scene.text.Font;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
     
@@ -78,6 +84,16 @@ public class Main {
             }
             items: listMenuIDItems
         };
+        previousBill = javafx.scene.control.Button {
+            layoutX: 323.0
+            layoutY: 3.0
+            text: "<"
+        };
+        nextBill = javafx.scene.control.Button {
+            layoutX: 390.0
+            layoutY: 3.0
+            text: ">"
+        };
         table1 = javafx.scene.shape.Circle {
             visible: true
             layoutX: 101.0
@@ -108,16 +124,16 @@ public class Main {
             layoutY: 229.0
             radius: 25.0
         };
-        listView = javafx.scene.control.ListView {
+        listLogin = javafx.scene.control.ListView {
             layoutX: 139.0
             layoutY: 9.0
             width: 181.0
             height: 240.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind listView.width
-                height: bind listView.height
+                width: bind listLogin.width
+                height: bind listLogin.height
             }
-            items: listViewItems
+            items: listLoginItems
         };
         buttonLogin = javafx.scene.control.Button {
             layoutX: 139.0
@@ -130,11 +146,26 @@ public class Main {
             }
             text: "Login"
         };
+        listLoginID = javafx.scene.control.ListView {
+            layoutX: 575.0
+            layoutY: 397.0
+            width: 52.0
+            height: 76.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind listLoginID.width
+                height: bind listLoginID.height
+            }
+        };
         buttonLogout = javafx.scene.control.Button {
             layoutX: 133.0
             layoutY: 15.0
             text: "Logout"
             action: buttonLogoutAction
+        };
+        labelLogin = javafx.scene.control.Label {
+            layoutX: 133.0
+            layoutY: -35.0
+            text: "logged as"
         };
         colorBackground = javafx.scene.paint.Color {
             red: 0.43529412
@@ -148,7 +179,7 @@ public class Main {
         };
         rectangle4 = javafx.scene.shape.Rectangle {
             layoutX: 2.0
-            layoutY: 2.0
+            layoutY: -39.0
             effect: dropShadowEffect
             fill: colorBackground
             stroke: colorBlack
@@ -166,7 +197,7 @@ public class Main {
                 width: bind logout.width
                 height: bind logout.height
             }
-            content: [ rectangle4, buttonLogout, ]
+            content: [ rectangle4, buttonLogout, labelLogin, ]
         };
         rectangle3 = javafx.scene.shape.Rectangle {
             layoutX: 2.0
@@ -190,7 +221,7 @@ public class Main {
                 width: bind login.width
                 height: bind login.height
             }
-            content: [ rectangle3, listView, buttonLogin, ]
+            content: [ rectangle3, listLogin, buttonLogin, listLoginID, ]
         };
         rectangle2 = javafx.scene.shape.Rectangle {
             layoutX: 6.0
@@ -230,17 +261,26 @@ public class Main {
             arcWidth: 12.0
             arcHeight: 12.0
         };
-        waiterStolik = javafx.scene.layout.Panel {
+        fontStandard = javafx.scene.text.Font {
+            size: 18.0
+        };
+        billNr = javafx.scene.control.Label {
+            layoutX: 357.0
+            layoutY: 3.0
+            text: "1/1"
+            font: fontStandard
+        };
+        waiterTable = javafx.scene.layout.Panel {
             visible: true
             layoutX: 500.0
             layoutY: 2.0
             width: 472.0
             height: 312.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind waiterStolik.width
-                height: bind waiterStolik.height
+                width: bind waiterTable.width
+                height: bind waiterTable.height
             }
-            content: [ rectangle, listMenu, listBill, listMenuID, ]
+            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, ]
         };
         scene = javafx.scene.Scene {
             width: 480.0
@@ -262,7 +302,7 @@ public class Main {
                             javafx.animation.KeyFrame {
                                 time: 1000ms
                                 values: [
-                                    waiterStolik.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    waiterTable.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle2.x => -2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutX => -60.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutY => 11.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -274,11 +314,17 @@ public class Main {
                                     rectangle3.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutY => 56.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutY => 9.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutX => -112.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutY => 329.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
-                                    listView.select (-1);
+                                    listLogin.select (-1);
                                     buttonLogin.text = "Login";
                                     buttonLogin.action = buttonActionAtlogin;
                                 }
@@ -291,7 +337,7 @@ public class Main {
                             javafx.animation.KeyFrame {
                                 time: 1000ms
                                 values: [
-                                    waiterStolik.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    waiterTable.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle2.x => -2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutX => 101.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutY => 97.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -303,12 +349,18 @@ public class Main {
                                     rectangle3.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutY => 15.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutY => -35.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutX => -118.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
                                     table1.onMouseClicked = table1OnMouseClickedAtwaiterTablePick;
-                                    listView.select (-1);
+                                    listLogin.select (-1);
                                     buttonLogin.text = "Login";
                                 }
                             }
@@ -320,7 +372,7 @@ public class Main {
                             javafx.animation.KeyFrame {
                                 time: 1000ms
                                 values: [
-                                    waiterStolik.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    waiterTable.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle2.x => -2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutX => 101.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     table1.layoutY => 97.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -332,12 +384,18 @@ public class Main {
                                     rectangle3.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutY => 15.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutY => -35.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutX => -118.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
                                     listBill.onMouseClicked = listBilOnMouseClickedAtwaiterTable;
-                                    listView.select (0);
+                                    listLogin.select (0);
                                     buttonLogin.text = "Login";
                                 }
                             }
@@ -352,7 +410,7 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Design Functions">
     public function getDesignRootNodes () : javafx.scene.Node[] {
-        [ waiterStolik, waiterTables, login, logout, ]
+        [ waiterTable, waiterTables, login, logout, ]
     }
     
     public function getDesignScene (): javafx.scene.Scene {
@@ -360,32 +418,63 @@ public class Main {
     }// </editor-fold>//GEN-END:main
 
     function listBilOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
+        // ---------------------------------------------------
+        // This function deletes selected item from the bill
+        // ---------------------------------------------------
         listBill.items[listBill.selectedIndex] = null;
-            }
+    }
 
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        // ---------------------------------------------------
+        // This function adds an item selected from the menu
+        // to the last slot of an active bill
+        // ---------------------------------------------------
         var length = 0;
         while(listBill.items[length] != null){
-                length++;
-                }
+            length++;
+        }
         listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-            }
+        //Engine.addToBill(billId, listMenuID.items[listMenu.selectedIndex], 0);
+    }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
+        // ---------------------------------------------------
+        // This function handles waiter table selection
+        // green - free table -> click: opens a new bill
+        // yellow - logged in waiter's table -> click: opens
+        //                                      existing bill
+        // red - other waiter's table -> click: shows the name
+        //                               of the waiter
+        // ---------------------------------------------------
         currentState.actual = currentState.findIndex("waiterTable");
-            }
+        billId = 1;
+    }
 
     function buttonLogoutAction(): Void {
+        // ---------------------------------------------------
+        // This function logs out current user
+        // ---------------------------------------------------
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
-            }
+    }
 
-    var listViewItems: Object[] = Engine.loginList();
+    var listLoginItems: Object[] = Engine.loginList();
+    //var listLoginIDItems: Object[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
 
     function buttonActionAtlogin(): Void {
-        loggedId = listView.selectedIndex;
-        currentState.actual = currentState.findIndex("waiterTablePick");
-            }
+        // ---------------------------------------------------
+        // This function logs in a selected user. In a normal
+        // restaurant this would be handeled by a electro-
+        // magnetic card of some sort.
+        // ---------------------------------------------------
+        loggedId = -1;
+        loggedId = listLogin.selectedIndex;
+        if(loggedId != -1){
+            labelLogin.text = String.valueOf(loggedId);
+            // Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex])
+            currentState.actual = currentState.findIndex("waiterTablePick");
+        };
+}
 };
