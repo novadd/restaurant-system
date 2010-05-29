@@ -212,14 +212,14 @@ public class Engine {
         return list.toArray();
     }
 
-    public static Object[] printBill(int billID) {
+    public static Object[] printBill(Object billID) {
         ArrayList list = new ArrayList();
         Double sum=0.0;
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT menu.name AS name, (menu.price * (1-discounts.percentage/100)) AS price FROM menu, orders, bills " +
-                    " WHERE bills.menu_id=menu.id, bills.discount_id=discounts.id, bills.bill_id="+billID);
+                    " WHERE bills.menu_id=menu.id, bills.discount_id=discounts.id, bills.bill_id="+billID.toString());
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getFloat("price") + " zł)");
                 sum=(double)sum + rs.getInt("price");
@@ -255,7 +255,57 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM bills "
-                + "WHERE bill_id=" + billID.toString() + ", menu_id=" + menuID.toString() + ", discount_id=" + discountID.toString()
+                + "WHERE bill_id=" + billID.toString() + ", menu_id=" + menuID.toString() + ", discount_id=" + discountID.toString() + " "
+                + "LIMIT 1");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static Object[] listBillsFromTable(Object tableID) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM tables "
+                    + "WHERE table_id=" + tableID.toString());
+            while (rs.next()) {
+                list.add(rs.getString("bill_id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list.toArray();
+    }
+
+    public static void addBillToTable(Object tableID, Object billID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO tables (table_id, bill_id, status) "
+                + "VALUES "
+                + "(" + tableID.toString() + ", " + billID.toString() + ", waiting)");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void removeBillFromTable(Object tableID, Object billID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM tables "
+                + "WHERE table_id=" + tableID.toString() + ", bill_id=" + billID.toString() + " "
                 + "LIMIT 1");
             statement.close();
             conn.close();
