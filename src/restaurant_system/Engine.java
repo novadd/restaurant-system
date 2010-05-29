@@ -265,7 +265,7 @@ public class Engine {
         close(conn);
     }
 
-    public static Object[] listBillsFromTable(Object tableID) {
+    public static Object[] billsListFromTable(Object tableID) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
