@@ -59,6 +59,25 @@ public class Engine {
         close(conn);
         return list.toArray();
     }
+    
+    public static Object[] loginListID() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM employees");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list.toArray();
+    }
 
     public static String decodeMenuID(Object MenuID) {
         String name = new String();
