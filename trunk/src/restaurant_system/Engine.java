@@ -48,7 +48,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                list.add(rs.getString("id"));
+                list.add(rs.getString("surname") + " " + rs.getString("name") + " (" + rs.getString("function") + ")");
             }
             rs.close();
             statement.close();
@@ -59,6 +59,63 @@ public class Engine {
         close(conn);
         return list.toArray();
     }
+
+    public static String decodeLoginIDName(Object LoginID) {
+        String name = new String();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            while (rs.next()) {
+                name = rs.getString("name");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return name;
+    }
+
+    public static String decodeLoginIDSurname(Object LoginID) {
+        String surname = new String();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            while (rs.next()) {
+                surname = rs.getString("surname");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return surname;
+    }
+
+    public static String decodeLoginIDFunction(Object LoginID) {
+        String function = new String();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            while (rs.next()) {
+                function = rs.getString("function");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return function;
+    }
     
     public static Object[] loginListID() {
         ArrayList list = new ArrayList();
@@ -67,7 +124,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                list.add(rs.getInt("id"));
+                list.add(rs.getString("id"));
             }
             rs.close();
             statement.close();
