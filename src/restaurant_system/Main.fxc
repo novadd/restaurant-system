@@ -9,6 +9,9 @@
             <Item value="inst:ColorModel2"/>
             <Item value="inst:DropShadowEffectModel1"/>
             <Item value="inst:FontModel1"/>
+            <Item value="inst:ColorModel3"/>
+            <Item value="inst:ColorModel4"/>
+            <Item value="inst:ColorModel5"/>
         </List>
         <List name="dataSources"/>
         <List name="effects"/>
@@ -70,6 +73,28 @@
         <Reference name="postCreationCode" value="null"/>
         <Reference name="size" value="prop:15,anim:,,flt:18.0,"/>
     </Instance>
+    <Instance classID="ColorModel" instanceID="ColorModel3">
+        <Reference name="instanceName" value="str:colorGreen"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="red" value="prop:14,anim:,,flt:0.0,"/>
+        <Reference name="green" value="prop:14,anim:,,flt:1.0,"/>
+        <Reference name="blue" value="prop:14,anim:,,flt:0.0,"/>
+    </Instance>
+    <Instance classID="ColorModel" instanceID="ColorModel4">
+        <Reference name="instanceName" value="str:colorYellow"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="red" value="prop:14,anim:,,flt:1.0,"/>
+        <Reference name="green" value="prop:14,anim:,,flt:1.0,"/>
+        <Reference name="blue" value="prop:14,anim:,,flt:0.0,"/>
+    </Instance>
+    <Instance classID="ColorModel" instanceID="ColorModel5">
+        <Reference name="instanceName" value="str:colorRed"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="red" value="prop:14,anim:,,flt:1.0,"/>
+    </Instance>
     <Instance classID="SceneModel" instanceID="SceneModel1">
         <Reference name="instanceName" value="str:scene"/>
         <List name="nodes">
@@ -83,7 +108,7 @@
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
         <Reference name="generateSceneInstance" value="bool:true"/>
         <Reference name="generateScenePanel" value="bool:true"/>
-        <Reference name="preCreationCode" value="null"/>
+        <Reference name="preCreationCode" value="str:scenePre_CreationCode"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="preInitCode" value="null"/>
         <Reference name="postInitCode" value="null"/>
@@ -229,6 +254,8 @@
         <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table1OnMouseClickedAtwaiterTablePick,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel5,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
     <Instance classID="CircleShapeModel" instanceID="CircleShapeModel2">
@@ -238,6 +265,8 @@
         <Reference name="layoutY" value="prop:15,anim:,,flt:61.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel5,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
     <Instance classID="CircleShapeModel" instanceID="CircleShapeModel3">
@@ -247,6 +276,8 @@
         <Reference name="layoutY" value="prop:16,anim:,,flt:149.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel4,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
     <Instance classID="CircleShapeModel" instanceID="CircleShapeModel4">
@@ -256,6 +287,8 @@
         <Reference name="layoutY" value="prop:16,anim:,,flt:241.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel3,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
     <Instance classID="CircleShapeModel" instanceID="CircleShapeModel5">
@@ -265,6 +298,8 @@
         <Reference name="layoutY" value="prop:16,anim:,,flt:229.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="fill" value="prop:23,anim:,,inst:ColorModel4,4,null,"/>
+        <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
     <Instance classID="PanelModel" instanceID="PanelModel3">
