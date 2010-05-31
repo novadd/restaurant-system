@@ -40,6 +40,53 @@ public class Engine {
             e.printStackTrace();
         }
     }
+
+    private static void createDB() {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SET SQL_MODE=\"NO_AUTO_VALUE_ON_ZERO\";" +
+                    "CREATE DATABASE `restaurant` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;" +
+                    "USE `restaurant`;" +
+                    "CREATE TABLE IF NOT EXISTS `bills` (" +
+                    "   `bill_id` int(11) NOT NULL," +
+                    "   `menu_id` int(11) NOT NULL," +
+                    "   `discount_id` int(11) NOT NULL," +
+                    "   `status` text NOT NULL" +
+                    ") ENGINE=MyISAM DEFAULT CHARSET=latin2;" +
+                    "CREATE TABLE IF NOT EXISTS `discounts` (" +
+                    "   `id` int(11) NOT NULL," +
+                    "   `description` text NOT NULL," +
+                    "   `percentage` int(11) NOT NULL" +
+                    ") ENGINE=MyISAM DEFAULT CHARSET=latin2;" +
+                    "CREATE TABLE IF NOT EXISTS `employees` (" +
+                    "   `id` int(11) NOT NULL AUTO_INCREMENT," +
+                    "   `name` text NOT NULL," +
+                    "   `surname` text NOT NULL," +
+                    "   `function` text NOT NULL," +
+                    "   PRIMARY KEY (`id`)" +
+                    ") ENGINE=MyISAM  DEFAULT CHARSET=latin2 AUTO_INCREMENT=19 ;" +
+                    "CREATE TABLE IF NOT EXISTS `menu` (" +
+                    "   `id` int(11) NOT NULL AUTO_INCREMENT," +
+                    "   `name` text NOT NULL," +
+                    "   `price` decimal(10,2) NOT NULL," +
+                    "   `category` text NOT NULL," +
+                    "   PRIMARY KEY (`id`)" +
+                    ") ENGINE=MyISAM  DEFAULT CHARSET=latin2 AUTO_INCREMENT=3 ;" +
+                    "CREATE TABLE IF NOT EXISTS `tables` (" +
+                    "   `table_id` int(11) NOT NULL," +
+                    "   `bill_id` int(11) NOT NULL," +
+                    "   `status` text NOT NULL," +
+                    "   PRIMARY KEY (`table_id`,`bill_id`)" +
+                    ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
    
     public static Object[] loginList() {
         ArrayList list = new ArrayList();
