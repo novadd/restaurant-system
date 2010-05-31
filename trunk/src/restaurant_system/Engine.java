@@ -288,7 +288,7 @@ public class Engine {
                 Statement statement = conn.createStatement();
                 statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
                     + "VALUES "
-                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", waiting)");
+                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")");
                 statement.close();
                 conn.close();
             } catch (Exception e) {
@@ -298,13 +298,20 @@ public class Engine {
         } else {
             try {
                 Statement statement = conn.createStatement();
-                statement.executeUpdate("INSERT INTO bills (menu_id, discount_id, waiter_id, status) "
+                ResultSet rs = statement.executeQuery("SELECT MAX(bill_id) AS max FROM bills");
+                if (rs.next()) {
+                    billID=(rs.getInt("max") + 1);
+                } else {
+                    billID="0";
+                }
+                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
                     + "VALUES "
-                    + "(" + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", waiting)", statement.RETURN_GENERATED_KEYS);
-                ResultSet rs = statement.getGeneratedKeys();
+                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")", statement.RETURN_GENERATED_KEYS);
+                rs = statement.getGeneratedKeys();
                 if (rs.next()) {
                     billID = rs.getString(1);
                 }
+                rs.close();
                 statement.close();
                 conn.close();
             } catch (Exception e) {
