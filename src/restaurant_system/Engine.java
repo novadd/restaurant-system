@@ -41,7 +41,7 @@ public class Engine {
         }
     }
 
-    private static void createDB() {
+    public static void createDB() {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
