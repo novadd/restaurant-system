@@ -364,6 +364,7 @@
         <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:76.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="items" value="prop:27,animcode:,,listLoginIDItems,4,null,"/>
     </Instance>
     <Instance classID="PanelModel" instanceID="PanelModel4">
         <Reference name="instanceName" value="str:logout"/>

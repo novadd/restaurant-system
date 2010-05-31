@@ -6,13 +6,12 @@
 
 package restaurant_system;
 
+import java.util.ArrayList;
+
 /**
  * @author Wojtek
  */
 public class Main {
-
-    public-read var loggedId: Integer;
-    public-read var billId: Integer;
 
     public-read var rectangle: javafx.scene.shape.Rectangle;//GEN-BEGIN:main
     public-read var listMenu: javafx.scene.control.ListView;
@@ -128,6 +127,7 @@ public class Main {
                 width: bind listLoginID.width
                 height: bind listLoginID.height
             }
+            items: listLoginIDItems
         };
         buttonLogout = javafx.scene.control.Button {
             layoutX: 133.0
@@ -444,6 +444,15 @@ public class Main {
         scene
     }// </editor-fold>//GEN-END:main
 
+    public-read var loggedId: Integer;
+    public-read var billId: Integer;
+    var listLoginItems: Object[] = Engine.loginList();
+    var listLoginIDItems: Object[] = Engine.loginListID();
+    var listMenuItems: Object[] = Engine.menuList();
+    var listMenuIDItems: Object[] = Engine.menuListID();
+    var activeTableNr: Integer;
+    var activeBillNr: Object;
+
     function scenePre_CreationCode(): Void {
         Engine.createDB();
         table2.fill = colorGreen;
@@ -472,8 +481,12 @@ public class Main {
         while(listBill.items[length] != null){
             length++;
         }
+        if(length == 0){
+            listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+            activeBillNr = Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
+        }
         listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0);
+        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
     }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
@@ -485,13 +498,14 @@ public class Main {
     // red - other waiter's table -> click: shows the name
     //                               of the waiter
     // ---------------------------------------------------
-        if(Engine.billsListFromTable(1)[0]==null) {
+    var list: java.util.ArrayList;
+
+        if(Engine.billsListFromTable(1).isEmpty()) {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = 1;
             clearList(listBill);
-
         }
-        else if(Engine.billsListFromTable(1)[0]!=null) {
+        else {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = 1;
             activeBillNr = Engine.billsListFromTable(1);
@@ -510,13 +524,6 @@ public class Main {
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
     }
-
-    var listLoginItems: Object[] = Engine.loginList();
-    var listLoginIDItems: Object[] = Engine.loginListID();
-    var listMenuItems: Object[] = Engine.menuList();
-    var listMenuIDItems: Object[] = Engine.menuListID();
-    var activeTableNr: Integer;
-    var activeBillNr: Object;
 
     function buttonActionAtlogin(): Void {
     // ---------------------------------------------------
