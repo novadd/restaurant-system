@@ -51,6 +51,7 @@ public class Engine {
                     "   `bill_id` int(11) NOT NULL," +
                     "   `menu_id` int(11) NOT NULL," +
                     "   `discount_id` int(11) NOT NULL," +
+                    "   `waiter_id` int(11) NOT NULL," +
                     "   `status` text NOT NULL" +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `discounts` (" +
@@ -280,14 +281,14 @@ public class Engine {
         return list.toArray();
     }
 
-    public static Object addToBill(Object billID, Object menuID, Object discountID) {
+    public static Object addToBill(Object billID, Object menuID, Object discountID, Object waiterID) {
         Connection conn = connect();
         if (billID!=null) {
             try {
                 Statement statement = conn.createStatement();
                 statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, status) "
                     + "VALUES "
-                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", waiting)");
+                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", waiting)");
                 statement.close();
                 conn.close();
             } catch (Exception e) {
@@ -299,7 +300,7 @@ public class Engine {
                 Statement statement = conn.createStatement();
                 statement.executeUpdate("INSERT INTO bills (menu_id, discount_id, status) "
                     + "VALUES "
-                    + "(" + menuID.toString() + ", " + discountID.toString() + ", waiting)", statement.RETURN_GENERATED_KEYS);
+                    + "(" + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", waiting)", statement.RETURN_GENERATED_KEYS);
                 ResultSet rs = statement.getGeneratedKeys();
                 if (rs.next()) {
                     billID = rs.getString(1);
@@ -377,5 +378,25 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
+    }
+
+    public static Object checkWhoServesTable(Object tableID) {
+        Object waiterID = null;
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id FROM tables, bills "
+                    + "WHERE tables.bill_id=bills.bill_id, bills.waiter_id=" + tableID.toString() + " LIMIT 1)");
+            if (rs.next()) {
+                waiterID = (rs.getString("bill_id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return waiterID;
     }
 }
