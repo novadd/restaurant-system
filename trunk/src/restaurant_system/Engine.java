@@ -330,7 +330,7 @@ public class Engine {
         close(conn);
     }
 
-    public static Object[] billsListFromTable(Object tableID) {
+    public static ArrayList billsListFromTable(Object tableID) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -347,7 +347,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list.toArray();
+        return list;
     }
 
     public static void addBillToTable(Object tableID, Object billID) {
