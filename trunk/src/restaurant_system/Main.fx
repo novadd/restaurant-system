@@ -43,6 +43,9 @@ public class Main {
     public-read var colorBlack: javafx.scene.paint.Color;
     public-read var dropShadowEffect: javafx.scene.effect.DropShadow;
     public-read var fontStandard: javafx.scene.text.Font;
+    public-read var colorGreen: javafx.scene.paint.Color;
+    public-read var colorYellow: javafx.scene.paint.Color;
+    public-read var colorRed: javafx.scene.paint.Color;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
     
@@ -93,36 +96,6 @@ public class Main {
             layoutX: 390.0
             layoutY: 3.0
             text: ">"
-        };
-        table1 = javafx.scene.shape.Circle {
-            visible: true
-            layoutX: 101.0
-            layoutY: 97.0
-            radius: 25.0
-        };
-        table2 = javafx.scene.shape.Circle {
-            visible: true
-            layoutX: 243.0
-            layoutY: 61.0
-            radius: 25.0
-        };
-        table3 = javafx.scene.shape.Circle {
-            visible: true
-            layoutX: 366.0
-            layoutY: 149.0
-            radius: 25.0
-        };
-        table4 = javafx.scene.shape.Circle {
-            visible: true
-            layoutX: 271.0
-            layoutY: 241.0
-            radius: 25.0
-        };
-        table5 = javafx.scene.shape.Circle {
-            visible: true
-            layoutX: 135.0
-            layoutY: 229.0
-            radius: 25.0
         };
         listLogin = javafx.scene.control.ListView {
             layoutX: 139.0
@@ -237,17 +210,6 @@ public class Main {
             arcWidth: 12.0
             arcHeight: 12.0
         };
-        waiterTables = javafx.scene.layout.Panel {
-            layoutX: 500.0
-            layoutY: 2.0
-            width: 472.0
-            height: 312.0
-            layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind waiterTables.width
-                height: bind waiterTables.height
-            }
-            content: [ rectangle2, table1, table2, table3, table4, table5, ]
-        };
         rectangle = javafx.scene.shape.Rectangle {
             layoutX: 6.0
             layoutY: 2.0
@@ -282,6 +244,71 @@ public class Main {
             }
             content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, ]
         };
+        colorGreen = javafx.scene.paint.Color {
+            red: 0.0
+            green: 1.0
+            blue: 0.0
+        };
+        table4 = javafx.scene.shape.Circle {
+            visible: true
+            layoutX: 271.0
+            layoutY: 241.0
+            fill: colorGreen
+            stroke: colorBlack
+            radius: 25.0
+        };
+        colorYellow = javafx.scene.paint.Color {
+            red: 1.0
+            green: 1.0
+            blue: 0.0
+        };
+        table5 = javafx.scene.shape.Circle {
+            visible: true
+            layoutX: 135.0
+            layoutY: 229.0
+            fill: colorYellow
+            stroke: colorBlack
+            radius: 25.0
+        };
+        table3 = javafx.scene.shape.Circle {
+            visible: true
+            layoutX: 366.0
+            layoutY: 149.0
+            fill: colorYellow
+            stroke: colorBlack
+            radius: 25.0
+        };
+        colorRed = javafx.scene.paint.Color {
+            red: 1.0
+        };
+        table2 = javafx.scene.shape.Circle {
+            visible: true
+            layoutX: 243.0
+            layoutY: 61.0
+            fill: colorRed
+            stroke: colorBlack
+            radius: 25.0
+        };
+        table1 = javafx.scene.shape.Circle {
+            visible: true
+            layoutX: 101.0
+            layoutY: 97.0
+            fill: colorRed
+            stroke: colorBlack
+            radius: 25.0
+        };
+        waiterTables = javafx.scene.layout.Panel {
+            layoutX: 500.0
+            layoutY: 2.0
+            width: 472.0
+            height: 312.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind waiterTables.width
+                height: bind waiterTables.height
+            }
+            content: [ rectangle2, table1, table2, table3, table4, table5, ]
+        };
+        scenePre_CreationCode();
         scene = javafx.scene.Scene {
             width: 480.0
             height: 320.0
@@ -417,64 +444,97 @@ public class Main {
         scene
     }// </editor-fold>//GEN-END:main
 
+    function scenePre_CreationCode(): Void {
+        Engine.createDB();
+        table2.fill = colorGreen;
+    }
+
+    function clearList(list: javafx.scene.control.ListView){
+        while(list.items[0] != null){
+            list.items[0] = null;
+        }
+    }
+
     function listBilOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
-        // ---------------------------------------------------
-        // This function deletes selected item from the bill
-        // ---------------------------------------------------
+    // ---------------------------------------------------
+    // This function deletes selected item from the bill
+    // ---------------------------------------------------
         listBill.items[listBill.selectedIndex] = null;
+        Engine.removeFromBill(activeBillNr, listBill, 0);
     }
 
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
-        // ---------------------------------------------------
-        // This function adds an item selected from the menu
-        // to the last slot of an active bill
-        // ---------------------------------------------------
+    // ---------------------------------------------------
+    // This function adds an item selected from the menu
+    // to the last slot of an active bill
+    // ---------------------------------------------------
         var length = 0;
         while(listBill.items[length] != null){
             length++;
         }
         listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-        //Engine.addToBill(billId, listMenuID.items[listMenu.selectedIndex], 0);
+        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0);
     }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        // ---------------------------------------------------
-        // This function handles waiter table selection
-        // green - free table -> click: opens a new bill
-        // yellow - logged in waiter's table -> click: opens
-        //                                      existing bill
-        // red - other waiter's table -> click: shows the name
-        //                               of the waiter
-        // ---------------------------------------------------
-        currentState.actual = currentState.findIndex("waiterTable");
-        billId = 1;
+    // ---------------------------------------------------
+    // This function handles waiter table selection
+    // green - free table -> click: opens a new bill
+    // yellow - logged in waiter's table -> click: opens
+    //                                      existing bill
+    // red - other waiter's table -> click: shows the name
+    //                               of the waiter
+    // ---------------------------------------------------
+        if(Engine.billsListFromTable(1)[0]==null) {
+            currentState.actual = currentState.findIndex("waiterTable");
+            activeTableNr = 1;
+            clearList(listBill);
+
+        }
+        else if(Engine.billsListFromTable(1)[0]!=null) {
+            currentState.actual = currentState.findIndex("waiterTable");
+            activeTableNr = 1;
+            activeBillNr = Engine.billsListFromTable(1);
+            clearList(listBill);
+            var i = 0;
+            while (Engine.printBill(activeBillNr)[i] != null){
+                listBill.items[i] = Engine.printBill(activeBillNr)[i];
+            }
+        }
     }
 
     function buttonLogoutAction(): Void {
-        // ---------------------------------------------------
-        // This function logs out current user
-        // ---------------------------------------------------
+    // ---------------------------------------------------
+    // This function logs out current user
+    // ---------------------------------------------------
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
     }
 
     var listLoginItems: Object[] = Engine.loginList();
-    //var listLoginIDItems: Object[] = Engine.loginListID();
+    var listLoginIDItems: Object[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
+    var activeTableNr: Integer;
+    var activeBillNr: Object;
 
     function buttonActionAtlogin(): Void {
-        // ---------------------------------------------------
-        // This function logs in a selected user. In a normal
-        // restaurant this would be handeled by a electro-
-        // magnetic card of some sort.
-        // ---------------------------------------------------
+    // ---------------------------------------------------
+    // This function logs in a selected user. In a normal
+    // restaurant this would be handeled by a electro-
+    // magnetic card of some sort.
+    // ---------------------------------------------------
         loggedId = -1;
         loggedId = listLogin.selectedIndex;
         if(loggedId != -1){
-            labelLogin.text = String.valueOf(loggedId);
-            // Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex])
+            labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
+            //... = String.valueOf(loggedId);
             currentState.actual = currentState.findIndex("waiterTablePick");
+            //var length = 0;
+            //while(listBill.items[length] != null){
+            //    length++;
+            //}
+            //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
         };
 }
 };
