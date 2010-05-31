@@ -281,19 +281,38 @@ public class Engine {
         return list.toArray();
     }
 
-    public static void addToBill(Object billID, Object menuID, Object discountID) {
+    public static Object addToBill(Object billID, Object menuID, Object discountID) {
         Connection conn = connect();
-        try {
-            Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, status) "
-                + "VALUES "
-                + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", waiting)");
-            statement.close();
-            conn.close();
-        } catch (Exception e) {
+        if (billID!=null) {
+            try {
+                Statement statement = conn.createStatement();
+                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, status) "
+                    + "VALUES "
+                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", waiting)");
+                statement.close();
+                conn.close();
+            } catch (Exception e) {
                 e.printStackTrace();
+            }
+            close(conn);
+        } else {
+            try {
+                Statement statement = conn.createStatement();
+                statement.executeUpdate("INSERT INTO bills (menu_id, discount_id, status) "
+                    + "VALUES "
+                    + "(" + menuID.toString() + ", " + discountID.toString() + ", waiting)", statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()) {
+                    billID = rs.getString(1);
+                }
+                statement.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            close(conn);
         }
-        close(conn);
+        return billID;
     }
 
     public static void removeFromBill(Object billID, Object menuID, Object discountID) {
