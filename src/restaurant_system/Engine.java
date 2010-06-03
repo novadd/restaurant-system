@@ -284,14 +284,20 @@ public class Engine {
         return list;
     }
 
-    public static Object addToBill(Object billID, Object menuID, Object discountID, Object waiterID) {
+    public static Object addToBill(Object billID, Object menuID, Object discountID, Object waiterID, int howMany) {
         Connection conn = connect();
         if (billID!=null) {
             try {
                 Statement statement = conn.createStatement();
-                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
-                    + "VALUES "
-                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")");
+                String query;
+                String data;
+                query = "INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) VALUES ";
+                data = "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")";
+                for (int i=0; i<howMany-1; i++) {
+                    query += data + ", ";
+                }
+                query += data;
+                statement.executeUpdate(query);
                 statement.close();
                 conn.close();
             } catch (Exception e) {
@@ -380,7 +386,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM tables "
-                + "WHERE table_id=" + tableID.toString() + "AND bill_id=" + billID.toString());
+                + "WHERE table_id=" + tableID.toString() + " AND bill_id=" + billID.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
