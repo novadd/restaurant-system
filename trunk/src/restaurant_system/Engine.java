@@ -162,8 +162,8 @@ public class Engine {
         return function;
     }
     
-    public static ArrayList loginListID() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+    public static Integer[] loginListID() {
+        ArrayList list = new ArrayList<Integer>();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
@@ -178,7 +178,8 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list;
+        Integer[] ret = (Integer[])list.toArray();
+        return ret;
     }
 
     public static String decodeMenuID(Object MenuID) {
