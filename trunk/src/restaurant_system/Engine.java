@@ -264,11 +264,15 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.name AS name, (menu.price * (1-discounts.percentage/100)) AS price FROM menu, orders, bills " +
-                    " WHERE bills.menu_id=menu.id AND bills.discount_id=discounts.id AND bills.bill_id="+billID.toString());
+            ResultSet rs = statement.executeQuery("SELECT menu.name, menu.price, discounts.percentage, COUNT( * ) AS number " +
+                    " FROM bills " +
+                    " LEFT JOIN discounts ON discounts.id = bills.discount_id " +
+                    " LEFT JOIN menu ON bills.menu_id = menu.id " +
+                    " WHERE bills.bill_id = " + billID +
+                    " GROUP BY bills.menu_id, bills.discount_id ");
             while (rs.next()) {
-                list.add(rs.getString("name") + " (" + rs.getFloat("price") + " zł)");
-                sum=(double)sum + rs.getInt("price");
+                list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))) + " zł)");
+                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage")));
             }
             rs.close();
             statement.close();
@@ -329,8 +333,6 @@ public class Engine {
             statement.executeUpdate("DELETE FROM restaurant.bills "+
                     "WHERE bills.bill_id=" + Integer.parseInt(billID.toString()) + " AND bills.menu_id=" + Integer.parseInt(menuID.toString()) + " AND bills.discount_id=" + Integer.parseInt(discountID.toString()) +
                     " LIMIT 1 ");
-                //+ "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() + " "
-                //+ "LIMIT 1");
             statement.close();
             conn.close();
         } catch (Exception e) {
