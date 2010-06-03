@@ -15,9 +15,9 @@ public class Main {
 
     public-read var loggedId: Integer;
     public-read var billId: Integer;
-    var multiplier: Integer = 1;
+    var multiplier: Integer = -1;
     var listLoginItems: Object[] = Engine.loginList();
-    var listLoginIDItems: Object[] = Engine.loginListID();
+    var listLoginIDItems: Integer[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
     var activeTableNr: Integer;
@@ -56,6 +56,7 @@ public class Main {
     public-read var listLogin: javafx.scene.control.ListView;
     public-read var buttonLogin: javafx.scene.control.Button;
     public-read var listLoginID: javafx.scene.control.ListView;
+    public-read var debugger: javafx.scene.control.Label;
     public-read var login: javafx.scene.layout.Panel;
     public-read var rectangle4: javafx.scene.shape.Rectangle;
     public-read var buttonBack: javafx.scene.control.Button;
@@ -321,6 +322,17 @@ public class Main {
             }
             items: listLoginIDItems
         };
+        debugger = javafx.scene.control.Label {
+            layoutX: 71.0
+            layoutY: 351.0
+            width: 361.0
+            height: 46.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind debugger.width
+                height: bind debugger.height
+            }
+            text: "Label"
+        };
         buttonBack = javafx.scene.control.Button {
             layoutX: 133.0
             layoutY: -15.0
@@ -398,7 +410,7 @@ public class Main {
                 width: bind login.width
                 height: bind login.height
             }
-            content: [ rectangle3, listLogin, buttonLogin, listLoginID, ]
+            content: [ rectangle3, listLogin, buttonLogin, listLoginID, debugger, ]
         };
         rectangle2 = javafx.scene.shape.Rectangle {
             layoutX: 6.0
@@ -688,6 +700,13 @@ public class Main {
 
     function buttonBackAction(): Void {
         currentState.previous();
+        if(loggedId != -1){
+            colourTable(1,table1);
+            colourTable(2,table2);
+            colourTable(3,table3);
+            colourTable(4,table4);
+            colourTable(5,table5);
+        }
     }
 
     function clearList(list: javafx.scene.control.ListView){
@@ -763,17 +782,41 @@ public class Main {
     // This function adds an item selected from the menu
     // to the last slot of an active bill
     // ---------------------------------------------------
-        var length = 0;
+        var length: Integer = 0;
+        var i: Integer = 0;
         while(listBill.items[length] != null){
             length++;
         }
         if(length == 0){
-            listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-            activeBillNr = Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
+            //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+            activeBillNr = Engine.addToBill(null, listMenuID.items[listMenu.selectedIndex], 0, loggedId, 1);
+            if(multiplier > 1){
+                Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier - 1);
+            }
             Engine.addBillToTable(activeTableNr, activeBillNr);
+            clearList(listBill);
+            i=0;
+            while(i<Engine.printBill(activeBillNr).size()){
+                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
+                i++;
+            }
+            //debugger.text = "activeTableNr {activeTableNr}, activeBillNr {activeBillNr}";
         }
-        listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
+        //debugger.text = "activeTableNr {activeTableNr}, activeBillNr {activeBillNr}";
+        //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+        else {
+            Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier);
+            clearList(listBill);
+            i = 0;
+            while(i<Engine.printBill(activeBillNr).size()){
+                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
+                i++
+            }
+        }
+        if (not toggleButtonLocked.selected){
+            multiplier = -1;
+            labelCount.text = "1 x";
+        }
     }
 
     function listBillOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
@@ -785,10 +828,8 @@ public class Main {
     }
     
     function buttonBillFinalizeAction(): Void {
-        //TODO
-        while(Engine.billsListFromTable(activeTableNr).isEmpty()){
-            Engine.removeBillFromTable(activeTableNr, activeBillNr);
-        }
+        Engine.removeBillFromTable(activeTableNr, activeBillNr);
+        clearList(listBill);
     }
     
     // </editor-fold>
@@ -813,7 +854,7 @@ public class Main {
                 currentState.actual = currentState.findIndex("waiterTable");
                 activeTableNr = nr;
                 activeBillNr = Engine.billsListFromTable(nr).get(0);
-                //clearList(listBill);
+                clearList(listBill);
                 var i: Integer;
                 while(i<Engine.printBill(activeBillNr).size()){
                     listBill.items[i] = Engine.printBill(activeBillNr).get(i);
@@ -876,8 +917,11 @@ public class Main {
     // restaurant this would be handeled by a electro-
     // magnetic card of some sort.
     // ---------------------------------------------------
+        
         loggedId = -1;
-        loggedId = listLogin.selectedIndex;
+        loggedId = Engine.loginListID()[listLogin.selectedIndex];
+
+        //loggedId = listLoginID.selectedItem (listLogin.selectedIndex);
         if(loggedId != -1){
             labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
             currentState.actual = currentState.findIndex("waiterTablePick");
