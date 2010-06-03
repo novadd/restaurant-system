@@ -365,9 +365,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO tables (table_id, bill_id, status) "
+            statement.executeUpdate("INSERT INTO tables (table_id, bill_id) "
                 + "VALUES "
-                + "(" + tableID.toString() + ", " + billID.toString() + ", waiting)");
+                + "(" + tableID.toString() + ", " + billID.toString() + ")");
             statement.close();
             conn.close();
         } catch (Exception e) {
