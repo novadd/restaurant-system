@@ -162,7 +162,7 @@ public class Engine {
         return function;
     }
     
-    public static ArrayList[] loginListID() {
+    public static ArrayList loginListID() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
