@@ -163,7 +163,7 @@ public class Engine {
     }
     
     public static ArrayList loginListID() {
-        ArrayList list = new ArrayList();
+        ArrayList<Integer> list = new ArrayList<Integer>();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
