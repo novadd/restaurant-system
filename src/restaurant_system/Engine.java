@@ -330,7 +330,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM restaurant.bills "+
-                    "WHERE bills.bill_id=" + Integer.parseInt(billID.toString()) + " AND bills.menu_id=" + Integer.parseInt(menuID.toString()) + " AND bills.discount_id=" + Integer.parseInt(discountID.toString()) +
+                    "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
                     " LIMIT 1 ");
             statement.close();
             conn.close();
@@ -395,8 +395,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id FROM tables, bills "
-                    + "WHERE tables.bill_id=bills.bill_id AND bills.waiter_id=" + tableID.toString() + " LIMIT 1)");
+            ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id " +
+                    " FROM `tables` LEFT JOIN bills ON tables.bill_id=bills.bill_id "
+                    + "WHERE bills.waiter_id=" + tableID.toString() + " LIMIT 1)");
             if (rs.next()) {
                 waiterID = (rs.getString("bill_id"));
             }
