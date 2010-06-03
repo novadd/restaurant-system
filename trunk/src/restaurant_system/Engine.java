@@ -265,7 +265,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT menu.name AS name, (menu.price * (1-discounts.percentage/100)) AS price FROM menu, orders, bills " +
-                    " WHERE bills.menu_id=menu.id, bills.discount_id=discounts.id, bills.bill_id="+billID.toString());
+                    " WHERE bills.menu_id=menu.id AND bills.discount_id=discounts.id AND bills.bill_id="+billID.toString());
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getFloat("price") + " zł)");
                 sum=(double)sum + rs.getInt("price");
@@ -326,9 +326,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM bills "
-                + "WHERE bill_id=" + billID.toString() + ", menu_id=" + menuID.toString() + ", discount_id=" + discountID.toString() + " "
-                + "LIMIT 1");
+            statement.executeUpdate("DELETE FROM restaurant.bills "+
+                    "WHERE bills.bill_id=" + Integer.parseInt(billID.toString()) + " AND bills.menu_id=" + Integer.parseInt(menuID.toString()) + " AND bills.discount_id=" + Integer.parseInt(discountID.toString()) +
+                    " LIMIT 1 ");
+                //+ "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() + " "
+                //+ "LIMIT 1");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -377,7 +379,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM tables "
-                + "WHERE table_id=" + tableID.toString() + ", bill_id=" + billID.toString() + " "
+                + "WHERE table_id=" + tableID.toString() + "AND bill_id=" + billID.toString() + " "
                 + "LIMIT 1");
             statement.close();
             conn.close();
@@ -393,7 +395,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id FROM tables, bills "
-                    + "WHERE tables.bill_id=bills.bill_id, bills.waiter_id=" + tableID.toString() + " LIMIT 1)");
+                    + "WHERE tables.bill_id=bills.bill_id AND bills.waiter_id=" + tableID.toString() + " LIMIT 1)");
             if (rs.next()) {
                 waiterID = (rs.getString("bill_id"));
             }
