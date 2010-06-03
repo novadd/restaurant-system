@@ -15,6 +15,7 @@ public class Main {
 
     public-read var loggedId: Integer;
     public-read var billId: Integer;
+    var multiplier: Integer = 1;
     var listLoginItems: Object[] = Engine.loginList();
     var listLoginIDItems: Object[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
@@ -128,131 +129,141 @@ public class Main {
         };
         button1 = javafx.scene.control.Button {
             layoutX: 30.0
-            layoutY: 35.0
+            layoutY: 79.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button1.width
                 height: bind button1.height
             }
+            onMouseClicked: button1OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "1"
         };
         button2 = javafx.scene.control.Button {
             layoutX: 53.0
-            layoutY: 35.0
+            layoutY: 79.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button2.width
                 height: bind button2.height
             }
+            onMouseClicked: button2OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "2"
         };
         button3 = javafx.scene.control.Button {
             layoutX: 76.0
-            layoutY: 35.0
+            layoutY: 79.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button3.width
                 height: bind button3.height
             }
+            onMouseClicked: button3OnMouseClicked
             text: "3"
         };
         button4 = javafx.scene.control.Button {
             layoutX: 30.0
-            layoutY: 62.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button4.width
                 height: bind button4.height
             }
+            onMouseClicked: button4OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "4"
         };
         button5 = javafx.scene.control.Button {
             layoutX: 53.0
-            layoutY: 62.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button5.width
                 height: bind button5.height
             }
+            onMouseClicked: button5OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "5"
         };
         button6 = javafx.scene.control.Button {
             layoutX: 76.0
-            layoutY: 62.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button6.width
                 height: bind button6.height
             }
+            onMouseClicked: button6OnMouseClicked
             text: "6"
         };
         button7 = javafx.scene.control.Button {
             layoutX: 30.0
-            layoutY: 89.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button7.width
                 height: bind button7.height
             }
+            onMouseClicked: button7OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "7"
         };
         button8 = javafx.scene.control.Button {
             layoutX: 53.0
-            layoutY: 89.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button8.width
                 height: bind button8.height
             }
+            onMouseClicked: button8OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "8"
         };
         button9 = javafx.scene.control.Button {
             layoutX: 76.0
-            layoutY: 89.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button9.width
                 height: bind button9.height
             }
+            onMouseClicked: button9OnMouseClicked
             text: "9"
         };
         button0 = javafx.scene.control.Button {
             layoutX: 53.0
-            layoutY: 116.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind button0.width
                 height: bind button0.height
             }
+            onMouseClicked: button0OnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "0"
         };
         toggleButtonLocked = javafx.scene.control.ToggleButton {
             layoutX: 30.0
-            layoutY: 116.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -265,13 +276,14 @@ public class Main {
         };
         buttonC = javafx.scene.control.Button {
             layoutX: 76.0
-            layoutY: 116.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind buttonC.width
                 height: bind buttonC.height
             }
+            onMouseClicked: buttonCOnMouseClicked
             translateX: 0.0
             translateY: 0.0
             text: "C"
@@ -419,21 +431,22 @@ public class Main {
             size: 18.0
         };
         labelCount = javafx.scene.control.Label {
+            visible: true
             layoutX: 38.0
-            layoutY: 146.0
+            layoutY: 41.0
             width: 47.0
             height: 22.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind labelCount.width
                 height: bind labelCount.height
             }
-            text: "1"
+            text: "1 x"
             font: fontStandard
             hpos: javafx.geometry.HPos.CENTER
             vpos: javafx.geometry.VPos.CENTER
             graphicHPos: javafx.geometry.HPos.CENTER
             graphicVPos: javafx.geometry.VPos.CENTER
-            textFill: null
+            textFill: colorBlack
         };
         billNr = javafx.scene.control.Label {
             layoutX: 357.0
@@ -640,7 +653,7 @@ public class Main {
                                     logout.layoutY => 269.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
-                                    listBill.onMouseClicked = listBilOnMouseClickedAtwaiterTable;
+                                    listBill.onMouseClicked = listBillOnMouseClickedAtwaiterTable;
                                     listLogin.select (0);
                                     buttonLogin.text = "Login";
                                 }
@@ -663,27 +676,124 @@ public class Main {
         scene
     }// </editor-fold>//GEN-END:main
 
+    // <editor-fold defaultstate="collapsed" desc="Empty fold">
+
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="General functions">
+
+    function scenePre_CreationCode(): Void {
+        Engine.createDB();
+    }
+
+    function buttonBackAction(): Void {
+        currentState.previous();
+    }
+
+    function clearList(list: javafx.scene.control.ListView){
+        while(list.items[0] != null){
+            list.items[0] = null;
+        }
+    }
+
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="NumpadFunctions">
+    function numberClicked(i: Integer){
+        if (multiplier == -1){
+            multiplier = i;
+            labelCount.text = "{multiplier} x";
+        }
+        else {
+            multiplier = 10*multiplier + i;
+            labelCount.text = "{multiplier} x";
+        }
+    }
+
+    function button1OnMouseClicked (event: javafx .scene.input.MouseEvent): Void {
+        numberClicked(1);
+    }
+
+    function button2OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(2);
+    }
+
+    function button3OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(3);
+    }
+
+    function button4OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(4);
+    }
+
+    function button5OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(5);
+    }
+
+    function button6OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(6);
+    }
+
+    function button7OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(7);
+    }
+
+    function button8OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(8);
+    }
+
+    function button9OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(9);
+    }
+
+    function button0OnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        numberClicked(0);
+    }
+
+    function buttonCOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        multiplier = -1;
+        labelCount.text = "1 x";
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Bill handling">
+
+    function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+    // ---------------------------------------------------
+    // This function adds an item selected from the menu
+    // to the last slot of an active bill
+    // ---------------------------------------------------
+        var length = 0;
+        while(listBill.items[length] != null){
+            length++;
+        }
+        if(length == 0){
+            listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+            activeBillNr = Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
+            Engine.addBillToTable(activeTableNr, activeBillNr);
+        }
+        listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
+    }
+
+    function listBillOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
+    // ---------------------------------------------------
+    // This function deletes selected item from the bill
+    // ---------------------------------------------------
+        listBill.items[listBill.selectedIndex] = null;
+        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0);
+    }
+    
     function buttonBillFinalizeAction(): Void {
         //TODO
         while(Engine.billsListFromTable(activeTableNr).isEmpty()){
             Engine.removeBillFromTable(activeTableNr, activeBillNr);
         }
     }
+    
+    // </editor-fold>
 
-    function colourTable(nr: Integer, table:javafx.scene.shape.Circle){
-        if(Engine.billsListFromTable(nr).isEmpty()) {
-            table.fill = colorGreen;
-        }
-        else {
-            if(Engine.checkWhoServesTable(nr)==loggedId) {
-                table.fill = colorYellow;
-            }
-            else{
-                table.fill = colorRed;
-            }
-        }
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="Table Pick">
     function pickTable(nr: Integer){
     // ---------------------------------------------------
     // This function handles waiter table selection
@@ -704,83 +814,16 @@ public class Main {
                 activeTableNr = nr;
                 activeBillNr = Engine.billsListFromTable(nr).get(0);
                 //clearList(listBill);
-                var i = 0;
-                while (Engine.printBill(activeBillNr)[i] != null){
-                    listBill.items[i] = Engine.printBill(activeBillNr)[i];
+                var i: Integer;
+                while(i<Engine.printBill(activeBillNr).size()){
+                    listBill.items[i] = Engine.printBill(activeBillNr).get(i);
+                    i++
                 }
             }
             else{
 
             }
         }
-    }
-
-    function buttonBackAction(): Void {
-        currentState.previous();
-    }
-
-    function scenePre_CreationCode(): Void {
-        Engine.createDB();
-    }
-
-    function clearList(list: javafx.scene.control.ListView){
-        while(list.items[0] != null){
-            list.items[0] = null;
-        }
-    }
-
-    function printList(oldList: ArrayList){
-        var newList: ArrayList;
-        var countList: Integer[];
-        var onList: Boolean;
-        var i: Integer = 0;
-        var j: Integer = 0;
-        var finalList: ArrayList;
-        //var newListSize: Integer = 0;
-        while(i < oldList.size()){
-            j = 0;
-            onList = false;
-            while (j<newList.size()){
-                if(oldList.get(i) == newList.get(j)){
-                    countList[j]++;
-                    onList = true;
-                }
-            }
-            if(not onList){
-                newList.add(oldList.get(i));
-                countList[newList.size()] = 1;
-            }
-        }
-        j = 0;
-        while (j<newList.size()){
-            finalList.add("{countList[j].toString()}x {newList.get(j).toString()}");
-        }
-        return finalList;
-    }
-
-    function listBilOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
-    // ---------------------------------------------------
-    // This function deletes selected item from the bill
-    // ---------------------------------------------------
-        listBill.items[listBill.selectedIndex] = null;
-        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0);
-    }
-
-    function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
-    // ---------------------------------------------------
-    // This function adds an item selected from the menu
-    // to the last slot of an active bill
-    // ---------------------------------------------------
-        var length = 0;
-        while(listBill.items[length] != null){
-            length++;
-        }
-        if(length == 0){
-            listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-            activeBillNr = Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
-        }
-        listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
-        Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId);
     }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
@@ -802,13 +845,29 @@ public class Main {
     function table5OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
         pickTable(5);
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Login/Logout + table coloring">
     function buttonLogoutAction(): Void {
     // ---------------------------------------------------
     // This function logs out current user
     // ---------------------------------------------------
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
+    }
+
+    function colourTable(nr: Integer, table:javafx.scene.shape.Circle){
+        if(Engine.billsListFromTable(nr).isEmpty()) {
+            table.fill = colorGreen;
+        }
+        else {
+            if(Engine.checkWhoServesTable(nr)==loggedId) {
+                table.fill = colorYellow;
+            }
+            else{
+                table.fill = colorRed;
+            }
+        }
     }
 
     function buttonActionAtlogin(): Void {
@@ -828,5 +887,38 @@ public class Main {
             colourTable(4,table4);
             colourTable(5,table5);
         };
-}
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Bin">
+
+//    function printList(oldList: ArrayList){
+//        var newList: ArrayList;
+//        var countList: Integer[];
+//        var onList: Boolean;
+//        var i: Integer = 0;
+//        var j: Integer = 0;
+//        var finalList: ArrayList;
+//        //var newListSize: Integer = 0;
+//        while(i < oldList.size()){
+//            j = 0;
+//            onList = false;
+//            while (j<newList.size()){
+//                if(oldList.get(i) == newList.get(j)){
+//                    countList[j]++;
+//                    onList = true;
+//                }
+//            }
+//            if(not onList){
+//                newList.add(oldList.get(i));
+//                countList[newList.size()] = 1;
+//            }
+//        }
+//        j = 0;
+//        while (j<newList.size()){
+//            finalList.add("{countList[j].toString()}x {newList.get(j).toString()}");
+//        }
+//        return finalList;
+//    }
+    // </editor-fold>
 };
