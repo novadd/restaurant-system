@@ -454,6 +454,7 @@
         <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:243.0,4,null,"/>
         <Reference name="layoutY" value="prop:15,anim:,,flt:61.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table2OnMouseClickedAtwaiterTablePick,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel5,4,null,"/>
@@ -465,6 +466,7 @@
         <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:366.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:149.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table3OnMouseClickedAtwaiterTablePick,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel4,4,null,"/>
@@ -476,6 +478,7 @@
         <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:271.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:241.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table4OnMouseClickedAtwaiterTablePick,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel3,4,null,"/>
@@ -487,6 +490,7 @@
         <Reference name="visible" value="prop:16,anim:,,bool:true,4,null,"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:135.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:229.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel2,48,anim:,,str:table5OnMouseClickedAtwaiterTablePick,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel4,4,null,"/>
