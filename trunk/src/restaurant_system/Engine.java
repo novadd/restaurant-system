@@ -169,7 +169,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM employees");
             while (rs.next()) {
-                list.add(rs.getString("id"));
+                list.add(rs.getInt("id"));
             }
             rs.close();
             statement.close();
