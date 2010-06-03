@@ -162,8 +162,8 @@ public class Engine {
         return function;
     }
     
-    public static Integer[] loginListID() {
-        ArrayList list = new ArrayList<Integer>();
+    public static int[] loginListID() {
+        ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
@@ -178,7 +178,10 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        Integer[] ret = (Integer[])list.toArray(new Integer[0]);
+        int[] ret = new int[list.size()];
+        for (int i=0; i<list.size(); i++) {
+            ret[i] = ((Integer)list.get(i)).intValue();
+        }
         return ret;
     }
 
