@@ -600,6 +600,10 @@ public class Main {
                                 ]
                                 action: function() {
                                     table1.onMouseClicked = table1OnMouseClickedAtwaiterTablePick;
+                                    table2.onMouseClicked = table2OnMouseClickedAtwaiterTablePick;
+                                    table3.onMouseClicked = table3OnMouseClickedAtwaiterTablePick;
+                                    table4.onMouseClicked = table4OnMouseClickedAtwaiterTablePick;
+                                    table5.onMouseClicked = table5OnMouseClickedAtwaiterTablePick;
                                     listLogin.select (-1);
                                     buttonLogin.text = "Login";
                                 }
@@ -666,13 +670,57 @@ public class Main {
         }
     }
 
+    function colourTable(nr: Integer, table:javafx.scene.shape.Circle){
+        if(Engine.billsListFromTable(nr).isEmpty()) {
+            table.fill = colorGreen;
+        }
+        else {
+            if(Engine.checkWhoServesTable(nr)==loggedId) {
+                table.fill = colorYellow;
+            }
+            else{
+                table.fill = colorRed;
+            }
+        }
+    }
+
+    function pickTable(nr: Integer){
+    // ---------------------------------------------------
+    // This function handles waiter table selection
+    // green - free table -> click: opens a new bill
+    // yellow - logged in waiter's table -> click: opens
+    //                                      existing bill
+    // red - other waiter's table -> click: shows the name
+    //                               of the waiter
+    // ---------------------------------------------------
+        if(Engine.billsListFromTable(nr).isEmpty()) {
+            currentState.actual = currentState.findIndex("waiterTable");
+            activeTableNr = nr;
+            clearList(listBill);
+        }
+        else {
+            if(Engine.checkWhoServesTable(nr)==loggedId) {
+                currentState.actual = currentState.findIndex("waiterTable");
+                activeTableNr = nr;
+                activeBillNr = Engine.billsListFromTable(nr).get(0);
+                //clearList(listBill);
+                var i = 0;
+                while (Engine.printBill(activeBillNr)[i] != null){
+                    listBill.items[i] = Engine.printBill(activeBillNr)[i];
+                }
+            }
+            else{
+
+            }
+        }
+    }
+
     function buttonBackAction(): Void {
         currentState.previous();
     }
 
     function scenePre_CreationCode(): Void {
         Engine.createDB();
-        table2.fill = colorGreen;
     }
 
     function clearList(list: javafx.scene.control.ListView){
@@ -681,12 +729,41 @@ public class Main {
         }
     }
 
+    function printList(oldList: ArrayList){
+        var newList: ArrayList;
+        var countList: Integer[];
+        var onList: Boolean;
+        var i: Integer = 0;
+        var j: Integer = 0;
+        var finalList: ArrayList;
+        //var newListSize: Integer = 0;
+        while(i < oldList.size()){
+            j = 0;
+            onList = false;
+            while (j<newList.size()){
+                if(oldList.get(i) == newList.get(j)){
+                    countList[j]++;
+                    onList = true;
+                }
+            }
+            if(not onList){
+                newList.add(oldList.get(i));
+                countList[newList.size()] = 1;
+            }
+        }
+        j = 0;
+        while (j<newList.size()){
+            finalList.add("{countList[j].toString()}x {newList.get(j).toString()}");
+        }
+        return finalList;
+    }
+
     function listBilOnMouseClickedAtwaiterTable(event: javafx.scene.input.MouseEvent): Void {
     // ---------------------------------------------------
     // This function deletes selected item from the bill
     // ---------------------------------------------------
         listBill.items[listBill.selectedIndex] = null;
-        Engine.removeFromBill(activeBillNr, listBill, 0);
+        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0);
     }
 
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
@@ -707,29 +784,23 @@ public class Main {
     }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-    // ---------------------------------------------------
-    // This function handles waiter table selection
-    // green - free table -> click: opens a new bill
-    // yellow - logged in waiter's table -> click: opens
-    //                                      existing bill
-    // red - other waiter's table -> click: shows the name
-    //                               of the waiter
-    // ---------------------------------------------------
-        if(Engine.billsListFromTable(1).isEmpty()) {
-            currentState.actual = currentState.findIndex("waiterTable");
-            activeTableNr = 1;
-            clearList(listBill);
-        }
-        else {
-            currentState.actual = currentState.findIndex("waiterTable");
-            activeTableNr = 1;
-            activeBillNr = Engine.billsListFromTable(1);
-            //clearList(listBill);
-            var i = 0;
-            while (Engine.printBill(activeBillNr)[i] != null){
-                listBill.items[i] = Engine.printBill(activeBillNr)[i];
-            }
-        }
+        pickTable(1);
+    }
+
+    function table2OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
+        pickTable(2);
+    }
+
+    function table3OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
+        pickTable(3);
+    }
+
+    function table4OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
+        pickTable(4);
+    }
+
+    function table5OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
+        pickTable(5);
     }
 
     function buttonLogoutAction(): Void {
@@ -750,13 +821,12 @@ public class Main {
         loggedId = listLogin.selectedIndex;
         if(loggedId != -1){
             labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
-            //... = String.valueOf(loggedId);
             currentState.actual = currentState.findIndex("waiterTablePick");
-            //var length = 0;
-            //while(listBill.items[length] != null){
-            //    length++;
-            //}
-            //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
+            colourTable(1,table1);
+            colourTable(2,table2);
+            colourTable(3,table3);
+            colourTable(4,table4);
+            colourTable(5,table5);
         };
 }
 };
