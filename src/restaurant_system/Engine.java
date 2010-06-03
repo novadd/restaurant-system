@@ -76,7 +76,6 @@ public class Engine {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `tables` (" +
                     "   `table_id` int(11) NOT NULL," +
                     "   `bill_id` int(11) NOT NULL," +
-                    "   `status` text NOT NULL," +
                     "   PRIMARY KEY (`table_id`,`bill_id`)" +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
             statement.close();
