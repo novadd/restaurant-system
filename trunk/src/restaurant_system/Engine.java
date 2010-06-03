@@ -258,7 +258,7 @@ public class Engine {
         return list.toArray();
     }
 
-    public static Object[] printBill(Object billID) {
+    public static ArrayList printBill(Object billID) {
         ArrayList list = new ArrayList();
         Double sum=0.0;
         Connection conn = connect();
@@ -282,7 +282,7 @@ public class Engine {
         }
         close(conn);
         list.add("Sum: " + sum + " zł");
-        return list.toArray();
+        return list;
     }
 
     public static Object addToBill(Object billID, Object menuID, Object discountID, Object waiterID) {
