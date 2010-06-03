@@ -380,8 +380,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM tables "
-                + "WHERE table_id=" + tableID.toString() + "AND bill_id=" + billID.toString() + " "
-                + "LIMIT 1");
+                + "WHERE table_id=" + tableID.toString() + "AND bill_id=" + billID.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
