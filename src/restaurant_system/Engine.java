@@ -178,7 +178,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        Integer[] ret = (Integer[])list.toArray();
+        Integer[] ret = (Integer[])list.toArray(new Integer[0]);
         return ret;
     }
 
