@@ -268,7 +268,7 @@ public class Engine {
                     " FROM bills " +
                     " LEFT JOIN discounts ON discounts.id = bills.discount_id " +
                     " LEFT JOIN menu ON bills.menu_id = menu.id " +
-                    " WHERE bills.bill_id = " + billID +
+                    " WHERE bills.bill_id = " + billID.toString() +
                     " GROUP BY bills.menu_id, bills.discount_id ");
             while (rs.next()) {
                 list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))) + " zł)");
