@@ -130,6 +130,20 @@
             <Item value="inst:LabelModel1"/>
             <Item value="inst:ButtonModel1"/>
             <Item value="inst:ButtonModel2"/>
+            <Item value="inst:ButtonModel3"/>
+            <Item value="inst:ButtonModel4"/>
+            <Item value="inst:ButtonModel5"/>
+            <Item value="inst:ButtonModel6"/>
+            <Item value="inst:ButtonModel7"/>
+            <Item value="inst:ButtonModel8"/>
+            <Item value="inst:ButtonModel9"/>
+            <Item value="inst:ButtonModel10"/>
+            <Item value="inst:ButtonModel11"/>
+            <Item value="inst:ButtonModel12"/>
+            <Item value="inst:ButtonModel13"/>
+            <Item value="inst:ToggleButtonModel1"/>
+            <Item value="inst:ButtonModel14"/>
+            <Item value="inst:LabelModel2"/>
         </List>
     </Instance>
     <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel1">
@@ -209,6 +223,183 @@
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
         <Reference name="text" value="prop:12,anim:,,str:&gt;,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel3">
+        <Reference name="instanceName" value="str:buttonBillFinalize"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:392.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:273.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:19,anim:,,str:Finalize,4,null,"/>
+        <Reference name="action" value="prop:35,anim:,,str:buttonBillFinalizeAction,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel4">
+        <Reference name="instanceName" value="str:button1"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:30.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:1,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel5">
+        <Reference name="instanceName" value="str:button2"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:53.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:2,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel6">
+        <Reference name="instanceName" value="str:button3"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:76.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:3,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel7">
+        <Reference name="instanceName" value="str:button4"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:30.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:62.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:4,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel8">
+        <Reference name="instanceName" value="str:button5"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:53.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:62.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:5,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel9">
+        <Reference name="instanceName" value="str:button6"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:76.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:62.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:6,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel10">
+        <Reference name="instanceName" value="str:button7"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:30.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:89.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:7,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel11">
+        <Reference name="instanceName" value="str:button8"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:53.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:89.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:8,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel12">
+        <Reference name="instanceName" value="str:button9"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:76.0,4,null,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:89.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:9,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel13">
+        <Reference name="instanceName" value="str:button0"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:53.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:116.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:0,4,null,"/>
+    </Instance>
+    <Instance classID="ToggleButtonModel" instanceID="ToggleButtonModel1">
+        <Reference name="instanceName" value="str:toggleButtonLocked"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:30.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:116.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:L,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel14">
+        <Reference name="instanceName" value="str:buttonC"/>
+        <Reference name="translateX" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="translateY" value="prop:14,anim:,,flt:0.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:76.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:116.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:C,4,null,"/>
+    </Instance>
+    <Instance classID="LabelModel" instanceID="LabelModel2">
+        <Reference name="instanceName" value="str:labelCount"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:38.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:146.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:47.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:22.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:12,anim:,,str:1,4,null,"/>
+        <Reference name="font" value="prop:22,anim:,,inst:FontModel1,4,null,"/>
+        <Reference name="hpos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
+        <Reference name="vpos" value="prop:18,anim:,,vpos:CENTER,4,null,"/>
+        <Reference name="graphicHPos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
+        <Reference name="graphicVPos" value="prop:18,anim:,,vpos:CENTER,4,null,"/>
+        <Reference name="textFill" value="prop:11,anim:,,null,4,null,"/>
     </Instance>
     <Instance classID="PanelModel" instanceID="PanelModel2">
         <Reference name="instanceName" value="str:waiterTables"/>
@@ -313,7 +504,7 @@
         <List name="content">
             <Item value="inst:RectangleShapeModel3"/>
             <Item value="inst:ListViewModel4"/>
-            <Item value="inst:ButtonModel3"/>
+            <Item value="inst:ButtonModel15"/>
             <Item value="inst:ListViewModel5"/>
         </List>
     </Instance>
@@ -344,7 +535,7 @@
         <Reference name="items" value="prop:25,animcode:,,listLoginItems,4,null,"/>
         <Reference name="selectedIndex" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel3,12,anim:,,int:0,"/>
     </Instance>
-    <Instance classID="ButtonModel" instanceID="ButtonModel3">
+    <Instance classID="ButtonModel" instanceID="ButtonModel15">
         <Reference name="instanceName" value="str:buttonLogin"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:139.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:267.0,4,null,"/>
@@ -376,8 +567,9 @@
         <Reference name="postCreationCode" value="null"/>
         <List name="content">
             <Item value="inst:RectangleShapeModel4"/>
-            <Item value="inst:ButtonModel4"/>
-            <Item value="inst:LabelModel2"/>
+            <Item value="inst:ButtonModel16"/>
+            <Item value="inst:ButtonModel17"/>
+            <Item value="inst:LabelModel3"/>
         </List>
     </Instance>
     <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel4">
@@ -394,17 +586,29 @@
         <Reference name="arcWidth" value="prop:15,anim:,,flt:12.0,4,null,"/>
         <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
     </Instance>
-    <Instance classID="ButtonModel" instanceID="ButtonModel4">
+    <Instance classID="ButtonModel" instanceID="ButtonModel16">
+        <Reference name="instanceName" value="str:buttonBack"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:133.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:133.0,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:-15.0,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:31.0,"/>
+        <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:58.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:24.0,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:15,anim:,,str:Back,4,null,"/>
+        <Reference name="action" value="prop:27,anim:,,str:buttonBackAction,4,null,"/>
+    </Instance>
+    <Instance classID="ButtonModel" instanceID="ButtonModel17">
         <Reference name="instanceName" value="str:buttonLogout"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:133.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:133.0,"/>
-        <Reference name="layoutY" value="prop:15,anim:,,flt:15.0,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:56.0,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:15.0,24,inst:StateVariableModel1,16,inst:StateModel1,15,anim:,,flt:62.0,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
         <Reference name="text" value="prop:17,anim:,,str:Logout,4,null,"/>
         <Reference name="action" value="prop:29,anim:,,str:buttonLogoutAction,4,null,"/>
     </Instance>
-    <Instance classID="LabelModel" instanceID="LabelModel2">
+    <Instance classID="LabelModel" instanceID="LabelModel3">
         <Reference name="instanceName" value="str:labelLogin"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:133.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:133.0,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:-35.0,24,inst:StateVariableModel1,16,inst:StateModel1,14,anim:,,flt:9.0,"/>

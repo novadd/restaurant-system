@@ -13,6 +13,15 @@ import java.util.ArrayList;
  */
 public class Main {
 
+    public-read var loggedId: Integer;
+    public-read var billId: Integer;
+    var listLoginItems: Object[] = Engine.loginList();
+    var listLoginIDItems: Object[] = Engine.loginListID();
+    var listMenuItems: Object[] = Engine.menuList();
+    var listMenuIDItems: Object[] = Engine.menuListID();
+    var activeTableNr: Integer;
+    var activeBillNr: Object;
+
     public-read var rectangle: javafx.scene.shape.Rectangle;//GEN-BEGIN:main
     public-read var listMenu: javafx.scene.control.ListView;
     public-read var listBill: javafx.scene.control.ListView;
@@ -20,6 +29,20 @@ public class Main {
     public-read var billNr: javafx.scene.control.Label;
     public-read var previousBill: javafx.scene.control.Button;
     public-read var nextBill: javafx.scene.control.Button;
+    public-read var buttonBillFinalize: javafx.scene.control.Button;
+    public-read var button1: javafx.scene.control.Button;
+    public-read var button2: javafx.scene.control.Button;
+    public-read var button3: javafx.scene.control.Button;
+    public-read var button4: javafx.scene.control.Button;
+    public-read var button5: javafx.scene.control.Button;
+    public-read var button6: javafx.scene.control.Button;
+    public-read var button7: javafx.scene.control.Button;
+    public-read var button8: javafx.scene.control.Button;
+    public-read var button9: javafx.scene.control.Button;
+    public-read var button0: javafx.scene.control.Button;
+    public-read var toggleButtonLocked: javafx.scene.control.ToggleButton;
+    public-read var buttonC: javafx.scene.control.Button;
+    public-read var labelCount: javafx.scene.control.Label;
     public-read var waiterTable: javafx.scene.layout.Panel;
     public-read var rectangle2: javafx.scene.shape.Rectangle;
     public-read var table1: javafx.scene.shape.Circle;
@@ -34,6 +57,7 @@ public class Main {
     public-read var listLoginID: javafx.scene.control.ListView;
     public-read var login: javafx.scene.layout.Panel;
     public-read var rectangle4: javafx.scene.shape.Rectangle;
+    public-read var buttonBack: javafx.scene.control.Button;
     public-read var buttonLogout: javafx.scene.control.Button;
     public-read var labelLogin: javafx.scene.control.Label;
     public-read var logout: javafx.scene.layout.Panel;
@@ -96,6 +120,162 @@ public class Main {
             layoutY: 3.0
             text: ">"
         };
+        buttonBillFinalize = javafx.scene.control.Button {
+            layoutX: 392.0
+            layoutY: 273.0
+            text: "Finalize"
+            action: buttonBillFinalizeAction
+        };
+        button1 = javafx.scene.control.Button {
+            layoutX: 30.0
+            layoutY: 35.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button1.width
+                height: bind button1.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "1"
+        };
+        button2 = javafx.scene.control.Button {
+            layoutX: 53.0
+            layoutY: 35.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button2.width
+                height: bind button2.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "2"
+        };
+        button3 = javafx.scene.control.Button {
+            layoutX: 76.0
+            layoutY: 35.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button3.width
+                height: bind button3.height
+            }
+            text: "3"
+        };
+        button4 = javafx.scene.control.Button {
+            layoutX: 30.0
+            layoutY: 62.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button4.width
+                height: bind button4.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "4"
+        };
+        button5 = javafx.scene.control.Button {
+            layoutX: 53.0
+            layoutY: 62.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button5.width
+                height: bind button5.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "5"
+        };
+        button6 = javafx.scene.control.Button {
+            layoutX: 76.0
+            layoutY: 62.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button6.width
+                height: bind button6.height
+            }
+            text: "6"
+        };
+        button7 = javafx.scene.control.Button {
+            layoutX: 30.0
+            layoutY: 89.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button7.width
+                height: bind button7.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "7"
+        };
+        button8 = javafx.scene.control.Button {
+            layoutX: 53.0
+            layoutY: 89.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button8.width
+                height: bind button8.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "8"
+        };
+        button9 = javafx.scene.control.Button {
+            layoutX: 76.0
+            layoutY: 89.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button9.width
+                height: bind button9.height
+            }
+            text: "9"
+        };
+        button0 = javafx.scene.control.Button {
+            layoutX: 53.0
+            layoutY: 116.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button0.width
+                height: bind button0.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "0"
+        };
+        toggleButtonLocked = javafx.scene.control.ToggleButton {
+            layoutX: 30.0
+            layoutY: 116.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind toggleButtonLocked.width
+                height: bind toggleButtonLocked.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "L"
+        };
+        buttonC = javafx.scene.control.Button {
+            layoutX: 76.0
+            layoutY: 116.0
+            width: 17.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind buttonC.width
+                height: bind buttonC.height
+            }
+            translateX: 0.0
+            translateY: 0.0
+            text: "C"
+        };
         listLogin = javafx.scene.control.ListView {
             layoutX: 139.0
             layoutY: 9.0
@@ -128,6 +308,18 @@ public class Main {
                 height: bind listLoginID.height
             }
             items: listLoginIDItems
+        };
+        buttonBack = javafx.scene.control.Button {
+            layoutX: 133.0
+            layoutY: -15.0
+            width: 58.0
+            height: 24.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind buttonBack.width
+                height: bind buttonBack.height
+            }
+            text: "Back"
+            action: buttonBackAction
         };
         buttonLogout = javafx.scene.control.Button {
             layoutX: 133.0
@@ -170,7 +362,7 @@ public class Main {
                 width: bind logout.width
                 height: bind logout.height
             }
-            content: [ rectangle4, buttonLogout, labelLogin, ]
+            content: [ rectangle4, buttonBack, buttonLogout, labelLogin, ]
         };
         rectangle3 = javafx.scene.shape.Rectangle {
             layoutX: 2.0
@@ -226,6 +418,23 @@ public class Main {
         fontStandard = javafx.scene.text.Font {
             size: 18.0
         };
+        labelCount = javafx.scene.control.Label {
+            layoutX: 38.0
+            layoutY: 146.0
+            width: 47.0
+            height: 22.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind labelCount.width
+                height: bind labelCount.height
+            }
+            text: "1"
+            font: fontStandard
+            hpos: javafx.geometry.HPos.CENTER
+            vpos: javafx.geometry.VPos.CENTER
+            graphicHPos: javafx.geometry.HPos.CENTER
+            graphicVPos: javafx.geometry.VPos.CENTER
+            textFill: null
+        };
         billNr = javafx.scene.control.Label {
             layoutX: 357.0
             layoutY: 3.0
@@ -242,7 +451,7 @@ public class Main {
                 width: bind waiterTable.width
                 height: bind waiterTable.height
             }
-            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, ]
+            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, buttonBillFinalize, button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, toggleButtonLocked, buttonC, labelCount, ]
         };
         colorGreen = javafx.scene.paint.Color {
             red: 0.0
@@ -343,8 +552,10 @@ public class Main {
                                     login.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutY => 31.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    buttonLogout.layoutY => 56.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutY => 62.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     labelLogin.layoutY => 9.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutX => -112.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -378,6 +589,8 @@ public class Main {
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutY => -15.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonLogout.layoutY => 15.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -413,6 +626,8 @@ public class Main {
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutY => -15.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonLogout.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonLogout.layoutY => 15.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     labelLogin.layoutX => 133.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -444,14 +659,16 @@ public class Main {
         scene
     }// </editor-fold>//GEN-END:main
 
-    public-read var loggedId: Integer;
-    public-read var billId: Integer;
-    var listLoginItems: Object[] = Engine.loginList();
-    var listLoginIDItems: Object[] = Engine.loginListID();
-    var listMenuItems: Object[] = Engine.menuList();
-    var listMenuIDItems: Object[] = Engine.menuListID();
-    var activeTableNr: Integer;
-    var activeBillNr: Object;
+    function buttonBillFinalizeAction(): Void {
+        //TODO
+        while(Engine.billsListFromTable(activeTableNr).isEmpty()){
+            Engine.removeBillFromTable(activeTableNr, activeBillNr);
+        }
+    }
+
+    function buttonBackAction(): Void {
+        currentState.previous();
+    }
 
     function scenePre_CreationCode(): Void {
         Engine.createDB();
@@ -498,8 +715,6 @@ public class Main {
     // red - other waiter's table -> click: shows the name
     //                               of the waiter
     // ---------------------------------------------------
-    var list: java.util.ArrayList;
-
         if(Engine.billsListFromTable(1).isEmpty()) {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = 1;
@@ -509,7 +724,7 @@ public class Main {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = 1;
             activeBillNr = Engine.billsListFromTable(1);
-            clearList(listBill);
+            //clearList(listBill);
             var i = 0;
             while (Engine.printBill(activeBillNr)[i] != null){
                 listBill.items[i] = Engine.printBill(activeBillNr)[i];
