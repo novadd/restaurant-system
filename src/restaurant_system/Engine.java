@@ -162,7 +162,7 @@ public class Engine {
         return function;
     }
     
-    public static Object[] loginListID() {
+    public static ArrayList[] loginListID() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -178,7 +178,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list.toArray();
+        return list;
     }
 
     public static String decodeMenuID(Object MenuID) {
