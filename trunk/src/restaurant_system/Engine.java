@@ -261,6 +261,29 @@ public class Engine {
         return list.toArray();
     }
 
+    public static ArrayList printBillMenuID(Object billID) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT menu.id " +
+                    " FROM bills " +
+                    " LEFT JOIN menu ON bills.menu_id = menu.id " +
+                    " WHERE bills.bill_id = " + billID.toString() +
+                    " GROUP BY bills.menu_id, bills.discount_id ");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
     public static ArrayList printBill(Object billID) {
         ArrayList list = new ArrayList();
         Double sum=0.0;
@@ -335,13 +358,13 @@ public class Engine {
         return billID;
     }
 
-    public static void removeFromBill(Object billID, Object menuID, Object discountID) {
+    public static void removeFromBill(Object billID, Object menuID, Object discountID, int howMany) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM restaurant.bills "+
                     "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
-                    " LIMIT 1 ");
+                    " LIMIT " + String.valueOf(howMany));
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -408,7 +431,7 @@ public class Engine {
                     " FROM `tables` LEFT JOIN bills ON tables.bill_id=bills.bill_id "
                     + "WHERE bills.waiter_id=" + tableID.toString() + " LIMIT 1");
             if (rs.next()) {
-                waiterID = (rs.getString("bill_id"));
+                waiterID = (rs.getString("waiter_id"));
             }
             rs.close();
             statement.close();
