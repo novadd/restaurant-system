@@ -13,13 +13,14 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    public-read var loggedId: Integer;
+    public-read var loggedId: Object;
     public-read var billId: Integer;
     var multiplier: Integer = -1;
     var listLoginItems: Object[] = Engine.loginList();
     var listLoginIDItems: Integer[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
+    var listBillIDStorage: Object[];
     var activeTableNr: Integer;
     var activeBillNr: Object;
 
@@ -51,6 +52,7 @@ public class Main {
     public-read var table3: javafx.scene.shape.Circle;
     public-read var table4: javafx.scene.shape.Circle;
     public-read var table5: javafx.scene.shape.Circle;
+    public-read var labelWhoServes: javafx.scene.control.Label;
     public-read var waiterTables: javafx.scene.layout.Panel;
     public-read var rectangle3: javafx.scene.shape.Rectangle;
     public-read var listLogin: javafx.scene.control.ListView;
@@ -289,6 +291,25 @@ public class Main {
             translateY: 0.0
             text: "C"
         };
+        labelWhoServes = javafx.scene.control.Label {
+            layoutX: -100.0
+            layoutY: -100.0
+            width: 100.0
+            height: 100.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind labelWhoServes.width
+                height: bind labelWhoServes.height
+            }
+            onMouseClicked: labelWhoServesOnMouseExited
+            effect: null
+            text: "Label"
+            font: null
+            textAlignment: javafx.scene.text.TextAlignment.CENTER
+            hpos: javafx.geometry.HPos.CENTER
+            vpos: javafx.geometry.VPos.CENTER
+            graphicHPos: javafx.geometry.HPos.CENTER
+            graphicVPos: javafx.geometry.VPos.CENTER
+        };
         listLogin = javafx.scene.control.ListView {
             layoutX: 139.0
             layoutY: 9.0
@@ -323,10 +344,10 @@ public class Main {
             items: listLoginIDItems
         };
         debugger = javafx.scene.control.Label {
-            layoutX: 71.0
-            layoutY: 351.0
-            width: 361.0
-            height: 46.0
+            layoutX: 14.0
+            layoutY: 344.0
+            width: 972.0
+            height: 61.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind debugger.width
                 height: bind debugger.height
@@ -417,6 +438,7 @@ public class Main {
             layoutY: 1.0
             effect: dropShadowEffect
             fill: colorBackground
+            smooth: true
             stroke: colorBlack
             strokeLineCap: javafx.scene.shape.StrokeLineCap.SQUARE
             x: -2.0
@@ -540,7 +562,7 @@ public class Main {
                 width: bind waiterTables.width
                 height: bind waiterTables.height
             }
-            content: [ rectangle2, table1, table2, table3, table4, table5, ]
+            content: [ rectangle2, table1, table2, table3, table4, table5, labelWhoServes, ]
         };
         scenePre_CreationCode();
         scene = javafx.scene.Scene {
@@ -824,7 +846,7 @@ public class Main {
     // This function deletes selected item from the bill
     // ---------------------------------------------------
         listBill.items[listBill.selectedIndex] = null;
-        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0);
+        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0, 1);
     }
     
     function buttonBillFinalizeAction(): Void {
@@ -835,7 +857,7 @@ public class Main {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Table Pick">
-    function pickTable(nr: Integer){
+    function pickTable(nr: Integer, table: javafx.scene.shape.Circle){
     // ---------------------------------------------------
     // This function handles waiter table selection
     // green - free table -> click: opens a new bill
@@ -844,47 +866,61 @@ public class Main {
     // red - other waiter's table -> click: shows the name
     //                               of the waiter
     // ---------------------------------------------------
-        if(Engine.billsListFromTable(nr).isEmpty()) {
+        debugger.text = "tableNr={nr}\nloggedId={loggedId}\nwhoServesTable={Engine.checkWhoServesTable(nr)}";
+        if(Engine.checkWhoServesTable(nr)==null) {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = nr;
             clearList(listBill);
         }
+
+//        if(Engine.billsListFromTable(nr).isEmpty()) {
+//            currentState.actual = currentState.findIndex("waiterTable");
+//            activeTableNr = nr;
+//            clearList(listBill);
+//        }
         else {
-            if(Engine.checkWhoServesTable(nr)==loggedId) {
+            if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
+                    debugger.text="{debugger.text}\nEngine.billsListFromTable(nr).get(0)";
                 currentState.actual = currentState.findIndex("waiterTable");
                 activeTableNr = nr;
                 activeBillNr = Engine.billsListFromTable(nr).get(0);
                 clearList(listBill);
-                var i: Integer;
+                var i: Integer = 0;
                 while(i<Engine.printBill(activeBillNr).size()){
                     listBill.items[i] = Engine.printBill(activeBillNr).get(i);
                     i++
                 }
             }
             else{
-
+                labelWhoServes.layoutX = table.layoutX-labelWhoServes.width/2;
+                labelWhoServes.layoutY = table.layoutY-labelWhoServes.height/2;
             }
         }
     }
 
     function table1OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        pickTable(1);
+        pickTable(1, table1);
     }
 
     function table2OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        pickTable(2);
+        pickTable(2, table2);
     }
 
     function table3OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        pickTable(3);
+        pickTable(3, table3);
     }
 
     function table4OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        pickTable(4);
+        pickTable(4, table4);
     }
 
     function table5OnMouseClickedAtwaiterTablePick(event: javafx.scene.input.MouseEvent): Void {
-        pickTable(5);
+        pickTable(5, table5);
+    }
+
+    function labelWhoServesOnMouseExited(event: javafx.scene.input.MouseEvent): Void {
+        labelWhoServes.layoutX = -100;
+        labelWhoServes.layoutY = -100;
     }
     // </editor-fold>
 
@@ -898,11 +934,12 @@ public class Main {
     }
 
     function colourTable(nr: Integer, table:javafx.scene.shape.Circle){
-        if(Engine.billsListFromTable(nr).isEmpty()) {
+        if(Engine.checkWhoServesTable(nr)==null) {
             table.fill = colorGreen;
         }
         else {
-            if(Engine.checkWhoServesTable(nr)==loggedId) {
+            debugger.text = "tableNr={nr}\nloggedId={loggedId}\nwhoServesTable={Engine.checkWhoServesTable(nr)}";
+            if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
                 table.fill = colorYellow;
             }
             else{
@@ -920,6 +957,7 @@ public class Main {
         
         loggedId = -1;
         loggedId = Engine.loginListID()[listLogin.selectedIndex];
+        debugger.text = "listLogin.selectedIndex={listLogin.selectedIndex};\nloginListID()={Engine.loginListID()[listLogin.selectedIndex]};\nloggedI={loggedId}";
 
         //loggedId = listLoginID.selectedItem (listLogin.selectedIndex);
         if(loggedId != -1){

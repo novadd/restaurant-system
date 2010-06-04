@@ -376,7 +376,6 @@
         <Reference name="layoutY" value="prop:16,anim:,,flt:160.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:15,anim:,,flt:17.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
-        <Reference name="onMouseClicked" value="prop:default"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
@@ -429,6 +428,7 @@
             <Item value="inst:CircleShapeModel3"/>
             <Item value="inst:CircleShapeModel4"/>
             <Item value="inst:CircleShapeModel5"/>
+            <Item value="inst:LabelModel3"/>
         </List>
     </Instance>
     <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel2">
@@ -439,6 +439,7 @@
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="fill" value="prop:23,anim:,,inst:ColorModel1,4,null,"/>
+        <Reference name="smooth" value="prop:16,anim:,,bool:true,4,null,"/>
         <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="strokeLineCap" value="prop:27,anim:,,strokelinecap:SQUARE,4,null,"/>
         <Reference name="x" value="prop:15,anim:,,flt:-2.0,24,inst:StateVariableModel1,16,inst:StateModel2,15,anim:,,flt:-2.0,16,inst:StateModel3,15,anim:,,flt:-2.0,"/>
@@ -510,6 +511,26 @@
         <Reference name="stroke" value="prop:23,anim:,,inst:ColorModel2,4,null,"/>
         <Reference name="radius" value="prop:15,anim:,,flt:25.0,4,null,"/>
     </Instance>
+    <Instance classID="LabelModel" instanceID="LabelModel3">
+        <Reference name="instanceName" value="str:labelWhoServes"/>
+        <Reference name="layoutX" value="prop:17,anim:,,flt:-100.0,4,null,"/>
+        <Reference name="layoutY" value="prop:17,anim:,,flt:-100.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:100.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:100.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:38,anim:,,str:labelWhoServesOnMouseExited,4,null,"/>
+        <Reference name="onMouseExited" value="prop:default"/>
+        <Reference name="effect" value="prop:11,anim:,,null,4,null,"/>
+        <Reference name="preCreationCode" value="null"/>
+        <Reference name="postCreationCode" value="null"/>
+        <Reference name="graphicNode" value="null"/>
+        <Reference name="text" value="prop:16,anim:,,str:Label,4,null,"/>
+        <Reference name="font" value="prop:11,anim:,,null,4,null,"/>
+        <Reference name="textAlignment" value="prop:23,anim:,,textalign:CENTER,4,null,"/>
+        <Reference name="hpos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
+        <Reference name="vpos" value="prop:18,anim:,,vpos:CENTER,4,null,"/>
+        <Reference name="graphicHPos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
+        <Reference name="graphicVPos" value="prop:18,anim:,,vpos:CENTER,4,null,"/>
+    </Instance>
     <Instance classID="PanelModel" instanceID="PanelModel3">
         <Reference name="instanceName" value="str:login"/>
         <Reference name="layoutX" value="prop:14,anim:,,flt:2.0,24,inst:StateVariableModel1,16,inst:StateModel2,14,anim:,,flt:2.0,16,inst:StateModel3,14,anim:,,flt:2.0,"/>
@@ -523,7 +544,7 @@
             <Item value="inst:ListViewModel4"/>
             <Item value="inst:ButtonModel15"/>
             <Item value="inst:ListViewModel5"/>
-            <Item value="inst:LabelModel3"/>
+            <Item value="inst:LabelModel4"/>
         </List>
     </Instance>
     <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel3">
@@ -575,12 +596,12 @@
         <Reference name="postCreationCode" value="null"/>
         <Reference name="items" value="prop:27,animcode:,,listLoginIDItems,4,null,"/>
     </Instance>
-    <Instance classID="LabelModel" instanceID="LabelModel3">
+    <Instance classID="LabelModel" instanceID="LabelModel4">
         <Reference name="instanceName" value="str:debugger"/>
-        <Reference name="layoutX" value="prop:15,anim:,,flt:71.0,4,null,"/>
-        <Reference name="layoutY" value="prop:16,anim:,,flt:351.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:361.0,4,null,"/>
-        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:46.0,4,null,"/>
+        <Reference name="layoutX" value="prop:15,anim:,,flt:14.0,4,null,"/>
+        <Reference name="layoutY" value="prop:16,anim:,,flt:344.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:972.0,4,null,"/>
+        <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:61.0,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
@@ -598,7 +619,7 @@
             <Item value="inst:RectangleShapeModel4"/>
             <Item value="inst:ButtonModel16"/>
             <Item value="inst:ButtonModel17"/>
-            <Item value="inst:LabelModel4"/>
+            <Item value="inst:LabelModel5"/>
         </List>
     </Instance>
     <Instance classID="RectangleShapeModel" instanceID="RectangleShapeModel4">
@@ -637,7 +658,7 @@
         <Reference name="text" value="prop:17,anim:,,str:Logout,4,null,"/>
         <Reference name="action" value="prop:29,anim:,,str:buttonLogoutAction,4,null,"/>
     </Instance>
-    <Instance classID="LabelModel" instanceID="LabelModel4">
+    <Instance classID="LabelModel" instanceID="LabelModel5">
         <Reference name="instanceName" value="str:labelLogin"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:133.0,24,inst:StateVariableModel1,16,inst:StateModel1,16,anim:,,flt:133.0,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:-35.0,24,inst:StateVariableModel1,16,inst:StateModel1,14,anim:,,flt:9.0,"/>
