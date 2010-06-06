@@ -429,7 +429,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id " +
                     " FROM `tables` LEFT JOIN bills ON tables.bill_id=bills.bill_id "
-                    + "WHERE bills.waiter_id=" + tableID.toString() + " LIMIT 1");
+                    + "WHERE tables.table_id=" + tableID.toString() + " LIMIT 1");
             if (rs.next()) {
                 waiterID = (rs.getString("waiter_id"));
             }
