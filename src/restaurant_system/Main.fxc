@@ -515,7 +515,7 @@
         <Reference name="instanceName" value="str:labelWhoServes"/>
         <Reference name="layoutX" value="prop:17,anim:,,flt:-100.0,4,null,"/>
         <Reference name="layoutY" value="prop:17,anim:,,flt:-100.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:100.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:150.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:100.0,4,null,"/>
         <Reference name="onMouseClicked" value="prop:38,anim:,,str:labelWhoServesOnMouseExited,4,null,"/>
         <Reference name="onMouseExited" value="prop:default"/>
@@ -525,7 +525,7 @@
         <Reference name="graphicNode" value="null"/>
         <Reference name="text" value="prop:16,anim:,,str:Label,4,null,"/>
         <Reference name="font" value="prop:11,anim:,,null,4,null,"/>
-        <Reference name="textAlignment" value="prop:23,anim:,,textalign:CENTER,4,null,"/>
+        <Reference name="textAlignment" value="prop:22,anim:,,textalign:RIGHT,4,null,"/>
         <Reference name="hpos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
         <Reference name="vpos" value="prop:18,anim:,,vpos:CENTER,4,null,"/>
         <Reference name="graphicHPos" value="prop:18,anim:,,hpos:CENTER,4,null,"/>
@@ -598,6 +598,7 @@
     </Instance>
     <Instance classID="LabelModel" instanceID="LabelModel4">
         <Reference name="instanceName" value="str:debugger"/>
+        <Reference name="visible" value="prop:17,anim:,,bool:false,4,null,"/>
         <Reference name="layoutX" value="prop:15,anim:,,flt:14.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:344.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:972.0,4,null,"/>

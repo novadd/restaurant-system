@@ -20,7 +20,7 @@ public class Main {
     var listLoginIDItems: Integer[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
-    var listBillIDStorage: Object[];
+    var listBillIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
 
@@ -294,7 +294,7 @@ public class Main {
         labelWhoServes = javafx.scene.control.Label {
             layoutX: -100.0
             layoutY: -100.0
-            width: 100.0
+            width: 150.0
             height: 100.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind labelWhoServes.width
@@ -304,7 +304,7 @@ public class Main {
             effect: null
             text: "Label"
             font: null
-            textAlignment: javafx.scene.text.TextAlignment.CENTER
+            textAlignment: javafx.scene.text.TextAlignment.RIGHT
             hpos: javafx.geometry.HPos.CENTER
             vpos: javafx.geometry.VPos.CENTER
             graphicHPos: javafx.geometry.HPos.CENTER
@@ -344,6 +344,7 @@ public class Main {
             items: listLoginIDItems
         };
         debugger = javafx.scene.control.Label {
+            visible: false
             layoutX: 14.0
             layoutY: 344.0
             width: 972.0
@@ -799,41 +800,42 @@ public class Main {
 
     // <editor-fold defaultstate="collapsed" desc="Bill handling">
 
+    function printBill(){
+        clearList(listBill);
+        var i: Integer = 0;
+        listBillIDStorage = Engine.printBillMenuID(activeBillNr);
+        while(i<Engine.printBillMenuID(activeBillNr).size()){
+                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
+                //listBillIDStorage.set(i, Engine.printBillMenuID(activeBillNr).get(i));
+                i++
+        }
+        // print "sum"
+        listBill.items[i+1] = Engine.printBill(activeBillNr).get(i);
+    };
+
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
     // ---------------------------------------------------
     // This function adds an item selected from the menu
     // to the last slot of an active bill
     // ---------------------------------------------------
         var length: Integer = 0;
-        var i: Integer = 0;
+        if(multiplier == -1){
+            multiplier = 1;
+        }
         while(listBill.items[length] != null){
             length++;
         }
         if(length == 0){
-            //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
             activeBillNr = Engine.addToBill(null, listMenuID.items[listMenu.selectedIndex], 0, loggedId, 1);
             if(multiplier > 1){
                 Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier - 1);
             }
             Engine.addBillToTable(activeTableNr, activeBillNr);
-            clearList(listBill);
-            i=0;
-            while(i<Engine.printBill(activeBillNr).size()){
-                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
-                i++;
-            }
-            //debugger.text = "activeTableNr {activeTableNr}, activeBillNr {activeBillNr}";
+            printBill();
         }
-        //debugger.text = "activeTableNr {activeTableNr}, activeBillNr {activeBillNr}";
-        //listBill.items[length] = Engine.decodeMenuID(listMenuID.items[listMenu.selectedIndex]);
         else {
             Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier);
-            clearList(listBill);
-            i = 0;
-            while(i<Engine.printBill(activeBillNr).size()){
-                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
-                i++
-            }
+            printBill();
         }
         if (not toggleButtonLocked.selected){
             multiplier = -1;
@@ -845,8 +847,17 @@ public class Main {
     // ---------------------------------------------------
     // This function deletes selected item from the bill
     // ---------------------------------------------------
-        listBill.items[listBill.selectedIndex] = null;
-        Engine.removeFromBill(activeBillNr, listBill.items[listBill.selectedIndex], 0, 1);
+        if(multiplier == -1){
+            multiplier = 1;
+        }
+        if(listBill.selectedIndex < listBillIDStorage.size()){
+            Engine.removeFromBill(activeBillNr, listBillIDStorage.get(listBill.selectedIndex), 0, multiplier);
+            printBill();
+        }
+        if (not toggleButtonLocked.selected){
+            multiplier = -1;
+            labelCount.text = "1 x";
+        }
     }
     
     function buttonBillFinalizeAction(): Void {
@@ -866,32 +877,20 @@ public class Main {
     // red - other waiter's table -> click: shows the name
     //                               of the waiter
     // ---------------------------------------------------
-        debugger.text = "tableNr={nr}\nloggedId={loggedId}\nwhoServesTable={Engine.checkWhoServesTable(nr)}";
         if(Engine.checkWhoServesTable(nr)==null) {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = nr;
             clearList(listBill);
         }
-
-//        if(Engine.billsListFromTable(nr).isEmpty()) {
-//            currentState.actual = currentState.findIndex("waiterTable");
-//            activeTableNr = nr;
-//            clearList(listBill);
-//        }
         else {
             if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
-                    debugger.text="{debugger.text}\nEngine.billsListFromTable(nr).get(0)";
                 currentState.actual = currentState.findIndex("waiterTable");
                 activeTableNr = nr;
                 activeBillNr = Engine.billsListFromTable(nr).get(0);
-                clearList(listBill);
-                var i: Integer = 0;
-                while(i<Engine.printBill(activeBillNr).size()){
-                    listBill.items[i] = Engine.printBill(activeBillNr).get(i);
-                    i++
-                }
+                printBill();
             }
             else{
+                labelWhoServes.text = "{Engine.decodeLoginIDName(Engine.checkWhoServesTable(nr))}\n{Engine.decodeLoginIDSurname(Engine.checkWhoServesTable(nr))}";
                 labelWhoServes.layoutX = table.layoutX-labelWhoServes.width/2;
                 labelWhoServes.layoutY = table.layoutY-labelWhoServes.height/2;
             }
@@ -938,7 +937,6 @@ public class Main {
             table.fill = colorGreen;
         }
         else {
-            debugger.text = "tableNr={nr}\nloggedId={loggedId}\nwhoServesTable={Engine.checkWhoServesTable(nr)}";
             if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
                 table.fill = colorYellow;
             }
@@ -957,9 +955,6 @@ public class Main {
         
         loggedId = -1;
         loggedId = Engine.loginListID()[listLogin.selectedIndex];
-        debugger.text = "listLogin.selectedIndex={listLogin.selectedIndex};\nloginListID()={Engine.loginListID()[listLogin.selectedIndex]};\nloggedI={loggedId}";
-
-        //loggedId = listLoginID.selectedItem (listLogin.selectedIndex);
         if(loggedId != -1){
             labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
             currentState.actual = currentState.findIndex("waiterTablePick");
