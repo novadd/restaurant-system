@@ -297,8 +297,8 @@ public class Engine {
                     " WHERE bills.bill_id = " + billID.toString() +
                     " GROUP BY bills.menu_id, bills.discount_id ");
             while (rs.next()) {
-                list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))) + " zł)");
-                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage")));
+                list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100) + " zł)");
+                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100);
             }
             rs.close();
             statement.close();
