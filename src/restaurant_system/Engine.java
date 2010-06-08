@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * @author Veermin
  */
 public class Engine {
+
+    // Odpowiada za łączenie z bazą danych
     private static Connection connect() {
         Connection conn = null;
         String url = "jdbc:mysql://localhost:3306/";
@@ -32,6 +34,7 @@ public class Engine {
         return conn;
     }
 
+    //Zamknięcie połączenia z bazą danych
     private static void close(Connection conn) {
         try {
             conn.close();
@@ -40,6 +43,7 @@ public class Engine {
         }
     }
 
+    //Tworzenie bazy danych, na początku działania programu
     public static void createDB() {
         Connection conn = connect();
         try {
@@ -86,7 +90,8 @@ public class Engine {
         }
         close(conn);
     }
-   
+
+    //Wyrzuca Array z nazwiskiem, imieniem i funcją pracowników
     public static Object[] loginList() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -106,6 +111,7 @@ public class Engine {
         return list.toArray();
     }
 
+    //Dekodujne imię z podanego LoginID
     public static String decodeLoginIDName(Object LoginID) {
         String name = new String();
         Connection conn = connect();
@@ -125,6 +131,7 @@ public class Engine {
         return name;
     }
 
+    //Dekodujne nazwisko z podanego LoginID
     public static String decodeLoginIDSurname(Object LoginID) {
         String surname = new String();
         Connection conn = connect();
@@ -144,6 +151,7 @@ public class Engine {
         return surname;
     }
 
+    //Dekodujne funckję z podanego LoginID
     public static String decodeLoginIDFunction(Object LoginID) {
         String function = new String();
         Connection conn = connect();
@@ -162,7 +170,8 @@ public class Engine {
         close(conn);
         return function;
     }
-    
+
+    //Wyrzuca w formie arraya ID pracowników (ta sama kolejność co w liście z nazwiskami)
     public static int[] loginListID() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -186,6 +195,7 @@ public class Engine {
         return ret;
     }
 
+    //Wydaje nazwe potrawy na podstawie jej ID
     public static String decodeMenuID(Object MenuID) {
         String name = new String();
         Connection conn = connect();
@@ -205,6 +215,7 @@ public class Engine {
         return name;
     }
 
+    //Lista menu z danej kategorii
     public static Object[] menuCategory(String category) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -224,6 +235,7 @@ public class Engine {
         return list.toArray();
     }
 
+    //cennik potraw
     public static Object[] menuList() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -243,6 +255,7 @@ public class Engine {
         return list.toArray();
     }
 
+    //id kolejnych potraw z cennika
     public static Object[] menuListID() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -262,6 +275,7 @@ public class Engine {
         return list.toArray();
     }
 
+    //id kolejnych potraw z danego rachunku
     public static ArrayList printBillMenuID(Object billID) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -285,6 +299,7 @@ public class Engine {
         return list;
     }
 
+    //wyswietlenie podsumowania rachunku
     public static ArrayList printBill(Object billID) {
         ArrayList list = new ArrayList();
         Double sum=0.0;
@@ -312,6 +327,7 @@ public class Engine {
         return list;
     }
 
+    //dodanie potrawy do rachunku
     public static Object addToBill(Object billID, Object menuID, Object discountID, Object waiterID, int howMany) {
         Connection conn = connect();
         if (billID!=null) {
@@ -359,6 +375,7 @@ public class Engine {
         return billID;
     }
 
+    //usuniecie potrawy z rachunku
     public static void removeFromBill(Object billID, Object menuID, Object discountID, int howMany) {
         Connection conn = connect();
         try {
@@ -374,6 +391,7 @@ public class Engine {
         close(conn);
     }
 
+    //wyswietla rachunki z danego stolika w formie listy
     public static ArrayList billsListFromTable(Object tableID) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -394,6 +412,7 @@ public class Engine {
         return list;
     }
 
+    //powiazanie stolika z rachunkiem
     public static void addBillToTable(Object tableID, Object billID) {
         Connection conn = connect();
         try {
@@ -409,6 +428,7 @@ public class Engine {
         close(conn);
     }
 
+    //usuniecie powiazania rachunku ze stolikiem
     public static void removeBillFromTable(Object tableID, Object billID) {
         Connection conn = connect();
         try {
@@ -423,6 +443,7 @@ public class Engine {
         close(conn);
     }
 
+    //sprawdzenie kto obsluguje dany stolik
     public static Object checkWhoServesTable(Object tableID) {
         Object waiterID = null;
         Connection conn = connect();
@@ -444,6 +465,7 @@ public class Engine {
         return waiterID;
     }
 
+    //Sprawdzenie, jaki status ma potrawa z danego menu
     public static String menuCheckStatus(int menu_id) {
         String ret = null;
         Connection conn = connect();
@@ -464,7 +486,7 @@ public class Engine {
         return ret;
     }
 
-    //status: ok, low, nok
+    //status: ok, low, nok, wyswiwetla potrawy o danym statusie
     public static ArrayList menuCheckWhichHaveStatus(String status) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
@@ -487,6 +509,7 @@ public class Engine {
         return list;
     }
 
+    //ustawienie statusu dla danej potrawy
     public static void menuSetStatus(int menu_id, String status) {
         Connection conn = connect();
         try {
@@ -502,6 +525,7 @@ public class Engine {
         close(conn);
     }
 
+    //dodanie pozycji do menu
     public static void menuAddItem(String name, double price, String category) {
         Connection conn = connect();
         try {
@@ -517,6 +541,7 @@ public class Engine {
         close(conn);
     }
 
+    //usuniecie pozycji z menu
     public static void menuRemoveItem(int menu_id) {
         Connection conn = connect();
         try {
@@ -531,6 +556,7 @@ public class Engine {
         close(conn);
     }
 
+    //dodanie pracownika
     public static void employeeAdd(String name, String surname, String function) {
         Connection conn = connect();
         try {
@@ -546,6 +572,7 @@ public class Engine {
         close(conn);
     }
 
+    //usuniecie pracownika
     public static void employeeRemove(int employee_id) {
         Connection conn = connect();
         try {
@@ -560,6 +587,7 @@ public class Engine {
         close(conn);
     }
 
+    //dodanie znizki
     public static void discountAdd(String description, int percentage) {
         Connection conn = connect();
         try {
@@ -575,6 +603,7 @@ public class Engine {
         close(conn);
     }
 
+    //usuniecie znizki
     public static void discountRemove(int discount_id) {
         Connection conn = connect();
         try {
@@ -589,6 +618,7 @@ public class Engine {
         close(conn);
     }
 
+    //wyswietlnie ile rachunkow obsluzyl dany kelner
     public static ArrayList statisticsBillsFromWaiter(int waiter_id) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
