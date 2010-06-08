@@ -71,6 +71,7 @@ public class Engine {
                     "   `name` text NOT NULL," +
                     "   `price` decimal(10,2) NOT NULL," +
                     "   `category` text NOT NULL," +
+                    "   `status` text," +
                     "   PRIMARY KEY (`id`)" +
                     ") ENGINE=MyISAM  DEFAULT CHARSET=latin2 AUTO_INCREMENT=3 ;");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `tables` (" +
@@ -298,7 +299,7 @@ public class Engine {
                     " GROUP BY bills.menu_id, bills.discount_id ");
             while (rs.next()) {
                 list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100) + " zł)");
-                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100);
+                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100)*(rs.getInt("number"));
             }
             rs.close();
             statement.close();
@@ -441,5 +442,127 @@ public class Engine {
         }
         close(conn);
         return waiterID;
+    }
+
+    public static String menuCheckStatus(int menu_id) {
+        String ret = null;
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM menu "
+                    + "WHERE id=" + String.valueOf(menu_id));
+            while (rs.next()) {
+                ret=rs.getString("status");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return ret;
+    }
+
+    public static void menuSetStatus(int menu_id, String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE menu "
+                + "SET status=" + status 
+                + "WHERE id=" + String.valueOf(menu_id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void menuAddItem(String name, double prize, String category) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO menu (name, prize, category) "
+                + "VALUES "
+                + "(" + name + ", " + String.valueOf(prize) + ", " + category + ")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void menuRemoveItem(int menu_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM menu "
+                + "WHERE id=" + String.valueOf(menu_id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void employeeAdd(String name, String surname, String function) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO employees (name, surname, function) "
+                + "VALUES "
+                + "(" + name + ", " + surname + ", " + function + ")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void employeeRemove(int employee_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM employees "
+                + "WHERE id=" + String.valueOf(employee_id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void discountAdd(String description, int percentage) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO discounts (description, percentage) "
+                + "VALUES "
+                + "(" + description + ", " + String.valueOf(percentage) + ")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void discountRemove(int discount_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM discounts "
+                + "WHERE id=" + String.valueOf(discount_id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
     }
 }
