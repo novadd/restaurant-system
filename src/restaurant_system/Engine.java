@@ -464,6 +464,29 @@ public class Engine {
         return ret;
     }
 
+    //status: ok, low, nok
+    public static ArrayList menuCheckWhichHaveStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT menu_id, COUNT(*) as number FROM bills "
+                    + " WHERE status=" + status
+                    + " GROUP BY menu_id");
+            while (rs.next()) {
+                list.add(rs.getInt("menu_id"));
+                list.add(rs.getInt("number"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
     public static void menuSetStatus(int menu_id, String status) {
         Connection conn = connect();
         try {
@@ -479,13 +502,13 @@ public class Engine {
         close(conn);
     }
 
-    public static void menuAddItem(String name, double prize, String category) {
+    public static void menuAddItem(String name, double price, String category) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO menu (name, prize, category) "
+            statement.executeUpdate("INSERT INTO menu (name, price, category) "
                 + "VALUES "
-                + "(" + name + ", " + String.valueOf(prize) + ", " + category + ")");
+                + "(" + name + ", " + String.valueOf(price) + ", " + category + ")");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -564,5 +587,26 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
+    }
+
+    public static ArrayList statisticsBillsFromWaiter(int waiter_id) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM bills " +
+                    "WHERE waiter_id=" + waiter_id +
+                    "GROUP BY bill_id");
+            while (rs.next()) {
+                list.add(rs.getInt("bill_id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
     }
 }
