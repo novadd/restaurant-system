@@ -99,6 +99,7 @@ public class Engine {
             java.io.FileWriter fstream = new java.io.FileWriter("receipts.txt",true);
             java.io.BufferedWriter out = new java.io.BufferedWriter(fstream);
             java.util.Iterator it = list.iterator();
+            //out.print(java.util.Date(););
             while (it.hasNext()) {
                 out.write(it.next().toString());
                 out.newLine();
@@ -461,12 +462,30 @@ public class Engine {
     }
 
     //usuniecie potrawy z rachunku
-    public static void removeFromBill(Object billID, Object menuID, Object discountID, int howMany) {
+    public static void removeFromBillManager(Object billID, Object menuID, Object discountID, int howMany) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM restaurant.bills "+
                     "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
+                    " LIMIT " + String.valueOf(howMany));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void removeFromBill(Object billID, Object menuID, Object discountID, int howMany) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM restaurant.bills "+
+                    "WHERE bills.bill_id=" + billID.toString() +
+                        " AND bills.menu_id=" + menuID.toString() +
+                        " AND bills.discount_id=" + discountID.toString() +
+                        " AND (bills.status=null OR bills.status=\"waiting\")" +
                     " LIMIT " + String.valueOf(howMany));
             statement.close();
             conn.close();
