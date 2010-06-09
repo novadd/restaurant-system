@@ -635,7 +635,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE bills "
                 + "SET status=\"" + status + "\""
-                + "WHERE bill_id=" + bill_id.toString() + "AND status=null");
+                + "WHERE bill_id=" + bill_id.toString() + " AND status=null");
             statement.close();
             conn.close();
         } catch (Exception e) {
