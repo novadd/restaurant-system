@@ -30,7 +30,7 @@ public class Main {
     var listBillIDStorage: ArrayList;
     var listOrderedIDStorage: ArrayList;
     var listReadyIDStorage: ArrayList;
-    var listBeingPreperedIDStorage: ArrayList;
+    var listBeingPreparedIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
 
@@ -55,6 +55,7 @@ public class Main {
     public-read var toggleButtonLocked: javafx.scene.control.ToggleButton;
     public-read var buttonC: javafx.scene.control.Button;
     public-read var labelCount: javafx.scene.control.Label;
+    public-read var buttonOrder: javafx.scene.control.Button;
     public-read var waiterTable: javafx.scene.layout.Panel;
     public-read var rectangle2: javafx.scene.shape.Rectangle;
     public-read var table1: javafx.scene.shape.Circle;
@@ -148,8 +149,14 @@ public class Main {
             text: ">"
         };
         buttonBillFinalize = javafx.scene.control.Button {
-            layoutX: 397.0
+            layoutX: 384.0
             layoutY: 273.0
+            width: 75.0
+            height: 24.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind buttonBillFinalize.width
+                height: bind buttonBillFinalize.height
+            }
             text: "Finalize"
             action: buttonBillFinalizeAction
         };
@@ -314,6 +321,18 @@ public class Main {
             translateY: 0.0
             text: "C"
         };
+        buttonOrder = javafx.scene.control.Button {
+            layoutX: 310.0
+            layoutY: 273.0
+            width: 68.0
+            height: 24.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind buttonOrder.width
+                height: bind buttonOrder.height
+            }
+            text: "Order"
+            action: buttonOrderAction
+        };
         labelWhoServes = javafx.scene.control.Label {
             layoutX: -100.0
             layoutY: -100.0
@@ -397,6 +416,7 @@ public class Main {
                 width: bind listBeingPrepared.width
                 height: bind listBeingPrepared.height
             }
+            onMouseClicked: listBeingPreparedOnMouseClickedAtchefOrders
         };
         listReady = javafx.scene.control.ListView {
             layoutX: 313.0
@@ -407,6 +427,7 @@ public class Main {
                 width: bind listReady.width
                 height: bind listReady.height
             }
+            onMouseClicked: listReadyOnMouseClickedAtchefOrders
         };
         toggleButton = javafx.scene.control.ToggleButton {
             layoutX: 216.0
@@ -649,7 +670,7 @@ public class Main {
                 width: bind waiterTable.width
                 height: bind waiterTable.height
             }
-            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, buttonBillFinalize, button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, toggleButtonLocked, buttonC, labelCount, ]
+            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, buttonBillFinalize, button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, toggleButtonLocked, buttonC, labelCount, buttonOrder, ]
         };
         colorGreen = javafx.scene.paint.Color {
             red: 0.0
@@ -1099,6 +1120,10 @@ public class Main {
             labelCount.text = "1 x";
         }
     }
+
+    function buttonOrderAction(): Void {
+        Engine.billWholeSetStatus(activeBillNr, "waiting");
+    }
     
     function buttonBillFinalizeAction(): Void {
         Engine.removeBillFromTable(activeTableNr, activeBillNr);
@@ -1219,40 +1244,64 @@ public class Main {
     function printChefsLists(){
         
         clearList(listReady);
-//        clearList(listOrdered);
-//        clearList(listBeingPrepared);
+        clearList(listOrdered);
+        clearList(listBeingPrepared);
         
-        listOrderedIDStorage = Engine.printBillMenuIDByStatus("waiting");
-//        listBeingPreperedIDStorage = Engine.printBillMenuIDByStatus("processing");
-//        listReadyIDStorage = Engine.printBillMenuIDByStatus("ready");
+        listOrderedIDStorage = Engine.printBillIDByStatus("waiting");
+        listBeingPreparedIDStorage = Engine.printBillIDByStatus("processing");
+        listReadyIDStorage = Engine.printBillIDByStatus("ready");
 
         //tab1
-        var i: Integer = 0;
-        while(i<Engine.printBillMenuIDByStatus("waiting").size()){
+        var i: Integer = Engine.printBillMenuIDByStatus("waiting").size();
+        while(i>0){
+                i--;
                 listOrdered.items[i] = Engine.printBillByStatus("waiting").get(i);
-                listOrderedIDStorage.set(i, Engine.printBillMenuIDByStatus("waiting").get(i));
+                listOrderedIDStorage.set(i, Engine.printBillIDByStatus("waiting").get(i));
+        }
+        //tab2
+        i = 0;
+        while(i<Engine.printBillMenuIDByStatus("processing").size()){
+                listBeingPrepared.items[i] = Engine.printBillByStatus("processing").get(i);
+                listBeingPreparedIDStorage.set(i, Engine.printBillIDByStatus("processing").get(i));
                 i++
         }
-//        //tab2
-//        i = 0;
-//        while(i<Engine.printBillMenuIDByStatus("processing").size()){
-//                listBeingPrepared.items[i] = Engine.printBillByStatus("processing").get(i);
-//                listBeingPreperedIDStorage.set(i, Engine.printBillMenuIDByStatus("processing").get(i));
-//                i++
-//        }
-//        //tab3
-//        i = 0;
-//        while(i<Engine.printBillMenuIDByStatus("ready").size()){
-//                listReady.items[i] = Engine.printBillByStatus("ready").get(i);
-//                listReadyIDStorage.set(i, Engine.printBillMenuIDByStatus("ready").get(i));
-//                i++
-//        }
+        //tab3
+        i = 0;
+        while(i<Engine.printBillMenuIDByStatus("ready").size()){
+                listReady.items[i] = Engine.printBillByStatus("ready").get(i);
+                listReadyIDStorage.set(i, Engine.printBillIDByStatus("ready").get(i));
+                i++
+        }
     };
     
     function listOrderedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
-        if(listOrdered.selectedIndex < listOrderedIDStorage.size()){
-            //Engine.menuSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
+        if(listOrdered.selectedIndex < listOrderedIDStorage.size() and not toggleButton.selected){
+            Engine.billSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
+            printChefsLists();
         }
     }
+
+    function listBeingPreparedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
+        if(listBeingPrepared.selectedIndex < listBeingPreparedIDStorage.size()){
+            if(toggleButton.selected){
+                Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "waiting");
+            } else {
+                Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "ready");
+            }
+            printChefsLists();
+        }
+    }
+
+    function listReadyOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
+        if(listReady.selectedIndex < listReadyIDStorage.size()){
+            if(toggleButton.selected){
+                Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "processing");
+            } else {
+                Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "served");
+            }
+            printChefsLists();
+        }
+    }
+
     // </editor-fold>
 };
