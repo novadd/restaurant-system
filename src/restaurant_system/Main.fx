@@ -20,12 +20,17 @@ public class Main {
 
     public-read var loggedId: Object;
     public-read var billId: Integer;
-    var multiplier: Integer = -1;
+    var multiplier: Integer =-1;
     var listLoginItems: Object[] = Engine.loginList();
     var listLoginIDItems: Integer[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
+
+    var listLoginIDStorage: ArrayList;
     var listBillIDStorage: ArrayList;
+    var listOrderedIDStorage: ArrayList;
+    var listReadyIDStorage: ArrayList;
+    var listBeingPreperedIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
 
@@ -436,9 +441,9 @@ public class Main {
             text: "Report Shortage"
         };
         listView = javafx.scene.control.ListView {
-            visible: false
-            layoutX: -335.0
-            layoutY: 58.0
+            visible: true
+            layoutX: 184.0
+            layoutY: 64.0
             width: 150.0
             height: 200.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -750,8 +755,8 @@ public class Main {
                                     login.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutY => 1.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutX => -335.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutY => 58.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutX => 184.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutY => 64.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.width => 150.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.height => 200.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -774,7 +779,7 @@ public class Main {
                                     listLogin.select (-1);
                                     buttonLogin.text = "Login";
                                     buttonLogin.action = buttonActionAtlogin;
-                                    listView.visible = false;
+                                    listView.visible = true;
                                     shortage.visible = false;
                                 }
                             }
@@ -800,8 +805,8 @@ public class Main {
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutY => 1.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutX => -335.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutY => 58.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutX => 184.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutY => 64.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.width => 150.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.height => 200.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -823,7 +828,7 @@ public class Main {
                                     table5.onMouseClicked = table5OnMouseClickedAtwaiterTablePick;
                                     listLogin.select (-1);
                                     buttonLogin.text = "Login";
-                                    listView.visible = false;
+                                    listView.visible = true;
                                     shortage.visible = false;
                                 }
                             }
@@ -849,8 +854,8 @@ public class Main {
                                     login.layoutY => -350.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     cook.layoutY => 1.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutX => -335.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    listView.layoutY => 58.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutX => 184.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listView.layoutY => 64.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.width => 150.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     listView.height => 200.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -873,7 +878,7 @@ public class Main {
                                     table5.onMouseClicked = table5OnMouseClickedAtwaiterTablePick;
                                     listLogin.select (0);
                                     buttonLogin.text = "Login";
-                                    listView.visible = false;
+                                    listView.visible = true;
                                     shortage.visible = false;
                                 }
                             }
@@ -922,6 +927,7 @@ public class Main {
                                     table5.onMouseClicked = table5OnMouseClickedAtwaiterTablePick;
                                     listLogin.select (-1);
                                     buttonLogin.text = "Login";
+                                    listOrdered.onMouseClicked = listOrderedOnMouseClickedAtchefOrders;
                                     listView.visible = true;
                                     shortage.visible = true;
                                 }
@@ -957,6 +963,7 @@ public class Main {
     function buttonBackAction(): Void {
         currentState.previous();
         if(loggedId != -1){
+            printChefsLists();
             colourTable(1,table1);
             colourTable(2,table2);
             colourTable(3,table3);
@@ -1185,7 +1192,7 @@ public class Main {
     // restaurant this would be handeled by a electro-
     // magnetic card of some sort.
     // ---------------------------------------------------
-        
+
         loggedId = -1;
         loggedId = Engine.loginListID()[listLogin.selectedIndex];
         if(loggedId != -1){
@@ -1201,6 +1208,7 @@ public class Main {
             }
             if (Engine.decodeLoginIDFunction(loggedId)=="Chef") {
                 labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
+                printChefsLists();
                 currentState.actual = currentState.findIndex("chefOrders");
             }
         };
@@ -1208,34 +1216,43 @@ public class Main {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Bin">
+    function printChefsLists(){
+        
+        clearList(listReady);
+//        clearList(listOrdered);
+//        clearList(listBeingPrepared);
+        
+        listOrderedIDStorage = Engine.printBillMenuIDByStatus("waiting");
+//        listBeingPreperedIDStorage = Engine.printBillMenuIDByStatus("processing");
+//        listReadyIDStorage = Engine.printBillMenuIDByStatus("ready");
 
-//    function printList(oldList: ArrayList){
-//        var newList: ArrayList;
-//        var countList: Integer[];
-//        var onList: Boolean;
-//        var i: Integer = 0;
-//        var j: Integer = 0;
-//        var finalList: ArrayList;
-//        //var newListSize: Integer = 0;
-//        while(i < oldList.size()){
-//            j = 0;
-//            onList = false;
-//            while (j<newList.size()){
-//                if(oldList.get(i) == newList.get(j)){
-//                    countList[j]++;
-//                    onList = true;
-//                }
-//            }
-//            if(not onList){
-//                newList.add(oldList.get(i));
-//                countList[newList.size()] = 1;
-//            }
+        //tab1
+        var i: Integer = 0;
+        while(i<Engine.printBillMenuIDByStatus("waiting").size()){
+                listOrdered.items[i] = Engine.printBillByStatus("waiting").get(i);
+                listOrderedIDStorage.set(i, Engine.printBillMenuIDByStatus("waiting").get(i));
+                i++
+        }
+//        //tab2
+//        i = 0;
+//        while(i<Engine.printBillMenuIDByStatus("processing").size()){
+//                listBeingPrepared.items[i] = Engine.printBillByStatus("processing").get(i);
+//                listBeingPreperedIDStorage.set(i, Engine.printBillMenuIDByStatus("processing").get(i));
+//                i++
 //        }
-//        j = 0;
-//        while (j<newList.size()){
-//            finalList.add("{countList[j].toString()}x {newList.get(j).toString()}");
+//        //tab3
+//        i = 0;
+//        while(i<Engine.printBillMenuIDByStatus("ready").size()){
+//                listReady.items[i] = Engine.printBillByStatus("ready").get(i);
+//                listReadyIDStorage.set(i, Engine.printBillMenuIDByStatus("ready").get(i));
+//                i++
 //        }
-//        return finalList;
-//    }
+    };
+    
+    function listOrderedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
+        if(listOrdered.selectedIndex < listOrderedIDStorage.size()){
+            //Engine.menuSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
+        }
+    }
     // </editor-fold>
 };

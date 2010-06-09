@@ -654,6 +654,7 @@
         <Reference name="layoutY" value="prop:15,anim:,,flt:27.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:140.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:182.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel4,48,anim:,,str:listOrderedOnMouseClickedAtchefOrders,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
     </Instance>
@@ -750,9 +751,9 @@
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel9">
         <Reference name="instanceName" value="str:listView"/>
-        <Reference name="visible" value="prop:17,anim:,,bool:false,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,bool:true,"/>
-        <Reference name="layoutX" value="prop:17,anim:,,flt:-335.0,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,flt:269.0,"/>
-        <Reference name="layoutY" value="prop:15,anim:,,flt:58.0,24,inst:StateVariableModel1,16,inst:StateModel4,15,anim:,,flt:13.0,"/>
+        <Reference name="visible" value="prop:16,anim:,,bool:true,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,bool:true,"/>
+        <Reference name="layoutX" value="prop:16,anim:,,flt:184.0,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,flt:269.0,"/>
+        <Reference name="layoutY" value="prop:15,anim:,,flt:64.0,24,inst:StateVariableModel1,16,inst:StateModel4,15,anim:,,flt:13.0,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:150.0,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,flt:190.0,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:200.0,24,inst:StateVariableModel1,16,inst:StateModel4,16,anim:,,flt:276.0,"/>
         <Reference name="preCreationCode" value="null"/>
