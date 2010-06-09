@@ -57,7 +57,8 @@ public class Engine {
                     "   `menu_id` int(11) NOT NULL," +
                     "   `discount_id` int(11) NOT NULL," +
                     "   `waiter_id` int(11) NOT NULL," +
-                    "   `status` text NOT NULL" +
+                    "   `status` text, " +
+                    "   PRIMARY KEY (`id`) " +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `discounts` (" +
                     "   `id` int(11) NOT NULL," +
@@ -84,10 +85,13 @@ public class Engine {
                     "   `bill_id` int(11) NOT NULL," +
                     "   PRIMARY KEY (`table_id`,`bill_id`)" +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
-            statement.executeUpdate("INSERT INTO employees (name, surname, function) " +
-                    "VALUES " +
-                    "(\"Master\", \"Admin\", \"Manager\")");
             statement.close();
+ //           statement = conn.createStatement();
+//            statement.executeUpdate("IF NOT EXIST (SELECT * from employees WHERE name=\"Master\" AND surname=\"Admin\") " +
+//                    " INSERT INTO employees (name, surname, function) " +
+ //                   " VALUES " +
+  //                  " (\"Master\", \"Admin\", \"Manager\")");
+ //           statement.close();
             conn.close();
         } catch (Exception e) {
                 e.printStackTrace();
@@ -588,6 +592,21 @@ public class Engine {
             statement.executeUpdate("UPDATE bills "
                 + "SET status=" + status
                 + "WHERE id=" + String.valueOf(id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static void billWholeSetStatus(int bill_id, String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE bills "
+                + "SET status=" + status
+                + "WHERE bill_id=" + String.valueOf(bill_id));
             statement.close();
             conn.close();
         } catch (Exception e) {
