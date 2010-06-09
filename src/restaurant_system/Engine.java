@@ -86,7 +86,7 @@ public class Engine {
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
             statement.executeUpdate("INSERT INTO employees (name, surname, function) " +
                     "VALUES " +
-                    "(Master, Admin, Manager)");
+                    "(\"Master\", \"Admin\", \"Manager\")");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -407,7 +407,7 @@ public class Engine {
                 String query;
                 String data;
                 query = "INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) VALUES ";
-                data = "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")";
+                data = "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")";
                 for (int i=0; i<howMany-1; i++) {
                     query += data + ", ";
                 }
@@ -430,7 +430,7 @@ public class Engine {
                 }
                 statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
                     + "VALUES "
-                    + "(" + billID.toString() + ", " + menuID.toString() + ", " + discountID.toString() + ", " + waiterID.toString() + ", \"waiting\")", statement.RETURN_GENERATED_KEYS);
+                    + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")", statement.RETURN_GENERATED_KEYS);
                 rs = statement.getGeneratedKeys();
                 if (rs.next()) {
                     billID = rs.getString(1);
@@ -490,7 +490,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO tables (table_id, bill_id) "
                 + "VALUES "
-                + "(" + tableID.toString() + ", " + billID.toString() + ")");
+                + "(\"" + tableID.toString() + "\", \"" + billID.toString() + "\")");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -619,7 +619,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO menu (name, price, category) "
                 + "VALUES "
-                + "(" + name + ", " + String.valueOf(price) + ", " + category + ")");
+                + "(\"" + name + "\", \"" + String.valueOf(price) + "\", \"" + category + "\")");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -650,7 +650,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO employees (name, surname, function) "
                 + "VALUES "
-                + "(" + name + ", " + surname + ", " + function + ")");
+                + "(\"" + name + "\", \"" + surname + "\", \"" + function + "\")");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -681,7 +681,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO discounts (description, percentage) "
                 + "VALUES "
-                + "(" + description + ", " + String.valueOf(percentage) + ")");
+                + "(\"" + description + "\", \"" + String.valueOf(percentage) + "\")");
             statement.close();
             conn.close();
         } catch (Exception e) {
