@@ -116,7 +116,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM employees");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `employees`");
             while (rs.next()) {
                 list.add(rs.getString("surname") + " " + rs.getString("name") + " (" + rs.getString("function") + ")");
             }
@@ -136,7 +136,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `employees` WHERE `id`=" + LoginID.toString());
             while (rs.next()) {
                 name = rs.getString("name");
             }
@@ -156,7 +156,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `employees` WHERE `id`=" + LoginID.toString());
             while (rs.next()) {
                 surname = rs.getString("surname");
             }
@@ -176,7 +176,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM employees WHERE id=" + LoginID.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `employees` WHERE `id`=" + LoginID.toString());
             while (rs.next()) {
                 function = rs.getString("function");
             }
@@ -196,7 +196,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM employees");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `employees`");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -220,7 +220,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE id=" + MenuID.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu` WHERE `id`=" + MenuID.toString());
             while (rs.next()) {
                 name = rs.getString("name");
             }
@@ -240,7 +240,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu WHERE category='" + category + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu` WHERE `category`=\"" + category + "\"");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("price") + " zł)");
             }
@@ -260,7 +260,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu`");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("price") + " zł)");
             }
@@ -280,7 +280,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu`");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -322,9 +322,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT bills.id" +
-                    " FROM bills " +
-                    " WHERE bills.status=\"" + status + "\"");
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`id`" +
+                    " FROM `bills` " +
+                    " WHERE `bills`.`status`=\"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -344,8 +344,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `menu`.`name`, `tables`.`table_id` " +
-                    " FROM `bills` " +
-                    
+                    " FROM `bills` " +    
                     " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
                     " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`table_id` " +
                     " WHERE bills.status = \"" + status + "\"");
@@ -368,11 +367,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.id " +
-                    " FROM bills " +
-                    " LEFT JOIN menu ON bills.menu_id = menu.id " +
-                    " WHERE bills.bill_id = " + billID.toString() +
-                    " GROUP BY bills.menu_id, bills.discount_id ");
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`id` " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `menu` ON `bills`.`menu_id` = `menu`.`id` " +
+                    " WHERE `bills`.`bill_id` = " + billID.toString() +
+                    " GROUP BY `bills`.`menu_id`, `bills`.`discount_id` ");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
