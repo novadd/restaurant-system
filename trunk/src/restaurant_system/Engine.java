@@ -629,6 +629,25 @@ public class Engine {
         close(conn);
     }
 
+    public static boolean billCheckIfAllServed(Object bill_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM bills " +
+                    "WHERE bill_id=" + bill_id.toString());
+            while (rs.next()) {
+                if (!rs.getString("status").equals("served")) return false;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return true;
+    }
+
     public static void billWholeSetStatus(Object bill_id, String status) {
         Connection conn = connect();
         try {
