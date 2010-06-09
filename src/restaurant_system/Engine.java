@@ -86,17 +86,27 @@ public class Engine {
                     "   PRIMARY KEY (`table_id`,`bill_id`)" +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
             statement.close();
- //           statement = conn.createStatement();
-//            statement.executeUpdate("IF NOT EXIST (SELECT * from employees WHERE name=\"Master\" AND surname=\"Admin\") " +
-//                    " INSERT INTO employees (name, surname, function) " +
- //                   " VALUES " +
-  //                  " (\"Master\", \"Admin\", \"Manager\")");
- //           statement.close();
             conn.close();
         } catch (Exception e) {
                 e.printStackTrace();
         }
         close(conn);
+    }
+
+    public static void printReceipt(ArrayList list) {
+        try{
+            java.io.FileWriter fstream = new java.io.FileWriter("receipts.txt",true);
+            java.io.BufferedWriter out = new java.io.BufferedWriter(fstream);
+            java.util.Iterator it = list.iterator();
+            while (it.hasNext()) {
+                out.write(it.next().toString());
+                out.newLine();
+            }
+            out.newLine();
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 
     //Wyrzuca Array z nazwiskiem, imieniem i funcją pracowników
