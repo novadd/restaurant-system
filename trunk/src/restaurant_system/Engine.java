@@ -574,7 +574,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT menu_id, COUNT(*) as number FROM bills "
-                    + " WHERE status=" + status
+                    + " WHERE status=\"" + status + "\""
                     + " GROUP BY menu_id");
             while (rs.next()) {
                 list.add(rs.getInt("menu_id"));
@@ -596,7 +596,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE bills "
-                + "SET status=" + status
+                + "SET status=\"" + status + "\""
                 + "WHERE id=" + id.toString());
             statement.close();
             conn.close();
