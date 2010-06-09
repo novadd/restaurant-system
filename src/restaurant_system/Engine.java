@@ -420,8 +420,8 @@ public class Engine {
                 Statement statement = conn.createStatement();
                 String query;
                 String data;
-                query = "INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) VALUES ";
-                data = "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")";
+                query = "INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id) VALUES ";
+                data = "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\")";
                 for (int i=0; i<howMany-1; i++) {
                     query += data + ", ";
                 }
@@ -442,9 +442,9 @@ public class Engine {
                 } else {
                     billID="0";
                 }
-                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
+                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id) "
                     + "VALUES "
-                    + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")");
+                    + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\")");
                 rs.close();
                 statement.close();
                 conn.close();
@@ -611,7 +611,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE bills "
-                + "SET status=" + status
+                + "SET status=\"" + status + "\""
                 + "WHERE bill_id=" + bill_id.toString());
             statement.close();
             conn.close();
@@ -627,7 +627,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE menu "
-                + "SET status=" + status 
+                + "SET status=\"" + status + "\""
                 + "WHERE id=" + menu_id.toString());
             statement.close();
             conn.close();
