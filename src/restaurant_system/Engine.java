@@ -84,6 +84,9 @@ public class Engine {
                     "   `bill_id` int(11) NOT NULL," +
                     "   PRIMARY KEY (`table_id`,`bill_id`)" +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
+            statement.executeUpdate("INSERT INTO employees (name, surname, function) " +
+                    "VALUES " +
+                    "(Master, Admin, Manager)");
             statement.close();
             conn.close();
         } catch (Exception e) {
