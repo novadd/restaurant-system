@@ -1127,6 +1127,7 @@ public class Main {
     
     function buttonBillFinalizeAction(): Void {
         Engine.removeBillFromTable(activeTableNr, activeBillNr);
+        Engine.printReceipt(Engine.printBill(activeBillNr));
         clearList(listBill);
     }
     
@@ -1252,37 +1253,37 @@ public class Main {
         listReadyIDStorage = Engine.printBillIDByStatus("ready");
 
         //tab1
-        var i: Integer = Engine.printBillMenuIDByStatus("waiting").size();
-        while(i>0){
-                i--;
+        var i: Integer = 0;
+        while(i<Engine.printBillMenuIDByStatus("waiting").size()){
                 listOrdered.items[i] = Engine.printBillByStatus("waiting").get(i);
                 listOrderedIDStorage.set(i, Engine.printBillIDByStatus("waiting").get(i));
+                i++;
         }
         //tab2
         i = 0;
         while(i<Engine.printBillMenuIDByStatus("processing").size()){
                 listBeingPrepared.items[i] = Engine.printBillByStatus("processing").get(i);
                 listBeingPreparedIDStorage.set(i, Engine.printBillIDByStatus("processing").get(i));
-                i++
+                i++;
         }
         //tab3
         i = 0;
         while(i<Engine.printBillMenuIDByStatus("ready").size()){
                 listReady.items[i] = Engine.printBillByStatus("ready").get(i);
                 listReadyIDStorage.set(i, Engine.printBillIDByStatus("ready").get(i));
-                i++
+                i++;
         }
     };
     
     function listOrderedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
-        if(listOrdered.selectedIndex < listOrderedIDStorage.size() and not toggleButton.selected){
+        if(listOrdered.selectedIndex < listOrderedIDStorage.size() and listOrderedIDStorage.size() != 0 and not toggleButton.selected){
             Engine.billSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
             printChefsLists();
         }
     }
 
     function listBeingPreparedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
-        if(listBeingPrepared.selectedIndex < listBeingPreparedIDStorage.size()){
+        if(listBeingPrepared.selectedIndex < listBeingPreparedIDStorage.size() and listBeingPreparedIDStorage.size() != 0){
             if(toggleButton.selected){
                 Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "waiting");
             } else {
@@ -1293,7 +1294,7 @@ public class Main {
     }
 
     function listReadyOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
-        if(listReady.selectedIndex < listReadyIDStorage.size()){
+        if(listReady.selectedIndex < listReadyIDStorage.size() and listReadyIDStorage.size() != 0){
             if(toggleButton.selected){
                 Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "processing");
             } else {
