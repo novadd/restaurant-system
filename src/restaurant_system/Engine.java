@@ -304,7 +304,7 @@ public class Engine {
                     " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`table_id` " +
                     " LEFT JOIN `menu` ON `menu`.`id`=`bills`.`menu_id` " +
                     " WHERE `bills`.`status`=\"" + status + "\"" +
-                    " ORDER BY bills.id DESC");
+                    " ORDER BY bills.id ASC");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -326,7 +326,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT `bills`.`id`" +
                     " FROM `bills` " +
                     " WHERE `bills`.`status`=\"" + status + "\"" +
-                    " ORDER BY bills.id DESC");
+                    " ORDER BY bills.id ASC");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -350,7 +350,7 @@ public class Engine {
                     " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
                     " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`table_id` " +
                     " WHERE bills.status = \"" + status + "\"" +
-                    " ORDER BY bills.id DESC");
+                    " ORDER BY bills.id ASC");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
             }
