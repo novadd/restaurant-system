@@ -299,11 +299,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.id" +
-                    " FROM bills " +
-                    " LEFT JOIN tables ON bills.bill_id=tables.table_id " +
-                    " LEFT JOIN menu ON menu.id=bills.menu_id " +
-                    " WHERE bills.status=\"" + status + "\"");
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`id`" +
+                    " FROM `bills` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`table_id` " +
+                    " LEFT JOIN `menu` ON `menu`.`id`=`bills`.`menu_id` " +
+                    " WHERE `bills`.`status`=\"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -343,10 +343,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.name, tables.table_id " +
-                    " FROM bills " +
-                    " LEFT JOIN tables ON bills.bill_id = tables.table_id " +
-                    " LEFT JOIN menu ON menu.id = bills.menu_id " +
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`name`, `tables`.`table_id` " +
+                    " FROM `bills` " +
+                    
+                    " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`table_id` " +
                     " WHERE bills.status = \"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
@@ -479,8 +480,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM tables "
-                    + "WHERE table_id=" + tableID.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `tables` "
+                    + "WHERE `table_id`=" + tableID.toString());
             while (rs.next()) {
                 list.add(rs.getString("bill_id"));
             }
@@ -499,7 +500,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO tables (table_id, bill_id) "
+            statement.executeUpdate("INSERT INTO `tables` (`table_id`, `bill_id`) "
                 + "VALUES "
                 + "(\"" + tableID.toString() + "\", \"" + billID.toString() + "\")");
             statement.close();
@@ -515,8 +516,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM tables "
-                + "WHERE table_id=" + tableID.toString() + " AND bill_id=" + billID.toString());
+            statement.executeUpdate("DELETE FROM `tables` "
+                + "WHERE `table_id`=" + tableID.toString() + " AND `bill_id`=" + billID.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -531,9 +532,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT tables.table_id, bills.bill_id, bills.waiter_id AS waiter_id " +
-                    " FROM `tables` LEFT JOIN bills ON tables.bill_id=bills.bill_id "
-                    + "WHERE tables.table_id=" + tableID.toString() + " LIMIT 1");
+            ResultSet rs = statement.executeQuery("SELECT `tables`.`table_id`, `bills`.`bill_id`, `bills`.`waiter_id` AS `waiter_id` " +
+                    " FROM `tables` LEFT JOIN `bills` ON `tables`.`bill_id`=`bills`.`bill_id` "
+                    + "WHERE `tables`.`table_id`=" + tableID.toString() + " LIMIT 1");
             if (rs.next()) {
                 waiterID = (rs.getString("waiter_id"));
             }
