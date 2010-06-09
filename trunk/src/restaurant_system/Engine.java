@@ -437,7 +437,7 @@ public class Engine {
                     + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")", statement.RETURN_GENERATED_KEYS);
                 rs = statement.getGeneratedKeys();
                 if (rs.next()) {
-                    billID = rs.getString(1);
+                    billID = rs.getString(2);
                 }
                 rs.close();
                 statement.close();
