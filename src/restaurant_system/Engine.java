@@ -349,7 +349,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT `menu`.`name`, `tables`.`table_id` " +
                     " FROM `bills` " +    
                     " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
-                    " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`table_id` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`bill_id` " +
                     " WHERE bills.status = \"" + status + "\"" +
                     " ORDER BY bills.id ASC");
             while (rs.next()) {
