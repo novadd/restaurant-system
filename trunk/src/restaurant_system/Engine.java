@@ -537,13 +537,13 @@ public class Engine {
     }
 
     //Sprawdzenie, jaki status ma potrawa z danego menu
-    public static String menuCheckStatus(int menu_id) {
+    public static String menuCheckStatus(Object menu_id) {
         String ret = null;
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM menu "
-                    + "WHERE id=" + String.valueOf(menu_id));
+                    + "WHERE id=" + menu_id.toString());
             while (rs.next()) {
                 ret=rs.getString("status");
             }
@@ -612,13 +612,13 @@ public class Engine {
     }
 
     //ustawienie statusu dla danej potrawy
-    public static void menuSetStatus(int menu_id, String status) {
+    public static void menuSetStatus(Object menu_id, String status) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE menu "
                 + "SET status=" + status 
-                + "WHERE id=" + String.valueOf(menu_id));
+                + "WHERE id=" + menu_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -644,12 +644,12 @@ public class Engine {
     }
 
     //usuniecie pozycji z menu
-    public static void menuRemoveItem(int menu_id) {
+    public static void menuRemoveItem(Object menu_id) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM menu "
-                + "WHERE id=" + String.valueOf(menu_id));
+                + "WHERE id=" + menu_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -675,12 +675,12 @@ public class Engine {
     }
 
     //usuniecie pracownika
-    public static void employeeRemove(int employee_id) {
+    public static void employeeRemove(Object employee_id) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM employees "
-                + "WHERE id=" + String.valueOf(employee_id));
+                + "WHERE id=" + employee_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -706,12 +706,12 @@ public class Engine {
     }
 
     //usuniecie znizki
-    public static void discountRemove(int discount_id) {
+    public static void discountRemove(Object discount_id) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("DELETE FROM discounts "
-                + "WHERE id=" + String.valueOf(discount_id));
+                + "WHERE id=" + discount_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -721,13 +721,13 @@ public class Engine {
     }
 
     //wyswietlnie ile rachunkow obsluzyl dany kelner
-    public static ArrayList statisticsBillsFromWaiter(int waiter_id) {
+    public static ArrayList statisticsBillsFromWaiter(Object waiter_id) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM bills " +
-                    "WHERE waiter_id=" + waiter_id +
+                    "WHERE waiter_id=" + waiter_id.toString() +
                     "GROUP BY bill_id");
             while (rs.next()) {
                 list.add(rs.getInt("bill_id"));
