@@ -283,8 +283,8 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT menu.id" +
                     " FROM bills " +
                     " LEFT JOIN tables ON bills.bill_id=tables.table_id " +
-                    " LEFT JOIN menu ON menu.id=bill.menu_id " +
-                    " WHERE bills.status=" + status);
+                    " LEFT JOIN menu ON menu.id=bills.menu_id " +
+                    " WHERE bills.status=\"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -306,8 +306,8 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT menu.name, tables.table_id " +
                     " FROM bills " +
                     " LEFT JOIN tables ON bills.bill_id = tables.table_id " +
-                    " LEFT JOIN menu ON menu.id = bill.menu_id " +
-                    " WHERE bills.status = " + status);
+                    " LEFT JOIN menu ON menu.id = bills.menu_id " +
+                    " WHERE bills.status = \"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
             }
