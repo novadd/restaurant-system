@@ -63,7 +63,8 @@ public class Engine {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `discounts` (" +
                     "   `id` int(11) NOT NULL," +
                     "   `description` text NOT NULL," +
-                    "   `percentage` int(11) NOT NULL" +
+                    "   `percentage` int(11) NOT NULL," +
+                    "   PRIMARY KEY (`id`) " +
                     ") ENGINE=MyISAM DEFAULT CHARSET=latin2;");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `employees` (" +
                     "   `id` int(11) NOT NULL AUTO_INCREMENT," +
