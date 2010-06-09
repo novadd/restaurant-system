@@ -309,7 +309,7 @@ public class Engine {
                     " LEFT JOIN menu ON menu.id = bills.menu_id " +
                     " WHERE bills.status = \"" + status + "\"");
             while (rs.next()) {
-                list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
+                list.add(rs.getString("name") + " (table " + rs.getString("table_id") + ")");
             }
             rs.close();
             statement.close();
