@@ -298,6 +298,27 @@ public class Engine {
         return list;
     }
 
+    public static ArrayList printBillIDByStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT bills.id" +
+                    " FROM bills " +
+                    " WHERE bills.status=\"" + status + "\"");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
     public static ArrayList printBillByStatus(String status) {
         ArrayList list = new ArrayList();
         Connection conn = connect();
