@@ -434,11 +434,7 @@ public class Engine {
                 }
                 statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id, status) "
                     + "VALUES "
-                    + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")", statement.RETURN_GENERATED_KEYS);
-                rs = statement.getGeneratedKeys();
-                if (rs.next()) {
-                    billID = rs.getString(2);
-                }
+                    + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\", \"waiting\")");
                 rs.close();
                 statement.close();
                 conn.close();
