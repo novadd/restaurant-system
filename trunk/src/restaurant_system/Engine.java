@@ -52,6 +52,7 @@ public class Engine {
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS `restaurant`");
             statement.executeUpdate("USE `restaurant`");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS `bills` (" +
+                    "   `id` bigint(20) NOT NULL AUTO_INCREMENT, " +
                     "   `bill_id` int(11) NOT NULL," +
                     "   `menu_id` int(11) NOT NULL," +
                     "   `discount_id` int(11) NOT NULL," +
@@ -574,6 +575,22 @@ public class Engine {
         }
         close(conn);
         return list;
+    }
+
+    // ustawia status w billu o id (nie bill_id) podanym w parametrach
+    public static void billSetStatus(int id, String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE bills "
+                + "SET status=" + status
+                + "WHERE id=" + String.valueOf(id));
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
     }
 
     //ustawienie statusu dla danej potrawy
