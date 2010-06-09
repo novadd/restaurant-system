@@ -581,13 +581,13 @@ public class Engine {
     }
 
     // ustawia status w billu o id (nie bill_id) podanym w parametrach
-    public static void billSetStatus(int id, String status) {
+    public static void billSetStatus(Object id, String status) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE bills "
                 + "SET status=" + status
-                + "WHERE id=" + String.valueOf(id));
+                + "WHERE id=" + id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -596,13 +596,13 @@ public class Engine {
         close(conn);
     }
 
-    public static void billWholeSetStatus(int bill_id, String status) {
+    public static void billWholeSetStatus(Object bill_id, String status) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE bills "
                 + "SET status=" + status
-                + "WHERE bill_id=" + String.valueOf(bill_id));
+                + "WHERE bill_id=" + bill_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
