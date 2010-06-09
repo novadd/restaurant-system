@@ -485,7 +485,7 @@ public class Engine {
                     "WHERE bills.bill_id=" + billID.toString() +
                         " AND bills.menu_id=" + menuID.toString() +
                         " AND bills.discount_id=" + discountID.toString() +
-                        " AND (bills.status=null OR bills.status=\"waiting\")" +
+                        " AND (bills.status IS NULL OR bills.status=\"waiting\")" +
                     " LIMIT " + String.valueOf(howMany));
             statement.close();
             conn.close();
@@ -633,9 +633,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("UPDATE bills "
-                + "SET status=\"" + status + "\""
-                + "WHERE bill_id=" + bill_id.toString() + " AND status=null");
+            statement.executeUpdate("UPDATE `bills` "
+                + "SET `status`=\"" + status + "\""
+                + "WHERE `bill_id`=" + bill_id.toString() + " AND `status` IS NULL");
             statement.close();
             conn.close();
         } catch (Exception e) {
