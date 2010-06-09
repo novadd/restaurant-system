@@ -282,9 +282,9 @@ public class Engine {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT menu.id" +
                     " FROM bills " +
-                    " LEFT JOIN tables ON bills.bill_id = tables.table_id " +
-                    " LEFT JOIN menu ON menu.id = bill.menu_id " +
-                    " WHERE bills.status = " + status);
+                    " LEFT JOIN tables ON bills.bill_id=tables.table_id " +
+                    " LEFT JOIN menu ON menu.id=bill.menu_id " +
+                    " WHERE bills.status=" + status);
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
