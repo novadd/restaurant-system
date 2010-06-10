@@ -99,8 +99,8 @@ public class Main {
     public-read var toggleButton2: javafx.scene.control.ToggleButton;
     public-read var shortage: javafx.scene.layout.Panel;
     public-read var rectangle7: javafx.scene.shape.Rectangle;
-    public-read var button: javafx.scene.control.Button;
-    public-read var button10: javafx.scene.control.Button;
+    public-read var buttonWaiterLogin: javafx.scene.control.Button;
+    public-read var buttonChefLogin: javafx.scene.control.Button;
     public-read var listManager: javafx.scene.control.ListView;
     public-read var manager: javafx.scene.layout.Panel;
     public-read var rectangle4: javafx.scene.shape.Rectangle;
@@ -558,25 +558,25 @@ public class Main {
             }
             text: "ToggleButton"
         };
-        button = javafx.scene.control.Button {
+        buttonWaiterLogin = javafx.scene.control.Button {
             layoutX: 340.0
             layoutY: 240.0
             width: 117.0
             height: 24.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind button.width
-                height: bind button.height
+                width: bind buttonWaiterLogin.width
+                height: bind buttonWaiterLogin.height
             }
             text: "Button"
         };
-        button10 = javafx.scene.control.Button {
+        buttonChefLogin = javafx.scene.control.Button {
             layoutX: 340.0
             layoutY: 270.0
             width: 117.0
             height: 24.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
-                width: bind button10.width
-                height: bind button10.height
+                width: bind buttonChefLogin.width
+                height: bind buttonChefLogin.height
             }
             text: "Button"
         };
@@ -653,7 +653,7 @@ public class Main {
                 width: bind manager.width
                 height: bind manager.height
             }
-            content: [ rectangle7, button, button10, listManager, ]
+            content: [ rectangle7, buttonWaiterLogin, buttonChefLogin, listManager, ]
         };
         rectangle6 = javafx.scene.shape.Rectangle {
             fill: colorBackground
@@ -956,6 +956,8 @@ public class Main {
                                     toggleButton2.visible = false;
                                     toggleButton2.text = "ToggleButton";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Button";
+                                    buttonChefLogin.text = "Button";
                                 }
                             }
                         ]
@@ -1015,6 +1017,8 @@ public class Main {
                                     toggleButton2.visible = false;
                                     toggleButton2.text = "ToggleButton";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Button";
+                                    buttonChefLogin.text = "Button";
                                 }
                             }
                         ]
@@ -1075,6 +1079,8 @@ public class Main {
                                     toggleButton2.visible = false;
                                     toggleButton2.text = "ToggleButton";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Button";
+                                    buttonChefLogin.text = "Button";
                                 }
                             }
                         ]
@@ -1135,6 +1141,8 @@ public class Main {
                                     toggleButton2.visible = false;
                                     toggleButton2.text = "ToggleButton";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Button";
+                                    buttonChefLogin.text = "Button";
                                 }
                             }
                         ]
@@ -1200,6 +1208,8 @@ public class Main {
                                     toggleButton2.visible = true;
                                     toggleButton2.text = "<<<";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Button";
+                                    buttonChefLogin.text = "Button";
                                 }
                             }
                         ]
@@ -1259,6 +1269,10 @@ public class Main {
                                     toggleButton2.visible = false;
                                     toggleButton2.text = "ToggleButton";
                                     shortage.visible = true;
+                                    buttonWaiterLogin.text = "Waiter";
+                                    buttonWaiterLogin.action = buttonWaiterLoginActionAtmanager;
+                                    buttonChefLogin.text = "Chef";
+                                    buttonChefLogin.action = buttonChefLoginActionAtmanager;
                                 }
                             }
                         ]
@@ -1809,6 +1823,14 @@ public class Main {
         while (i < Engine.managerBillsShow().size()){
             listManager.items[i] = Engine.managerBillsShow().get(i);
         }
+    }
+
+    function buttonWaiterLoginActionAtmanager(): Void {
+        currentState.actual = currentState.findIndex("waiterTablePick");
+    }
+
+    function buttonChefLoginActionAtmanager(): Void {
+        currentState.actual = currentState.findIndex("chefOrders");
     }
 
     // </editor-fold>
