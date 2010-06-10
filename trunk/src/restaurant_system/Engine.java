@@ -1164,7 +1164,7 @@ public class Engine {
                     " FROM `bills` " +
                     " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
                     " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discount`.`id` " +
-                    " LEFT JOIN `emloyees` `bills`.`waiter_id`=`employees`.`id`ON ");
+                    " LEFT JOIN `emloyees` ON `bills`.`waiter_id`=`employees`.`id` ");
             if (rs.next()) {
                 list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
             }
