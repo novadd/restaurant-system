@@ -33,12 +33,14 @@ public class Main {
     var listLacksIDStorage: ArrayList;
     var listLoginIDStorage: ArrayList;
     var listBillIDStorage: ArrayList;
+    var listBillDiscountIDStorage: ArrayList;
     var listOrderedIDStorage: ArrayList;
     var listReadyIDStorage: ArrayList;
     var listBeingPreparedIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
     var activeDiscount: Object;
+    var removedDiscount: Object;
 
     public-read var rectangle: javafx.scene.shape.Rectangle;//GEN-BEGIN:main
     public-read var listMenu: javafx.scene.control.ListView;
@@ -1303,7 +1305,8 @@ public class Main {
             multiplier = 1;
         }
         if(listBill.selectedIndex < listBillIDStorage.size()){
-            Engine.removeFromBill(activeBillNr, listBillIDStorage.get(listBill.selectedIndex), 0, multiplier);
+            removedDiscount = listBillDiscountIDStorage.get(listBill.selectedIndex);
+            Engine.removeFromBill(activeBillNr, listBillIDStorage.get(listBill.selectedIndex), removedDiscount, multiplier);
             printBill();
         }
         if (not toggleButtonLocked.selected){
