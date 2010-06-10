@@ -1458,6 +1458,7 @@ public class Main {
             multiplier = -1;
             labelCount.text = "1 x";
         }
+        Engine.tableCheckForBills(activeTableNr);
     }
 
     function buttonOrderAction(): Void {
@@ -1507,9 +1508,15 @@ public class Main {
                 printBill();
             }
             else{
-                labelWhoServes.text = "{Engine.decodeLoginIDName(Engine.checkWhoServesTable(nr))}\n{Engine.decodeLoginIDSurname(Engine.checkWhoServesTable(nr))}";
-                labelWhoServes.layoutX = table.layoutX-labelWhoServes.width/2;
-                labelWhoServes.layoutY = table.layoutY-labelWhoServes.height/2;
+                if (Engine.decodeLoginIDFunction(loggedId)=="Manager") {
+                    currentState.actual = currentState.findIndex("waiterTable");
+                    activeTableNr = nr;
+                    activeBillNr = Engine.billsListFromTable(nr).get(0);
+                    printBill();
+                };
+//                labelWhoServes.text = "{Engine.decodeLoginIDName(Engine.checkWhoServesTable(nr))}\n{Engine.decodeLoginIDSurname(Engine.checkWhoServesTable(nr))}";
+//                labelWhoServes.layoutX = table.layoutX-labelWhoServes.width/2;
+//                labelWhoServes.layoutY = table.layoutY-labelWhoServes.height/2;
             }
         }
     }
@@ -1687,6 +1694,7 @@ public class Main {
 
         //tab1
         var i: Integer = 0;
+        var list: ArrayList = Engine.printBillMenuIDByStatus("waiting");
         while(i<Engine.printBillMenuIDByStatus("waiting").size()){
                 listOrdered.items[i] = Engine.printBillByStatus("waiting").get(i);
                 listOrderedIDStorage.set(i, Engine.printBillIDByStatus("waiting").get(i));
@@ -1823,6 +1831,7 @@ public class Main {
         var list: ArrayList = Engine.managerBillsShow();
         while (i < list.size()){
             listManager.items[i] = list.get(i);
+            i++;
         }
     }
 
