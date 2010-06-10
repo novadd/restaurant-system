@@ -1155,27 +1155,30 @@ public class Engine {
         return ret;
     }
 
-    public static ArrayList managerBillsShow() {
+    public static Object[] managerBillsShow() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT `bills`.`id` AS `id`, `bills`.`bill_id` AS `bill_id`, `menu`.`name` AS `menu_name`, `discounts`.`percentage` AS `discount_percentage`, `employees`.`surname` AS `waiter`, `bills`.`status` AS `status` " +
-                    " FROM `bills` " +
-                    " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
-                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discounts`.`id` " +
-                    " LEFT JOIN `employees` ON `bills`.`waiter_id`=`employees`.`id` ");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills`");//SELECT `bills`.`id` AS `id`, `bills`.`bill_id` AS `bill_id`, `menu`.`name` AS `menu_name`, `discounts`.`percentage` AS `discount_percentage`, `employees`.`surname` AS `waiter`, `bills`.`status` AS `status` " +
+//                    " FROM `bills` " +
+//                    " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
+//                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discounts`.`id` " +
+//                    " LEFT JOIN `employees` ON `bills`.`waiter_id`=`employees`.`id` ");
+//                    ResultSet rs = statement.executeQuery("SELECT * FROM `bills`");
             while (rs.next()) {
-                list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("discount_percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
+//                list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("discount_percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
+//                list.add(rs.getInt("id"));
             }
+            list.add("teks");
             rs.close();
             statement.close();
             conn.close();
         } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
         }
         close(conn);
-        return list;
+        return list.toArray();
     }
 
     public static ArrayList managerBillsShowID(){
