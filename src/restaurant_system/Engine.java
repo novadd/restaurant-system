@@ -1154,4 +1154,63 @@ public class Engine {
         close(conn);
         return ret;
     }
+
+    public static ArrayList manageBillsShow() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`id` AS `id`, `bills`.`bill_id` AS `bill_id`, `menu`.`name` AS `menu_name`, `discounts`.`percentage` AS `discount_percentage`, `employees`.`surname` AS `waiter`, `bills`.`status` AS `status` " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
+                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discount`.`id` " +
+                    " LEFT JOIN `emloyees` `bills`.`waiter_id`=`employees`.`id`ON ");
+            if (rs.next()) {
+                list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+
+        // zabezpieczenie przed oproznieniem stolika
+
+        return list;
+    }
+
+    public static ArrayList manageBillsShowID(){
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills`");
+            if (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    public static void manageBillsRemove(Object ID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `restaurant`.`bills` "+
+                    "WHERE `bills`.`id`=" + ID.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
 }
