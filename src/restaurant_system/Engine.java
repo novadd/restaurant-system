@@ -874,4 +874,27 @@ public class Engine {
         close(conn);
         return ret;
     }
+
+    public static boolean checkIfMealReadyOnTable(Object table_id) {
+        boolean ret = false;
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`bill_id` " +
+                    " WHERE `tables`.`table_id`=" + table_id.toString() +
+                    " AND `bills`.`status`=\"ready\"");
+            if (rs.next()) {
+                ret = true;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return ret;
+    }
 }
