@@ -931,6 +931,7 @@
         <Reference name="layoutY" value="prop:14,anim:,,flt:7.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:443.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:200.0,4,null,"/>
+        <Reference name="onMouseClicked" value="prop:36,anim:,,str:listManagerOnMouseClicked,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
     </Instance>
