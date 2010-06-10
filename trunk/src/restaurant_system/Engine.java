@@ -433,6 +433,28 @@ public class Engine {
         return list;
     }
 
+    public static ArrayList printBillDiscountID(Object billID) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`discount_id` " +
+                    " FROM `bills` " +
+                    //" LEFT JOIN `menu` ON `bills`.`menu_id` = `menu`.`id` " +
+                    //" WHERE `bills`.`bill_id` = " + billID.toString() +
+                    " GROUP BY `bills`.`menu_id`, `bills`.`discount_id` ");
+            while (rs.next()) {
+                list.add(rs.getInt("discount_id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
 
     /**
      * id kolejnych potraw z danego rachunku
@@ -444,13 +466,13 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT `menu`.`id` " +
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`menu_id` " +
                     " FROM `bills` " +
-                    " LEFT JOIN `menu` ON `bills`.`menu_id` = `menu`.`id` " +
+                    //" LEFT JOIN `menu` ON `bills`.`menu_id` = `menu`.`id` " +
                     " WHERE `bills`.`bill_id` = " + billID.toString() +
                     " GROUP BY `bills`.`menu_id`, `bills`.`discount_id` ");
             while (rs.next()) {
-                list.add(rs.getInt("id"));
+                list.add(rs.getInt("menu_id"));
             }
             rs.close();
             statement.close();
