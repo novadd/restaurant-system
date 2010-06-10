@@ -1163,8 +1163,8 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT `bills`.`id` AS `id`, `bills`.`bill_id` AS `bill_id`, `menu`.`name` AS `menu_name`, `discounts`.`percentage` AS `discount_percentage`, `employees`.`surname` AS `waiter`, `bills`.`status` AS `status` " +
                     " FROM `bills` " +
                     " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
-                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discount`.`id` " +
-                    " LEFT JOIN `emloyees` ON `bills`.`waiter_id`=`employees`.`id` ");
+                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discounts`.`id` " +
+                    " LEFT JOIN `employees` ON `bills`.`waiter_id`=`employees`.`id` ");
             if (rs.next()) {
                 list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
             }
