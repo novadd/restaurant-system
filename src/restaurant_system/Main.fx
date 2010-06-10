@@ -25,6 +25,8 @@ public class Main {
     var listLoginIDItems: Integer[] = Engine.loginListID();
     var listMenuItems: Object[] = Engine.menuList();
     var listMenuIDItems: Object[] = Engine.menuListID();
+    var listDiscountsItems: Object[] = Engine.discountsList();
+    var listDiscountsIDStorage: Object[] = Engine.discountsIDList();
 
     var listMenu2IDStorage: ArrayList;
     var listShortageIDStorage: ArrayList;
@@ -36,6 +38,7 @@ public class Main {
     var listBeingPreparedIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
+    var activeDiscount: Object;
 
     public-read var rectangle: javafx.scene.shape.Rectangle;//GEN-BEGIN:main
     public-read var listMenu: javafx.scene.control.ListView;
@@ -59,6 +62,8 @@ public class Main {
     public-read var buttonC: javafx.scene.control.Button;
     public-read var labelCount: javafx.scene.control.Label;
     public-read var buttonOrder: javafx.scene.control.Button;
+    public-read var listPickedDisscount: javafx.scene.control.ListView;
+    public-read var listDiscounts: javafx.scene.control.ListView;
     public-read var waiterTable: javafx.scene.layout.Panel;
     public-read var rectangle2: javafx.scene.shape.Rectangle;
     public-read var table1: javafx.scene.shape.Circle;
@@ -170,7 +175,7 @@ public class Main {
         };
         button1 = javafx.scene.control.Button {
             layoutX: 43.0
-            layoutY: 79.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -184,7 +189,7 @@ public class Main {
         };
         button2 = javafx.scene.control.Button {
             layoutX: 66.0
-            layoutY: 79.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -198,7 +203,7 @@ public class Main {
         };
         button3 = javafx.scene.control.Button {
             layoutX: 89.0
-            layoutY: 79.0
+            layoutY: 106.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -210,7 +215,7 @@ public class Main {
         };
         button4 = javafx.scene.control.Button {
             layoutX: 43.0
-            layoutY: 106.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -224,7 +229,7 @@ public class Main {
         };
         button5 = javafx.scene.control.Button {
             layoutX: 66.0
-            layoutY: 106.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -238,7 +243,7 @@ public class Main {
         };
         button6 = javafx.scene.control.Button {
             layoutX: 89.0
-            layoutY: 106.0
+            layoutY: 133.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -250,7 +255,7 @@ public class Main {
         };
         button7 = javafx.scene.control.Button {
             layoutX: 43.0
-            layoutY: 133.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -264,7 +269,7 @@ public class Main {
         };
         button8 = javafx.scene.control.Button {
             layoutX: 66.0
-            layoutY: 133.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -278,7 +283,7 @@ public class Main {
         };
         button9 = javafx.scene.control.Button {
             layoutX: 89.0
-            layoutY: 133.0
+            layoutY: 160.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -290,7 +295,7 @@ public class Main {
         };
         button0 = javafx.scene.control.Button {
             layoutX: 66.0
-            layoutY: 160.0
+            layoutY: 187.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -304,7 +309,7 @@ public class Main {
         };
         toggleButtonLocked = javafx.scene.control.ToggleButton {
             layoutX: 43.0
-            layoutY: 160.0
+            layoutY: 187.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -317,7 +322,7 @@ public class Main {
         };
         buttonC = javafx.scene.control.Button {
             layoutX: 89.0
-            layoutY: 160.0
+            layoutY: 187.0
             width: 17.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -340,6 +345,30 @@ public class Main {
             }
             text: "Order"
             action: buttonOrderAction
+        };
+        listPickedDisscount = javafx.scene.control.ListView {
+            layoutX: 21.0
+            layoutY: 35.0
+            width: 103.0
+            height: 21.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind listPickedDisscount.width
+                height: bind listPickedDisscount.height
+            }
+            onMouseClicked: tableSlide
+        };
+        listDiscounts = javafx.scene.control.ListView {
+            visible: false
+            layoutX: 21.0
+            layoutY: 54.0
+            width: 103.0
+            height: 160.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind listDiscounts.width
+                height: bind listDiscounts.height
+            }
+            onMouseClicked: listDiscountsOnMouseClicked
+            items: listDiscountsItems
         };
         labelWhoServes = javafx.scene.control.Label {
             layoutX: -100.0
@@ -689,7 +718,7 @@ public class Main {
         labelCount = javafx.scene.control.Label {
             visible: true
             layoutX: 51.0
-            layoutY: 41.0
+            layoutY: 68.0
             width: 47.0
             height: 22.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
@@ -720,7 +749,7 @@ public class Main {
                 width: bind waiterTable.width
                 height: bind waiterTable.height
             }
-            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, buttonBillFinalize, button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, toggleButtonLocked, buttonC, labelCount, buttonOrder, ]
+            content: [ rectangle, listMenu, listBill, listMenuID, billNr, previousBill, nextBill, buttonBillFinalize, button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, toggleButtonLocked, buttonC, labelCount, buttonOrder, listPickedDisscount, listDiscounts, ]
         };
         colorGreen = javafx.scene.paint.Color {
             red: 0.0
@@ -1249,15 +1278,15 @@ public class Main {
             length++;
         }
         if(length == 0){
-            activeBillNr = Engine.addToBill(null, listMenuID.items[listMenu.selectedIndex], 0, loggedId, 1);
+            activeBillNr = Engine.addToBill(null, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, 1);
             if(multiplier > 1){
-                Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier - 1);
+                Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier - 1);
             }
             Engine.addBillToTable(activeTableNr, activeBillNr);
             printBill();
         }
         else {
-            Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], 0, loggedId, multiplier);
+            Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier);
             printBill();
         }
         if (not toggleButtonLocked.selected){
@@ -1295,6 +1324,16 @@ public class Main {
         }
     }
     
+    function tableSlide(event: javafx.scene.input.MouseEvent): Void {
+        listDiscounts.visible = not listDiscounts.visible;
+    }
+
+    function listDiscountsOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+        listPickedDisscount.items[0] = listDiscounts.selectedItem;
+        activeDiscount = listDiscountsIDStorage[listDiscounts.selectedIndex];
+        listDiscounts.visible = false;
+    }
+
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Table Pick">
