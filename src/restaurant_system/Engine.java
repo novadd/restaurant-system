@@ -99,7 +99,13 @@ public class Engine {
             java.io.FileWriter fstream = new java.io.FileWriter("receipts.txt",true);
             java.io.BufferedWriter out = new java.io.BufferedWriter(fstream);
             java.util.Iterator it = list.iterator();
-            //out.print(java.util.Date(););
+
+            java.util.Date todaysDate = new java.util.Date();
+            java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String formattedDate = formatter.format(todaysDate);
+            out.write(formattedDate);
+            out.newLine();
+            
             while (it.hasNext()) {
                 out.write(it.next().toString());
                 out.newLine();
