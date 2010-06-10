@@ -1155,7 +1155,7 @@ public class Engine {
         return ret;
     }
 
-    public static ArrayList manageBillsShow() {
+    public static ArrayList managerBillsShow() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -1181,7 +1181,7 @@ public class Engine {
         return list;
     }
 
-    public static ArrayList manageBillsShowID(){
+    public static ArrayList managerBillsShowID(){
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -1200,7 +1200,7 @@ public class Engine {
         return list;
     }
 
-    public static void manageBillsRemove(Object ID) {
+    public static void managerBillsRemove(Object ID) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
