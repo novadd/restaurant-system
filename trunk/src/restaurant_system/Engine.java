@@ -1165,7 +1165,7 @@ public class Engine {
                     " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
                     " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discounts`.`id` " +
                     " LEFT JOIN `employees` ON `bills`.`waiter_id`=`employees`.`id` ");
-            if (rs.next()) {
+            while (rs.next()) {
                 list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("discount_percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
             }
             rs.close();
@@ -1187,7 +1187,7 @@ public class Engine {
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM `bills`");
-            if (rs.next()) {
+            while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
             rs.close();
