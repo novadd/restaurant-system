@@ -529,7 +529,7 @@ public class Engine {
             Statement statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO `tables` (`table_id`, `bill_id`) "
                 + "VALUES "
-                + "(\"" + tableID.toString() + "\", \"" + billID.toString() + "\")");
+                + "(" + tableID.toString() + ", " + billID.toString() + ")");
             statement.close();
             conn.close();
         } catch (Exception e) {
