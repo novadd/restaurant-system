@@ -1450,6 +1450,7 @@ public class Main {
 
     function buttonShortageAction(): Void {
         currentState.actual = currentState.findIndex("chefShortages");
+        printChefsShortageLists();
     }
 
     // </editor-fold>
@@ -1491,7 +1492,7 @@ public class Main {
     function listMenu2OnMouseClickedAtchefShortages(event: javafx.scene.input.MouseEvent): Void {
         if(listMenu2.selectedIndex < listMenu2IDStorage.size() and listMenu2IDStorage.size() != 0 and not toggleButton2.selected){
             Engine.menuSetStatus(listMenu2IDStorage.get(listMenu2.selectedIndex), "low");
-            printChefsLists();
+            printChefsShortageLists();
         }
     }
 
@@ -1502,7 +1503,7 @@ public class Main {
             } else {
                 Engine.menuSetStatus(listShortageIDStorage.get(listShortage.selectedIndex), "nok");
             }
-            printChefsLists();
+            printChefsShortageLists();
         }
     }
 
@@ -1513,7 +1514,7 @@ public class Main {
             } else {
                 Engine.menuSetStatus(listLacksIDStorage.get(listLacks.selectedIndex), "ok");
             }
-            printChefsLists();
+            printChefsShortageLists();
         }
     }
 
