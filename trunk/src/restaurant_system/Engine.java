@@ -996,7 +996,7 @@ public class Engine {
         return list.toArray();
     }
 
-    public static ArrayList discountsIDList() {
+    public static Object[] discountsIDList() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -1012,7 +1012,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list;
+        return list.toArray();
     }
 
     //dodanie znizki
