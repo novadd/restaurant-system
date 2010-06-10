@@ -996,6 +996,25 @@ public class Engine {
         return list;
     }
 
+    public static ArrayList discountsIDList() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM `discounts`");
+            while (rs.next()) {
+                list.add(rs.getString("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
     //dodanie znizki
     /**
      *
