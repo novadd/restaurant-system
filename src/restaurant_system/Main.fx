@@ -98,6 +98,11 @@ public class Main {
     public-read var buttonClear: javafx.scene.control.Button;
     public-read var toggleButton2: javafx.scene.control.ToggleButton;
     public-read var shortage: javafx.scene.layout.Panel;
+    public-read var rectangle7: javafx.scene.shape.Rectangle;
+    public-read var button: javafx.scene.control.Button;
+    public-read var button10: javafx.scene.control.Button;
+    public-read var listManager: javafx.scene.control.ListView;
+    public-read var manager: javafx.scene.layout.Panel;
     public-read var rectangle4: javafx.scene.shape.Rectangle;
     public-read var buttonBack: javafx.scene.control.Button;
     public-read var buttonLogout: javafx.scene.control.Button;
@@ -553,6 +558,38 @@ public class Main {
             }
             text: "ToggleButton"
         };
+        button = javafx.scene.control.Button {
+            layoutX: 340.0
+            layoutY: 240.0
+            width: 117.0
+            height: 24.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button.width
+                height: bind button.height
+            }
+            text: "Button"
+        };
+        button10 = javafx.scene.control.Button {
+            layoutX: 340.0
+            layoutY: 270.0
+            width: 117.0
+            height: 24.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind button10.width
+                height: bind button10.height
+            }
+            text: "Button"
+        };
+        listManager = javafx.scene.control.ListView {
+            layoutX: 14.0
+            layoutY: 7.0
+            width: 443.0
+            height: 200.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind listManager.width
+                height: bind listManager.height
+            }
+        };
         buttonBack = javafx.scene.control.Button {
             layoutX: 78.0
             layoutY: 16.0
@@ -596,6 +633,27 @@ public class Main {
             opacity: 1.0
         };
         colorBlack = javafx.scene.paint.Color {
+        };
+        rectangle7 = javafx.scene.shape.Rectangle {
+            layoutX: 0.0
+            layoutY: -6.0
+            fill: colorBackground
+            stroke: colorBlack
+            width: 472.0
+            height: 312.0
+            arcWidth: 12.0
+            arcHeight: 12.0
+        };
+        manager = javafx.scene.layout.Panel {
+            layoutX: 504.0
+            layoutY: 8.0
+            width: 480.0
+            height: 320.0
+            layoutInfo: javafx.scene.layout.LayoutInfo {
+                width: bind manager.width
+                height: bind manager.height
+            }
+            content: [ rectangle7, button, button10, listManager, ]
         };
         rectangle6 = javafx.scene.shape.Rectangle {
             fill: colorBackground
@@ -832,12 +890,13 @@ public class Main {
             fill: colorBackground
         };
         colorOrange = javafx.scene.paint.Color {
-            red: 0.84313726
-            green: 0.6745098
+            red: 1.0
+            green: 0.50980395
+            blue: 0.0
         };
         
         currentState = org.netbeans.javafx.design.DesignState {
-            names: [ "login", "waiterTablePick", "waiterTable", "chefOrders", "chefShortages", ]
+            names: [ "login", "waiterTablePick", "waiterTable", "chefOrders", "chefShortages", "manager", ]
             stateChangeType: org.netbeans.javafx.design.DesignStateChangeType.PAUSE_AND_PLAY_FROM_START
             actual: 0
             createTimeline: function (actual) {
@@ -871,6 +930,8 @@ public class Main {
                                     toggleButton2.layoutY => 268.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutX => 502.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -929,6 +990,8 @@ public class Main {
                                     toggleButton2.layoutY => 268.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutX => 502.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -986,6 +1049,8 @@ public class Main {
                                     toggleButton2.layoutY => 268.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutX => 502.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -1044,6 +1109,8 @@ public class Main {
                                     toggleButton2.layoutY => 268.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutX => 502.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -1104,6 +1171,8 @@ public class Main {
                                     toggleButton2.height => 24.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutX => 3.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     shortage.layoutY => 3.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
@@ -1135,6 +1204,65 @@ public class Main {
                             }
                         ]
                     }
+                } else if (actual == 5) {
+                    javafx.animation.Timeline {
+                        keyFrames: [
+                            javafx.animation.KeyFrame {
+                                time: 1000ms
+                                values: [
+                                    waiterTable.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle2.x => -2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    table1.layoutX => 186.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    table1.layoutY => 112.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    table1.translateX => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    table1.translateY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    waiterTables.layoutX => 500.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    waiterTables.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle3.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle3.layoutY => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    login.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    login.layoutY => -332.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    cook.layoutX => 504.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    cook.layoutY => 1.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listMenu2.layoutX => 13.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listMenu2.layoutY => 27.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listMenu2.width => 140.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    listMenu2.height => 182.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonClear.layoutX => 163.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonClear.layoutY => 271.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    toggleButton2.layoutX => 306.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    toggleButton2.layoutY => 268.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    shortage.layoutX => 502.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    shortage.layoutY => 0.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutX => 5.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    manager.layoutY => 8.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutX => 2.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    rectangle4.layoutY => -39.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonBack.layoutY => 16.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    buttonLogout.layoutY => -14.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    labelLogin.layoutY => -36.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    logout.layoutX => -72.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    logout.layoutY => 270.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                ]
+                                action: function() {
+                                    table1.onMouseClicked = table1OnMouseClickedAtwaiterTablePick;
+                                    table2.onMouseClicked = table2OnMouseClickedAtwaiterTablePick;
+                                    table3.onMouseClicked = table3OnMouseClickedAtwaiterTablePick;
+                                    table4.onMouseClicked = table4OnMouseClickedAtwaiterTablePick;
+                                    table5.onMouseClicked = table5OnMouseClickedAtwaiterTablePick;
+                                    listLogin.select (-1);
+                                    buttonLogin.text = "Login";
+                                    listMenu2.visible = true;
+                                    toggleButton2.visible = false;
+                                    toggleButton2.text = "ToggleButton";
+                                    shortage.visible = true;
+                                }
+                            }
+                        ]
+                    }
                 } else {
                     null
                 }
@@ -1144,7 +1272,7 @@ public class Main {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Design Functions">
     public function getDesignRootNodes () : javafx.scene.Node[] {
-        [ waiterTable, waiterTables, login, cook, shortage, logout, ]
+        [ waiterTable, waiterTables, login, cook, shortage, manager, logout, ]
     }
     
     public function getDesignScene (): javafx.scene.Scene {
@@ -1449,6 +1577,11 @@ public class Main {
                 printChefsLists();
                 currentState.actual = currentState.findIndex("chefOrders");
             }
+            if (Engine.decodeLoginIDFunction(loggedId)=="Manager") {
+                labelLogin.text = Engine.decodeLoginIDSurname(listLoginID.items[listLogin.selectedIndex]);
+                printManagerList();
+                currentState.actual = currentState.findIndex("manager");
+            }
         };
     }
     // </editor-fold>
@@ -1667,5 +1800,16 @@ public class Main {
         Engine.menuWholeSetStatus("ok");
         printChefsShortageLists();
     }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Manager">
+
+    function printManagerList(){
+        var i: Integer = 0;
+        while (i < Engine.managerBillsShow().size()){
+            listManager.items[i] = Engine.managerBillsShow().get(i);
+        }
+    }
+
     // </editor-fold>
 };
