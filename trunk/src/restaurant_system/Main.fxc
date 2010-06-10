@@ -902,7 +902,7 @@
         <Reference name="arcHeight" value="prop:15,anim:,,flt:12.0,4,null,"/>
     </Instance>
     <Instance classID="ButtonModel" instanceID="ButtonModel19">
-        <Reference name="instanceName" value="str:button"/>
+        <Reference name="instanceName" value="str:buttonWaiterLogin"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:340.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:240.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:117.0,4,null,"/>
@@ -910,10 +910,11 @@
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
-        <Reference name="text" value="prop:17,anim:,,str:Button,4,null,"/>
+        <Reference name="text" value="prop:17,anim:,,str:Button,24,inst:StateVariableModel1,16,inst:StateModel6,17,anim:,,str:Waiter,"/>
+        <Reference name="action" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel6,43,anim:,,str:buttonWaiterLoginActionAtmanager,"/>
     </Instance>
     <Instance classID="ButtonModel" instanceID="ButtonModel20">
-        <Reference name="instanceName" value="str:button10"/>
+        <Reference name="instanceName" value="str:buttonChefLogin"/>
         <Reference name="layoutX" value="prop:16,anim:,,flt:340.0,4,null,"/>
         <Reference name="layoutY" value="prop:16,anim:,,flt:270.0,4,null,"/>
         <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:117.0,4,null,"/>
@@ -921,7 +922,8 @@
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
         <Reference name="graphicNode" value="null"/>
-        <Reference name="text" value="prop:17,anim:,,str:Button,4,null,"/>
+        <Reference name="text" value="prop:17,anim:,,str:Button,24,inst:StateVariableModel1,16,inst:StateModel6,15,anim:,,str:Chef,"/>
+        <Reference name="action" value="prop:4,null,24,inst:StateVariableModel1,16,inst:StateModel6,41,anim:,,str:buttonChefLoginActionAtmanager,"/>
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel14">
         <Reference name="instanceName" value="str:listManager"/>
