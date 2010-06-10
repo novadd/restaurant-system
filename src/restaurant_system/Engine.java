@@ -596,12 +596,30 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu_id, COUNT(*) as number FROM menu "
-                    + " WHERE status=\"" + status + "\""
-                    + " GROUP BY menu_id");
+            ResultSet rs = statement.executeQuery("SELECT name FROM menu "
+                    + " WHERE status=\"" + status + "\"");
             while (rs.next()) {
-                list.add(rs.getInt("menu_id"));
-                list.add(rs.getInt("number"));
+                list.add(rs.getInt("name"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    public static ArrayList menuIDCheckWhichHaveStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT id FROM menu "
+                    + " WHERE status=\"" + status + "\"");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
             }
             rs.close();
             statement.close();
