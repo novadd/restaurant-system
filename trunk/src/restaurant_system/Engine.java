@@ -475,6 +475,16 @@ public class Engine {
             statement.executeUpdate("DELETE FROM restaurant.bills "+
                     "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
                     " LIMIT " + String.valueOf(howMany));
+
+            //sprawdzenie, czy po usunieciu zostaly jakies rekordy, jesli nie, to usuwa powiazanie stolika z bill 
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` "
+                    + "WHERE `bill_id`=" + billID.toString());
+            if (!rs.next()) {
+                statement.executeUpdate("DELETE FROM restaurant.tables "+
+                    "WHERE tables.bill_id=" + billID.toString());
+            }
+            rs.close();
+
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -493,6 +503,16 @@ public class Engine {
                         " AND bills.discount_id=" + discountID.toString() +
                         " AND (bills.status IS NULL OR bills.status=\"waiting\")" +
                     " LIMIT " + String.valueOf(howMany));
+
+            //sprawdzenie, czy po usunieciu zostaly jakies rekordy, jesli nie, to usuwa powiazanie stolika z bill
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` "
+                    + "WHERE `bill_id`=" + billID.toString());
+            if (!rs.next()) {
+                statement.executeUpdate("DELETE FROM restaurant.tables "+
+                    "WHERE tables.bill_id=" + billID.toString());
+            }
+            rs.close();
+
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -605,7 +625,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT name FROM menu "
                     + " WHERE status=\"" + status + "\"");
             while (rs.next()) {
-                list.add(rs.getInt("name"));
+                list.add(rs.getString("name"));
             }
             rs.close();
             statement.close();
