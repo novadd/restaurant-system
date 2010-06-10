@@ -596,7 +596,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu_id, COUNT(*) as number FROM bills "
+            ResultSet rs = statement.executeQuery("SELECT menu_id, COUNT(*) as number FROM menu "
                     + " WHERE status=\"" + status + "\""
                     + " GROUP BY menu_id");
             while (rs.next()) {
