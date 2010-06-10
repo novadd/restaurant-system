@@ -104,6 +104,7 @@ public class Main {
     public-read var colorGreen: javafx.scene.paint.Color;
     public-read var colorYellow: javafx.scene.paint.Color;
     public-read var colorRed: javafx.scene.paint.Color;
+    public-read var colorOrange: javafx.scene.paint.Color;
     
     public-read var currentState: org.netbeans.javafx.design.DesignState;
     
@@ -799,6 +800,10 @@ public class Main {
             }
             fill: colorBackground
         };
+        colorOrange = javafx.scene.paint.Color {
+            red: 0.84313726
+            green: 0.6745098
+        };
         
         currentState = org.netbeans.javafx.design.DesignState {
             names: [ "login", "waiterTablePick", "waiterTable", "chefOrders", "chefShortages", ]
@@ -1077,7 +1082,7 @@ public class Main {
                                     labelLogin.layoutX => 78.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     labelLogin.layoutY => -36.0 tween javafx.animation.Interpolator.EASEBOTH,
                                     logout.layoutX => -72.0 tween javafx.animation.Interpolator.EASEBOTH,
-                                    logout.layoutY => 378.0 tween javafx.animation.Interpolator.EASEBOTH,
+                                    logout.layoutY => 270.0 tween javafx.animation.Interpolator.EASEBOTH,
                                 ]
                                 action: function() {
                                     table1.onMouseClicked = table1OnMouseClickedAtwaiterTablePick;
@@ -1089,6 +1094,8 @@ public class Main {
                                     buttonLogin.text = "Login";
                                     listMenu2.visible = true;
                                     listMenu2.onMouseClicked = listMenu2OnMouseClickedAtchefShortages;
+                                    listShortage.onMouseClicked = listShortageOnMouseClickedAtchefShortages;
+                                    listLacks.onMouseClicked = listLacksOnMouseClickedAtchefShortages;
                                     buttonClear.action = buttonClearActionAtchefShortages;
                                     toggleButton2.visible = true;
                                     toggleButton2.text = "<<<";
@@ -1124,7 +1131,19 @@ public class Main {
     }
 
     function buttonBackAction(): Void {
-        currentState.previous();
+        if(currentState.actual == currentState.findIndex("waiterTablePick")){
+            currentState.actual = currentState.findIndex("login");
+        }
+        if(currentState.actual == currentState.findIndex("waiterTable")){
+            Engine.tableCheckForBills(activeTableNr);
+            currentState.actual = currentState.findIndex("waiterTablePick");
+        }
+        if(currentState.actual == currentState.findIndex("chefOrders")){
+            currentState.actual = currentState.findIndex("login");
+        }
+        if(currentState.actual == currentState.findIndex("chefShortages")){
+            currentState.actual = currentState.findIndex("chefOrders");
+        }
         if(loggedId != -1){
             printChefsLists();
             colourTable(1,table1);
@@ -1133,6 +1152,7 @@ public class Main {
             colourTable(4,table4);
             colourTable(5,table5);
         }
+        printChefsLists();
     }
 
     function clearList(list: javafx.scene.control.ListView){
@@ -1338,6 +1358,9 @@ public class Main {
     // ---------------------------------------------------
     // This function logs out current user
     // ---------------------------------------------------
+        if(currentState.actual == currentState.findIndex("waiterTable")){
+            Engine.tableCheckForBills(activeTableNr);
+        }
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
     }
@@ -1385,7 +1408,81 @@ public class Main {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Chef Orders handling">
+    // <editor-fold defaultstate="collapsed" desc="Chef Orders handling + table lightning">
+    function mealReadyForTable(nr){
+        if(nr==1){
+            table1.strokeWidth = 5;
+            table1.stroke = colorOrange;
+        };
+        if(nr==2){
+            table2.strokeWidth = 5;
+            table2.stroke = colorOrange;
+        };
+        if(nr==3){
+            table3.strokeWidth = 5;
+            table3.stroke = colorOrange;
+        };
+        if(nr==4){
+            table4.strokeWidth = 5;
+            table4.stroke = colorOrange;
+        };
+        if(nr==5){
+            table5.strokeWidth = 5;
+            table5.stroke = colorOrange;
+        };
+    }
+
+    function noMealReadyForTable(nr){
+        if(nr==1){
+            table1.strokeWidth = 1;
+            table1.stroke = colorBlack;
+        };
+        if(nr==2){
+            table2.strokeWidth = 1;
+            table2.stroke = colorBlack;
+        };
+        if(nr==3){
+            table3.strokeWidth = 1;
+            table3.stroke = colorBlack;
+        };
+        if(nr==4){
+            table4.strokeWidth = 1;
+            table4.stroke = colorBlack;
+        };
+        if(nr==5){
+            table5.strokeWidth = 1;
+            table5.stroke = colorBlack;
+        };
+    }
+
+    function updateTableAllerts(){
+        if(Engine.checkIfMealReadyOnTable(1)){
+            mealReadyForTable(1);
+        } else {
+            noMealReadyForTable(1);
+        };
+        if(Engine.checkIfMealReadyOnTable(2)){
+            mealReadyForTable(2);
+        } else {
+            noMealReadyForTable(2);
+        };
+        if(Engine.checkIfMealReadyOnTable(3)){
+            mealReadyForTable(3);
+        } else {
+            noMealReadyForTable(3);
+        };
+        if(Engine.checkIfMealReadyOnTable(4)){
+            mealReadyForTable(4);
+        } else {
+            noMealReadyForTable(4);
+        };
+        if(Engine.checkIfMealReadyOnTable(5)){
+            mealReadyForTable(5);
+        } else {
+            noMealReadyForTable(5);
+        };
+    }
+
     function printChefsLists(){
         
         clearList(listReady);
@@ -1432,6 +1529,7 @@ public class Main {
                 Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "waiting");
             } else {
                 Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "ready");
+                updateTableAllerts();
             }
             printChefsLists();
         }
@@ -1441,8 +1539,10 @@ public class Main {
         if(listReady.selectedIndex < listReadyIDStorage.size() and listReadyIDStorage.size() != 0){
             if(toggleButton.selected){
                 Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "processing");
+                updateTableAllerts();
             } else {
                 Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "served");
+                updateTableAllerts();
             }
             printChefsLists();
         }
@@ -1520,6 +1620,7 @@ public class Main {
 
     function buttonClearActionAtchefShortages(): Void {
         Engine.menuWholeSetStatus("ok");
+        printChefsShortageLists();
     }
     // </editor-fold>
 };
