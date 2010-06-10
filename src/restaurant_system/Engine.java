@@ -311,7 +311,7 @@ public class Engine {
                     " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`table_id` " +
                     " LEFT JOIN `menu` ON `menu`.`id`=`bills`.`menu_id` " +
                     " WHERE `bills`.`status`=\"" + status + "\"" +
-                    " ORDER BY bills.id ASC");
+                    " ORDER BY `bills`.`id` ASC");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -333,7 +333,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT `bills`.`id`" +
                     " FROM `bills` " +
                     " WHERE `bills`.`status`=\"" + status + "\"" +
-                    " ORDER BY bills.id ASC");
+                    " ORDER BY `bills`.`id` ASC");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -357,7 +357,7 @@ public class Engine {
                     " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
                     " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`bill_id` " +
                     " WHERE bills.status = \"" + status + "\"" +
-                    " ORDER BY bills.id ASC");
+                    " ORDER BY `bills`.`id` ASC");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
             }
@@ -402,12 +402,12 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT menu.name, menu.price, discounts.percentage, COUNT( * ) AS number " +
-                    " FROM bills " +
-                    " LEFT JOIN discounts ON discounts.id = bills.discount_id " +
-                    " LEFT JOIN menu ON bills.menu_id = menu.id " +
-                    " WHERE bills.bill_id = " + billID.toString() +
-                    " GROUP BY bills.menu_id, bills.discount_id ");
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`name`, `menu`.`price`, `discounts`.`percentage`, COUNT( * ) AS `number` " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `discounts` ON `discounts`.`id` = `bills`.`discount_id` " +
+                    " LEFT JOIN `menu` ON `bills`.`menu_id` = `menu`.`id` " +
+                    " WHERE `bills`.`bill_id` = " + billID.toString() +
+                    " GROUP BY `bills`.`menu_id`, `bills`.`discount_id` ");
             while (rs.next()) {
                 list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100) + " zł)");
                 sum=(double)sum + (rs.getDouble("price") * (rs.getInt("number")) * (100-rs.getInt("percentage")/100.0) );
@@ -431,7 +431,7 @@ public class Engine {
                 Statement statement = conn.createStatement();
                 String query;
                 String data;
-                query = "INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id) VALUES ";
+                query = "INSERT INTO `bills` (`bill_id`, `menu_id`, `discount_id`, `waiter_id`) VALUES ";
                 data = "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\")";
                 for (int i=0; i<howMany-1; i++) {
                     query += data + ", ";
@@ -447,13 +447,13 @@ public class Engine {
         } else {
             try {
                 Statement statement = conn.createStatement();
-                ResultSet rs = statement.executeQuery("SELECT MAX(bill_id) AS max FROM bills");
+                ResultSet rs = statement.executeQuery("SELECT MAX(bill_id) AS `max` FROM `bills`");
                 if (rs.next()) {
                     billID=(rs.getInt("max") + 1);
                 } else {
                     billID="0";
                 }
-                statement.executeUpdate("INSERT INTO bills (bill_id, menu_id, discount_id, waiter_id) "
+                statement.executeUpdate("INSERT INTO `bills` (`bill_id`, `menu_id`, `discount_id`, `waiter_id`) "
                     + "VALUES "
                     + "(\"" + billID.toString() + "\", \"" + menuID.toString() + "\", \"" + discountID.toString() + "\", \"" + waiterID.toString() + "\")");
                 rs.close();
@@ -472,12 +472,12 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT tables.bill_id FROM `tables` " +
-                    " LEFT JOIN bills ON tables.bill_id=bills.bill_id " +
-                    " WHERE bills.`bill_id` IS NULL");
+            ResultSet rs = statement.executeQuery("SELECT `tables`.`bill_id` FROM `tables` " +
+                    " LEFT JOIN `bills` ON `tables`.`bill_id`=`bills`.`bill_id` " +
+                    " WHERE `bills`.`bill_id` IS NULL");
             while (rs.next()) {
-                statement.executeUpdate("DELETE FROM restaurant.tables "+
-                    "WHERE tables.bill_id=" + rs.getString("bill_id"));
+                statement.executeUpdate("DELETE FROM `restaurant`.`tables` "+
+                    "WHERE `tables`.`bill_id`=" + rs.getString("bill_id"));
             }
             rs.close();
         } catch (Exception e) {
@@ -491,8 +491,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM restaurant.bills "+
-                    "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
+            statement.executeUpdate("DELETE FROM `restaurant`.`bills` "+
+                    "WHERE `bills`.`bill_id`=" + billID.toString() + " AND `bills`.`menu_id`=" + menuID.toString() + " AND `bills`.`discount_id`=" + discountID.toString() +
                     " LIMIT " + String.valueOf(howMany));
 
             statement.close();
@@ -507,11 +507,11 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM restaurant.bills "+
-                    "WHERE bills.bill_id=" + billID.toString() +
-                        " AND bills.menu_id=" + menuID.toString() +
-                        " AND bills.discount_id=" + discountID.toString() +
-                        " AND (bills.status IS NULL OR bills.status=\"waiting\")" +
+            statement.executeUpdate("DELETE FROM `restaurant`.`bills` "+
+                    "WHERE `bills`.`bill_id`=" + billID.toString() +
+                        " AND `bills`.`menu_id`=" + menuID.toString() +
+                        " AND `bills`.`discount_id`=" + discountID.toString() +
+                        " AND (`bills`.`status` IS NULL OR `bills`.`status`=\"waiting\")" +
                     " LIMIT " + String.valueOf(howMany));
 
             statement.close();
@@ -602,8 +602,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM menu "
-                    + "WHERE id=" + menu_id.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu` "
+                    + "WHERE `id`=" + menu_id.toString());
             while (rs.next()) {
                 ret=rs.getString("status");
             }
@@ -623,8 +623,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name FROM menu "
-                    + " WHERE status=\"" + status + "\"");
+            ResultSet rs = statement.executeQuery("SELECT `name` FROM `menu` "
+                    + " WHERE `status`=\"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getString("name"));
             }
@@ -643,8 +643,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT id FROM menu "
-                    + " WHERE status=\"" + status + "\"");
+            ResultSet rs = statement.executeQuery("SELECT `id` FROM `menu` "
+                    + " WHERE `status`=\"" + status + "\"");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
@@ -663,9 +663,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("UPDATE bills "
-                + "SET status=\"" + status + "\""
-                + "WHERE id=" + id.toString());
+            statement.executeUpdate("UPDATE `bills` "
+                + "SET `status`=\"" + status + "\""
+                + "WHERE `id`=" + id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -678,8 +678,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM bills " +
-                    "WHERE bill_id=" + bill_id.toString());
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` " +
+                    "WHERE `bill_id`=" + bill_id.toString());
             while (rs.next()) {
                 if (!rs.getString("status").equals("served")) return false;
             }
@@ -713,9 +713,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("UPDATE menu "
-                + "SET status=\"" + status + "\""
-                + "WHERE id=" + menu_id.toString());
+            statement.executeUpdate("UPDATE `menu` "
+                + "SET `status`=\"" + status + "\""
+                + "WHERE `id`=" + menu_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -728,8 +728,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("UPDATE menu "
-                + "SET status=\"" + status + "\"");
+            statement.executeUpdate("UPDATE `menu` "
+                + "SET `status`=\"" + status + "\"");
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -743,7 +743,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO menu (name, price, category) "
+            statement.executeUpdate("INSERT INTO `menu` (`name`, `price`, `category`) "
                 + "VALUES "
                 + "(\"" + name + "\", \"" + String.valueOf(price) + "\", \"" + category + "\")");
             statement.close();
@@ -759,8 +759,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM menu "
-                + "WHERE id=" + menu_id.toString());
+            statement.executeUpdate("DELETE FROM `menu` "
+                + "WHERE `id`=" + menu_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -774,7 +774,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO employees (name, surname, function) "
+            statement.executeUpdate("INSERT INTO `employees` (`name`, `surname`, `function`) "
                 + "VALUES "
                 + "(\"" + name + "\", \"" + surname + "\", \"" + function + "\")");
             statement.close();
@@ -790,8 +790,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM employees "
-                + "WHERE id=" + employee_id.toString());
+            statement.executeUpdate("DELETE FROM `employees` "
+                + "WHERE `id`=" + employee_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -805,7 +805,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO discounts (description, percentage) "
+            statement.executeUpdate("INSERT INTO `discounts` (`description`, `percentage`) "
                 + "VALUES "
                 + "(\"" + description + "\", \"" + String.valueOf(percentage) + "\")");
             statement.close();
@@ -821,8 +821,8 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("DELETE FROM discounts "
-                + "WHERE id=" + discount_id.toString());
+            statement.executeUpdate("DELETE FROM `discounts` "
+                + " WHERE `id`=" + discount_id.toString());
             statement.close();
             conn.close();
         } catch (Exception e) {
@@ -837,9 +837,9 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM bills " +
-                    "WHERE waiter_id=" + waiter_id.toString() +
-                    "GROUP BY bill_id");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` " +
+                    " WHERE `waiter_id`=" + waiter_id.toString() +
+                    " GROUP BY `bill_id`");
             while (rs.next()) {
                 list.add(rs.getInt("bill_id"));
             }
@@ -851,5 +851,27 @@ public class Engine {
         }
         close(conn);
         return list;
+    }
+
+    public static int checkMealTable(Object ID) {
+        int ret = -1;
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`bill_id` " +
+                    " WHERE `id`=" + ID.toString());
+            if (rs.next()) {
+                ret = rs.getInt("bill_id");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return ret;
     }
 }
