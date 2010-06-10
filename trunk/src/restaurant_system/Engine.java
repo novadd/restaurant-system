@@ -1155,7 +1155,7 @@ public class Engine {
         return ret;
     }
 
-    public static Object[] managerBillsShow() {
+    public static ArrayList managerBillsShow() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -1175,7 +1175,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list.toArray();
+        return list;
     }
 
     public static ArrayList managerBillsShowID(){
