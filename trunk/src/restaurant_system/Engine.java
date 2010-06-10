@@ -467,6 +467,25 @@ public class Engine {
         return billID;
     }
 
+    public static void tableCheckForBills(Object table_id) {
+    //sprawdzenie, czy po usunieciu zostaly jakies rekordy, jesli nie, to usuwa powiazanie stolika z bill
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT tables.bill_id FROM `tables` " +
+                    " LEFT JOIN bills ON tables.bill_id=bills.bill_id " +
+                    " WHERE bills.`bill_id` IS NULL");
+            while (rs.next()) {
+                statement.executeUpdate("DELETE FROM restaurant.tables "+
+                    "WHERE tables.bill_id=" + rs.getString("bill_id"));
+            }
+            rs.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
     //usuniecie potrawy z rachunku
     public static void removeFromBillManager(Object billID, Object menuID, Object discountID, int howMany) {
         Connection conn = connect();
@@ -475,15 +494,6 @@ public class Engine {
             statement.executeUpdate("DELETE FROM restaurant.bills "+
                     "WHERE bills.bill_id=" + billID.toString() + " AND bills.menu_id=" + menuID.toString() + " AND bills.discount_id=" + discountID.toString() +
                     " LIMIT " + String.valueOf(howMany));
-
-            //sprawdzenie, czy po usunieciu zostaly jakies rekordy, jesli nie, to usuwa powiazanie stolika z bill 
-            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` "
-                    + "WHERE `bill_id`=" + billID.toString());
-            if (!rs.next()) {
-                statement.executeUpdate("DELETE FROM restaurant.tables "+
-                    "WHERE tables.bill_id=" + billID.toString());
-            }
-            rs.close();
 
             statement.close();
             conn.close();
@@ -503,15 +513,6 @@ public class Engine {
                         " AND bills.discount_id=" + discountID.toString() +
                         " AND (bills.status IS NULL OR bills.status=\"waiting\")" +
                     " LIMIT " + String.valueOf(howMany));
-
-            //sprawdzenie, czy po usunieciu zostaly jakies rekordy, jesli nie, to usuwa powiazanie stolika z bill
-            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` "
-                    + "WHERE `bill_id`=" + billID.toString());
-            if (!rs.next()) {
-                statement.executeUpdate("DELETE FROM restaurant.tables "+
-                    "WHERE tables.bill_id=" + billID.toString());
-            }
-            rs.close();
 
             statement.close();
             conn.close();
