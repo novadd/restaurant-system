@@ -37,6 +37,7 @@ public class Main {
     var listOrderedIDStorage: ArrayList;
     var listReadyIDStorage: ArrayList;
     var listBeingPreparedIDStorage: ArrayList;
+    var listManagerIDStorage: ArrayList;
     var activeTableNr: Integer;
     var activeBillNr: Object;
     var activeDiscount: Object;
@@ -589,6 +590,7 @@ public class Main {
                 width: bind listManager.width
                 height: bind listManager.height
             }
+            onMouseClicked: listManagerOnMouseClicked
         };
         buttonBack = javafx.scene.control.Button {
             layoutX: 78.0
@@ -1307,17 +1309,28 @@ public class Main {
 
     function buttonBackAction(): Void {
         if(currentState.actual == currentState.findIndex("waiterTablePick")){
+            if (Engine.decodeLoginIDFunction(loggedId)=="Manager") {
+                    currentState.actual = currentState.findIndex("manager");
+            }else{
             currentState.actual = currentState.findIndex("login");
+            }
         }
         if(currentState.actual == currentState.findIndex("waiterTable")){
             Engine.tableCheckForBills(activeTableNr);
             currentState.actual = currentState.findIndex("waiterTablePick");
         }
         if(currentState.actual == currentState.findIndex("chefOrders")){
-            currentState.actual = currentState.findIndex("login");
+            if (Engine.decodeLoginIDFunction(loggedId)=="Manager") {
+                    currentState.actual = currentState.findIndex("manager");
+            }else{
+            currentState.actual = currentState.findIndex("login")
+            }
         }
         if(currentState.actual == currentState.findIndex("chefShortages")){
             currentState.actual = currentState.findIndex("chefOrders");
+        }
+        if(currentState.actual == currentState.findIndex("manager")){
+            currentState.actual = currentState.findIndex("login");
         }
         if(loggedId != -1){
             printChefsLists();
@@ -1829,18 +1842,42 @@ public class Main {
     function printManagerList(){
         var i: Integer = 0;
         var list: ArrayList = Engine.managerBillsShow();
+        listManagerIDStorage = Engine.managerBillsShowID();
+
+        clearList(listManager);
         while (i < list.size()){
             listManager.items[i] = list.get(i);
             i++;
         }
     }
 
+    function listManagerOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
+    // --------------------------------------------------------
+    // This function deletes selected item from the bills list
+    // --------------------------------------------------------
+        if(listManager.selectedIndex < listManagerIDStorage.size()){
+            Engine.managerBillsRemove(listManagerIDStorage.get(listManager.selectedIndex));
+            printManagerList();
+        }     
+        Engine.tableCheckForBills(1);
+        Engine.tableCheckForBills(2);
+        Engine.tableCheckForBills(3);
+        Engine.tableCheckForBills(4);
+        Engine.tableCheckForBills(5);
+    }
+
     function buttonWaiterLoginActionAtmanager(): Void {
         currentState.actual = currentState.findIndex("waiterTablePick");
+        colourTable(1,table1);
+        colourTable(2,table2);
+        colourTable(3,table3);
+        colourTable(4,table4);
+        colourTable(5,table5);
     }
 
     function buttonChefLoginActionAtmanager(): Void {
         currentState.actual = currentState.findIndex("chefOrders");
+        printChefsLists();
     }
 
     // </editor-fold>
