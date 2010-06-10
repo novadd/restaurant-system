@@ -824,7 +824,7 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT * FROM `bills` " +
                     "WHERE `bill_id`=" + bill_id.toString());
             while (rs.next()) {
-                if (!rs.getString("status").equals("served")) return false;
+                if (rs.getString("Status")==null || !rs.getString("status").equals("served")) return false;
             }
             rs.close();
             statement.close();
