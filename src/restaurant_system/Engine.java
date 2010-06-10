@@ -410,7 +410,7 @@ public class Engine {
                     " GROUP BY bills.menu_id, bills.discount_id ");
             while (rs.next()) {
                 list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100) + " zł)");
-                sum=(double)sum + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100)*(rs.getInt("number"));
+                sum=(double)sum + (rs.getDouble("price") * (rs.getInt("number")) * (100-rs.getInt("percentage")/100.0) );
             }
             rs.close();
             statement.close();
@@ -419,7 +419,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        list.add("Sum: " + sum + " zł");
+        list.add("Sum: " + Math.round(sum*100)/100.0 + " zł");
         return list;
     }
 
