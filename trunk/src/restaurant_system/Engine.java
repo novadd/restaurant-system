@@ -587,6 +587,7 @@ public class Engine {
                     "WHERE `tables`.`bill_id`=" + rs.getString("bill_id"));
             }
             rs.close();
+            statement.close();
         } catch (Exception e) {
                 e.printStackTrace();
         }
