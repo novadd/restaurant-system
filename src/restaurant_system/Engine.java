@@ -977,7 +977,7 @@ public class Engine {
     }
 
 
-    public static ArrayList discountsList() {
+    public static Object[] discountsList() {
         ArrayList list = new ArrayList();
         Connection conn = connect();
         try {
@@ -993,7 +993,7 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-        return list;
+        return list.toArray();
     }
 
     public static ArrayList discountsIDList() {
