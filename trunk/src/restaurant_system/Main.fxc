@@ -454,20 +454,21 @@
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel4">
         <Reference name="instanceName" value="str:listPickedDisscount"/>
-        <Reference name="layoutX" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:9.0,4,null,"/>
         <Reference name="layoutY" value="prop:15,anim:,,flt:35.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:103.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:131.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:15,anim:,,flt:21.0,4,null,"/>
         <Reference name="onMouseClicked" value="prop:21,anim:,,str:tableSlide,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
+        <Reference name="items" value="prop:default"/>
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel5">
         <Reference name="instanceName" value="str:listDiscounts"/>
         <Reference name="visible" value="prop:17,anim:,,bool:false,4,null,"/>
-        <Reference name="layoutX" value="prop:15,anim:,,flt:21.0,4,null,"/>
+        <Reference name="layoutX" value="prop:14,anim:,,flt:9.0,4,null,"/>
         <Reference name="layoutY" value="prop:15,anim:,,flt:54.0,4,null,"/>
-        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:103.0,4,null,"/>
+        <Reference name="layoutInfoWidth" value="prop:16,anim:,,flt:131.0,4,null,"/>
         <Reference name="layoutInfoHeight" value="prop:16,anim:,,flt:160.0,4,null,"/>
         <Reference name="onMouseClicked" value="prop:38,anim:,,str:listDiscountsOnMouseClicked,4,null,"/>
         <Reference name="preCreationCode" value="null"/>

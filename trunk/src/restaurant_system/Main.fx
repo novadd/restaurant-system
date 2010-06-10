@@ -349,9 +349,9 @@ public class Main {
             action: buttonOrderAction
         };
         listPickedDisscount = javafx.scene.control.ListView {
-            layoutX: 21.0
+            layoutX: 9.0
             layoutY: 35.0
-            width: 103.0
+            width: 131.0
             height: 21.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind listPickedDisscount.width
@@ -361,9 +361,9 @@ public class Main {
         };
         listDiscounts = javafx.scene.control.ListView {
             visible: false
-            layoutX: 21.0
+            layoutX: 9.0
             layoutY: 54.0
-            width: 103.0
+            width: 131.0
             height: 160.0
             layoutInfo: javafx.scene.layout.LayoutInfo {
                 width: bind listDiscounts.width
@@ -1159,6 +1159,8 @@ public class Main {
 
     function scenePre_CreationCode(): Void {
         Engine.createDB();
+        listPickedDisscount.items[0] = Engine.discountsList()[0];
+        activeDiscount = Engine.discountsIDList()[0];
     }
 
     function buttonBackAction(): Void {
@@ -1258,6 +1260,7 @@ public class Main {
         clearList(listBill);
         var i: Integer = 0;
         listBillIDStorage = Engine.printBillMenuID(activeBillNr);
+        listBillDiscountIDStorage = Engine.printBillDiscountID(activeBillNr);
         while(i<Engine.printBillMenuID(activeBillNr).size()){
                 listBill.items[i] = Engine.printBill(activeBillNr).get(i);
                 //listBillIDStorage.set(i, Engine.printBillMenuID(activeBillNr).get(i));
