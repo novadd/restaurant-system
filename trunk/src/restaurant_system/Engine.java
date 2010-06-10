@@ -703,8 +703,22 @@ public class Engine {
         close(conn);
     }
 
+    public static void menuWholeSetStatus(String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE menu "
+                + "SET status=\"" + status + "\"");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
     //dodanie pozycji do menu
-    public static void menuAddItem(String name, double price, String category) {
+    public static void menuAddItem(String name, java.math.BigDecimal price, String category) {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
