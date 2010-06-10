@@ -1820,8 +1820,9 @@ public class Main {
 
     function printManagerList(){
         var i: Integer = 0;
-        while (i < Engine.managerBillsShow().size()){
-            listManager.items[i] = Engine.managerBillsShow().get(i);
+        var list: ArrayList = Engine.managerBillsShow();
+        while (i < list.size()){
+            listManager.items[i] = list.get(i);
         }
     }
 
