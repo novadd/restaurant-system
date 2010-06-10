@@ -1175,9 +1175,6 @@ public class Engine {
                 e.printStackTrace();
         }
         close(conn);
-
-        // zabezpieczenie przed oproznieniem stolika
-
         return list;
     }
 
@@ -1211,6 +1208,8 @@ public class Engine {
         } catch (Exception e) {
                 e.printStackTrace();
         }
+
+        // musi usunac powiazanie stolika
         close(conn);
     }
 }
