@@ -582,9 +582,12 @@ public class Engine {
             ResultSet rs = statement.executeQuery("SELECT `tables`.`bill_id` FROM `tables` " +
                     " LEFT JOIN `bills` ON `tables`.`bill_id`=`bills`.`bill_id` " +
                     " WHERE `bills`.`bill_id` IS NULL LIMIT 1");
-            while (rs.next()) {
+            if (rs.next()) {
+                String bill_id = rs.getString("bill_id");
+                statement.close();
+                statement = conn.createStatement();
                 statement.executeUpdate("DELETE FROM `restaurant`.`tables` "+
-                    "WHERE `tables`.`bill_id`=" + rs.getString("bill_id"));
+                    "WHERE `tables`.`bill_id`=" + bill_id);
             }
             rs.close();
             statement.close();
