@@ -503,7 +503,7 @@ public class Engine {
                     " WHERE `bills`.`bill_id` = " + billID.toString() +
                     " GROUP BY `bills`.`menu_id`, `bills`.`discount_id` ");
             while (rs.next()) {
-                list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + (rs.getFloat("price") * (100-rs.getInt("percentage"))/100) + " zł)");
+                list.add(rs.getString("number") + "x " + rs.getString("name") + " (" + Math.round(rs.getFloat("price") * (100-rs.getInt("percentage")))/100.0 + " zł)");
                 sum=(double)sum + (rs.getDouble("price") * (rs.getInt("number")) * (100-rs.getInt("percentage")/100.0) );
             }
             rs.close();
