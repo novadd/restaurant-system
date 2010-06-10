@@ -976,12 +976,33 @@ public class Engine {
         close(conn);
     }
 
+
+    public static ArrayList discountsList() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM `discounts`");
+            while (rs.next()) {
+                list.add(rs.getString("description") + " (" + rs.getString("percentage") + "%)");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
     //dodanie znizki
     /**
      *
      * @param description
      * @param percentage
      */
+
     public static void discountAdd(String description, int percentage) {
         Connection conn = connect();
         try {
