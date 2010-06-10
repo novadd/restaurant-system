@@ -311,7 +311,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM `menu`");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu` WHERE `menu`.`status`=\"ok\" or `menu`.`status`=\"low\"");
             while (rs.next()) {
                 list.add(rs.getString("name") + " (" + rs.getString("price") + " zł)");
             }
@@ -334,7 +334,7 @@ public class Engine {
         Connection conn = connect();
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM `menu`");
+            ResultSet rs = statement.executeQuery("SELECT * FROM `menu`  WHERE `menu`.`status`=\"ok\" or `menu`.`status`=\"low\"");
             while (rs.next()) {
                 list.add(rs.getInt("id"));
             }
