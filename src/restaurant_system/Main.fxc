@@ -469,7 +469,6 @@
         <Reference name="onMouseClicked" value="prop:21,anim:,,str:tableSlide,4,null,"/>
         <Reference name="preCreationCode" value="null"/>
         <Reference name="postCreationCode" value="null"/>
-        <Reference name="items" value="prop:default"/>
     </Instance>
     <Instance classID="ListViewModel" instanceID="ListViewModel5">
         <Reference name="instanceName" value="str:listDiscounts"/>

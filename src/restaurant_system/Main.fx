@@ -23,10 +23,10 @@ public class Main {
     var multiplier: Integer =-1;
     var listLoginItems: Object[] = Engine.loginList();
     var listLoginIDItems: Integer[] = Engine.loginListID();
-    var listMenuItems: Object[] = Engine.menuList();
-    var listMenuIDItems: Object[] = Engine.menuListID();
-    var listDiscountsItems: Object[] = Engine.discountsList();
-    var listDiscountsIDStorage: Object[] = Engine.discountsIDList();
+    var listMenuItems: Object[] = Waiter.menuList();
+    var listMenuIDItems: Object[] = Waiter.menuListID();
+    var listDiscountsItems: Object[] = Waiter.discountsList();
+    var listDiscountsIDStorage: Object[] = Waiter.discountsIDList();
 
     var listMenu2IDStorage: ArrayList;
     var listShortageIDStorage: ArrayList;
@@ -1303,8 +1303,8 @@ public class Main {
 
     function scenePre_CreationCode(): Void {
         Engine.createDB();
-        listPickedDisscount.items[0] = Engine.discountsList()[0];
-        activeDiscount = Engine.discountsIDList()[0];
+        listPickedDisscount.items[0] = Waiter.discountsList()[0];
+        activeDiscount = Waiter.discountsIDList()[0];
     }
 
     function buttonBackAction(): Void {
@@ -1316,7 +1316,7 @@ public class Main {
             }
         }
         if(currentState.actual == currentState.findIndex("waiterTable")){
-            Engine.tableCheckForBills(activeTableNr);
+            Waiter.tableCheckForBills(activeTableNr);
             currentState.actual = currentState.findIndex("waiterTablePick");
         }
         if(currentState.actual == currentState.findIndex("chefOrders")){
@@ -1414,15 +1414,15 @@ public class Main {
     function printBill(){
         clearList(listBill);
         var i: Integer = 0;
-        listBillIDStorage = Engine.printBillMenuID(activeBillNr);
-        listBillDiscountIDStorage = Engine.printBillDiscountID(activeBillNr);
-        while(i<Engine.printBillMenuID(activeBillNr).size()){
-                listBill.items[i] = Engine.printBill(activeBillNr).get(i);
-                //listBillIDStorage.set(i, Engine.printBillMenuID(activeBillNr).get(i));
+        listBillIDStorage = Waiter.printBillMenuID(activeBillNr);
+        listBillDiscountIDStorage = Waiter.printBillDiscountID(activeBillNr);
+        while(i<Waiter.printBillMenuID(activeBillNr).size()){
+                listBill.items[i] = Waiter.printBill(activeBillNr).get(i);
+                //listBillIDStorage.set(i, Waiter.printBillMenuID(activeBillNr).get(i));
                 i++
         }
         // print "sum"
-        listBill.items[i+1] = Engine.printBill(activeBillNr).get(i);
+        listBill.items[i+1] = Waiter.printBill(activeBillNr).get(i);
     };
 
     function listMenuOnMouseClicked(event: javafx.scene.input.MouseEvent): Void {
@@ -1438,15 +1438,15 @@ public class Main {
             length++;
         }
         if(length == 0){
-            activeBillNr = Engine.addToBill(null, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, 1);
+            activeBillNr = Waiter.addToBill(null, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, 1);
             if(multiplier > 1){
-                Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier - 1);
+                Waiter.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier - 1);
             }
-            Engine.addBillToTable(activeTableNr, activeBillNr);
+            Waiter.addBillToTable(activeTableNr, activeBillNr);
             printBill();
         }
         else {
-            Engine.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier);
+            Waiter.addToBill(activeBillNr, listMenuID.items[listMenu.selectedIndex], activeDiscount, loggedId, multiplier);
             printBill();
         }
         if (not toggleButtonLocked.selected){
@@ -1464,24 +1464,24 @@ public class Main {
         }
         if(listBill.selectedIndex < listBillIDStorage.size()){
             removedDiscount = listBillDiscountIDStorage.get(listBill.selectedIndex);
-            Engine.removeFromBill(activeBillNr, listBillIDStorage.get(listBill.selectedIndex), removedDiscount, multiplier);
+            Waiter.removeFromBill(activeBillNr, listBillIDStorage.get(listBill.selectedIndex), removedDiscount, multiplier);
             printBill();
         }
         if (not toggleButtonLocked.selected){
             multiplier = -1;
             labelCount.text = "1 x";
         }
-        Engine.tableCheckForBills(activeTableNr);
+        Waiter.tableCheckForBills(activeTableNr);
     }
 
     function buttonOrderAction(): Void {
-        Engine.billWholeSetStatus(activeBillNr, "waiting");
+        Waiter.billWholeSetStatus(activeBillNr, "waiting");
     }
     
     function buttonBillFinalizeAction(): Void {
-        if (Engine.billCheckIfAllServed(activeBillNr)) {
-            Engine.removeBillFromTable(activeTableNr, activeBillNr);
-            Engine.printReceipt(Engine.printBill(activeBillNr));
+        if (Waiter.billCheckIfAllServed(activeBillNr)) {
+            Waiter.removeBillFromTable(activeTableNr, activeBillNr);
+            Waiter.printReceipt(Waiter.printBill(activeBillNr));
             clearList(listBill);
         }
     }
@@ -1508,26 +1508,26 @@ public class Main {
     // red - other waiter's table -> click: shows the name
     //                               of the waiter
     // ---------------------------------------------------
-        if(Engine.checkWhoServesTable(nr)==null) {
+        if(Waiter.checkWhoServesTable(nr)==null) {
             currentState.actual = currentState.findIndex("waiterTable");
             activeTableNr = nr;
             clearList(listBill);
         }
         else {
-            if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
+            if(Waiter.checkWhoServesTable(nr).toString()==loggedId.toString()) {
                 currentState.actual = currentState.findIndex("waiterTable");
                 activeTableNr = nr;
-                activeBillNr = Engine.billsListFromTable(nr).get(0);
+                activeBillNr = Waiter.billsListFromTable(nr).get(0);
                 printBill();
             }
             else{
                 if (Engine.decodeLoginIDFunction(loggedId)=="Manager") {
                     currentState.actual = currentState.findIndex("waiterTable");
                     activeTableNr = nr;
-                    activeBillNr = Engine.billsListFromTable(nr).get(0);
+                    activeBillNr = Waiter.billsListFromTable(nr).get(0);
                     printBill();
                 };
-//                labelWhoServes.text = "{Engine.decodeLoginIDName(Engine.checkWhoServesTable(nr))}\n{Engine.decodeLoginIDSurname(Engine.checkWhoServesTable(nr))}";
+//                labelWhoServes.text = "{Waiter.decodeLoginIDName(Waiter.checkWhoServesTable(nr))}\n{Engine.decodeLoginIDSurname(Waiter.checkWhoServesTable(nr))}";
 //                labelWhoServes.layoutX = table.layoutX-labelWhoServes.width/2;
 //                labelWhoServes.layoutY = table.layoutY-labelWhoServes.height/2;
             }
@@ -1566,18 +1566,18 @@ public class Main {
     // This function logs out current user
     // ---------------------------------------------------
         if(currentState.actual == currentState.findIndex("waiterTable")){
-            Engine.tableCheckForBills(activeTableNr);
+            Waiter.tableCheckForBills(activeTableNr);
         }
         currentState.actual = currentState.findIndex("login");
         loggedId = -1;
     }
 
     function colourTable(nr: Integer, table:javafx.scene.shape.Circle){
-        if(Engine.checkWhoServesTable(nr)==null) {
+        if(Waiter.checkWhoServesTable(nr)==null) {
             table.fill = colorGreen;
         }
         else {
-            if(Engine.checkWhoServesTable(nr).toString()==loggedId.toString()) {
+            if(Waiter.checkWhoServesTable(nr).toString()==loggedId.toString()) {
                 table.fill = colorYellow;
             }
             else{
@@ -1668,27 +1668,27 @@ public class Main {
     }
 
     function updateTableAllerts(){
-        if(Engine.checkIfMealReadyOnTable(1)){
+        if(Waiter.checkIfMealReadyOnTable(1)){
             mealReadyForTable(1);
         } else {
             noMealReadyForTable(1);
         };
-        if(Engine.checkIfMealReadyOnTable(2)){
+        if(Waiter.checkIfMealReadyOnTable(2)){
             mealReadyForTable(2);
         } else {
             noMealReadyForTable(2);
         };
-        if(Engine.checkIfMealReadyOnTable(3)){
+        if(Waiter.checkIfMealReadyOnTable(3)){
             mealReadyForTable(3);
         } else {
             noMealReadyForTable(3);
         };
-        if(Engine.checkIfMealReadyOnTable(4)){
+        if(Waiter.checkIfMealReadyOnTable(4)){
             mealReadyForTable(4);
         } else {
             noMealReadyForTable(4);
         };
-        if(Engine.checkIfMealReadyOnTable(5)){
+        if(Waiter.checkIfMealReadyOnTable(5)){
             mealReadyForTable(5);
         } else {
             noMealReadyForTable(5);
@@ -1701,37 +1701,37 @@ public class Main {
         clearList(listOrdered);
         clearList(listBeingPrepared);
         
-        listOrderedIDStorage = Engine.printBillIDByStatus("waiting");
-        listBeingPreparedIDStorage = Engine.printBillIDByStatus("processing");
-        listReadyIDStorage = Engine.printBillIDByStatus("ready");
+        listOrderedIDStorage = Chef.printBillIDByStatus("waiting");
+        listBeingPreparedIDStorage = Chef.printBillIDByStatus("processing");
+        listReadyIDStorage = Chef.printBillIDByStatus("ready");
 
         //tab1
         var i: Integer = 0;
-        var list: ArrayList = Engine.printBillMenuIDByStatus("waiting");
-        while(i<Engine.printBillMenuIDByStatus("waiting").size()){
-                listOrdered.items[i] = Engine.printBillByStatus("waiting").get(i);
-                listOrderedIDStorage.set(i, Engine.printBillIDByStatus("waiting").get(i));
+        var list: ArrayList = Chef.printBillMenuIDByStatus("waiting");
+        while(i<Chef.printBillMenuIDByStatus("waiting").size()){
+                listOrdered.items[i] = Chef.printBillByStatus("waiting").get(i);
+                listOrderedIDStorage.set(i, Chef.printBillIDByStatus("waiting").get(i));
                 i++;
         }
         //tab2
         i = 0;
-        while(i<Engine.printBillMenuIDByStatus("processing").size()){
-                listBeingPrepared.items[i] = Engine.printBillByStatus("processing").get(i);
-                listBeingPreparedIDStorage.set(i, Engine.printBillIDByStatus("processing").get(i));
+        while(i<Chef.printBillMenuIDByStatus("processing").size()){
+                listBeingPrepared.items[i] = Chef.printBillByStatus("processing").get(i);
+                listBeingPreparedIDStorage.set(i, Chef.printBillIDByStatus("processing").get(i));
                 i++;
         }
         //tab3
         i = 0;
-        while(i<Engine.printBillMenuIDByStatus("ready").size()){
-                listReady.items[i] = Engine.printBillByStatus("ready").get(i);
-                listReadyIDStorage.set(i, Engine.printBillIDByStatus("ready").get(i));
+        while(i<Chef.printBillMenuIDByStatus("ready").size()){
+                listReady.items[i] = Chef.printBillByStatus("ready").get(i);
+                listReadyIDStorage.set(i, Chef.printBillIDByStatus("ready").get(i));
                 i++;
         }
     };
     
     function listOrderedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
         if(listOrdered.selectedIndex < listOrderedIDStorage.size() and listOrderedIDStorage.size() != 0 and not toggleButton.selected){
-            Engine.billSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
+            Chef.billSetStatus(listOrderedIDStorage.get(listOrdered.selectedIndex), "processing");
             printChefsLists();
         }
     }
@@ -1739,9 +1739,9 @@ public class Main {
     function listBeingPreparedOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
         if(listBeingPrepared.selectedIndex < listBeingPreparedIDStorage.size() and listBeingPreparedIDStorage.size() != 0){
             if(toggleButton.selected){
-                Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "waiting");
+                Chef.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "waiting");
             } else {
-                Engine.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "ready");
+                Chef.billSetStatus(listBeingPreparedIDStorage.get(listBeingPrepared.selectedIndex), "ready");
                 updateTableAllerts();
             }
             printChefsLists();
@@ -1751,10 +1751,10 @@ public class Main {
     function listReadyOnMouseClickedAtchefOrders(event: javafx.scene.input.MouseEvent): Void {
         if(listReady.selectedIndex < listReadyIDStorage.size() and listReadyIDStorage.size() != 0){
             if(toggleButton.selected){
-                Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "processing");
+                Chef.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "processing");
                 updateTableAllerts();
             } else {
-                Engine.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "served");
+                Chef.billSetStatus(listReadyIDStorage.get(listReady.selectedIndex), "served");
                 updateTableAllerts();
             }
             printChefsLists();
@@ -1775,36 +1775,36 @@ public class Main {
         clearList(listShortage);
         clearList(listLacks);
 
-        listMenu2IDStorage = Engine.menuIDCheckWhichHaveStatus("ok");
-        listShortageIDStorage = Engine.menuIDCheckWhichHaveStatus("low");
-        listLacksIDStorage = Engine.menuIDCheckWhichHaveStatus("nok");
+        listMenu2IDStorage = Chef.menuIDCheckWhichHaveStatus("ok");
+        listShortageIDStorage = Chef.menuIDCheckWhichHaveStatus("low");
+        listLacksIDStorage = Chef.menuIDCheckWhichHaveStatus("nok");
 
         //tab1
         var i: Integer = 0;
-        while(i<Engine.menuIDCheckWhichHaveStatus("ok").size()){
-                listMenu2.items[i] = Engine.menuCheckWhichHaveStatus("ok").get(i);
-                listMenu2IDStorage.set(i, Engine.menuIDCheckWhichHaveStatus("ok").get(i));
+        while(i<Chef.menuIDCheckWhichHaveStatus("ok").size()){
+                listMenu2.items[i] = Chef.menuCheckWhichHaveStatus("ok").get(i);
+                listMenu2IDStorage.set(i, Chef.menuIDCheckWhichHaveStatus("ok").get(i));
                 i++;
         }
         //tab2
         i = 0;
-        while(i<Engine.menuIDCheckWhichHaveStatus("low").size()){
-                listShortage.items[i] = Engine.menuCheckWhichHaveStatus("low").get(i);
-                listShortageIDStorage.set(i, Engine.menuIDCheckWhichHaveStatus("low").get(i));
+        while(i<Chef.menuIDCheckWhichHaveStatus("low").size()){
+                listShortage.items[i] = Chef.menuCheckWhichHaveStatus("low").get(i);
+                listShortageIDStorage.set(i, Chef.menuIDCheckWhichHaveStatus("low").get(i));
                 i++;
         }
         //tab3
         i = 0;
-        while(i<Engine.menuIDCheckWhichHaveStatus("nok").size()){
-                listLacks.items[i] = Engine.menuCheckWhichHaveStatus("nok").get(i);
-                listLacksIDStorage.set(i, Engine.menuIDCheckWhichHaveStatus("nok").get(i));
+        while(i<Chef.menuIDCheckWhichHaveStatus("nok").size()){
+                listLacks.items[i] = Chef.menuCheckWhichHaveStatus("nok").get(i);
+                listLacksIDStorage.set(i, Chef.menuIDCheckWhichHaveStatus("nok").get(i));
                 i++;
         }
     };
 
     function listMenu2OnMouseClickedAtchefShortages(event: javafx.scene.input.MouseEvent): Void {
         if(listMenu2.selectedIndex < listMenu2IDStorage.size() and listMenu2IDStorage.size() != 0 and not toggleButton2.selected){
-            Engine.menuSetStatus(listMenu2IDStorage.get(listMenu2.selectedIndex), "low");
+            Chef.menuSetStatus(listMenu2IDStorage.get(listMenu2.selectedIndex), "low");
             printChefsShortageLists();
         }
     }
@@ -1812,9 +1812,9 @@ public class Main {
     function listShortageOnMouseClickedAtchefShortages(event: javafx.scene.input.MouseEvent): Void {
         if(listShortage.selectedIndex < listShortageIDStorage.size() and listShortageIDStorage.size() != 0){
             if(toggleButton2.selected){
-                Engine.menuSetStatus(listShortageIDStorage.get(listShortage.selectedIndex), "ok");
+                Chef.menuSetStatus(listShortageIDStorage.get(listShortage.selectedIndex), "ok");
             } else {
-                Engine.menuSetStatus(listShortageIDStorage.get(listShortage.selectedIndex), "nok");
+                Chef.menuSetStatus(listShortageIDStorage.get(listShortage.selectedIndex), "nok");
             }
             printChefsShortageLists();
         }
@@ -1823,16 +1823,16 @@ public class Main {
     function listLacksOnMouseClickedAtchefShortages(event: javafx.scene.input.MouseEvent): Void {
         if(listLacks.selectedIndex < listLacksIDStorage.size() and listLacksIDStorage.size() != 0){
             if(toggleButton2.selected){
-                Engine.menuSetStatus(listLacksIDStorage.get(listLacks.selectedIndex), "low");
+                Chef.menuSetStatus(listLacksIDStorage.get(listLacks.selectedIndex), "low");
             } else {
-                Engine.menuSetStatus(listLacksIDStorage.get(listLacks.selectedIndex), "ok");
+                Chef.menuSetStatus(listLacksIDStorage.get(listLacks.selectedIndex), "ok");
             }
             printChefsShortageLists();
         }
     }
 
     function buttonClearActionAtchefShortages(): Void {
-        Engine.menuWholeSetStatus("ok");
+        Chef.menuWholeSetStatus("ok");
         printChefsShortageLists();
     }
     // </editor-fold>
@@ -1841,8 +1841,8 @@ public class Main {
 
     function printManagerList(){
         var i: Integer = 0;
-        var list: ArrayList = Engine.managerBillsShow();
-        listManagerIDStorage = Engine.managerBillsShowID();
+        var list: ArrayList = Manager.managerBillsShow();
+        listManagerIDStorage = Manager.managerBillsShowID();
 
         clearList(listManager);
         while (i < list.size()){
@@ -1856,14 +1856,14 @@ public class Main {
     // This function deletes selected item from the bills list
     // --------------------------------------------------------
         if(listManager.selectedIndex < listManagerIDStorage.size()){
-            Engine.managerBillsRemove(listManagerIDStorage.get(listManager.selectedIndex));
+            Manager.managerBillsRemove(listManagerIDStorage.get(listManager.selectedIndex));
             printManagerList();
         }     
-        Engine.tableCheckForBills(1);
-        Engine.tableCheckForBills(2);
-        Engine.tableCheckForBills(3);
-        Engine.tableCheckForBills(4);
-        Engine.tableCheckForBills(5);
+        Manager.tableCheckForBills(1);
+        Manager.tableCheckForBills(2);
+        Manager.tableCheckForBills(3);
+        Manager.tableCheckForBills(4);
+        Manager.tableCheckForBills(5);
     }
 
     function buttonWaiterLoginActionAtmanager(): Void {
