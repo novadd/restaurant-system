@@ -10,12 +10,465 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Szparag
  */
-public class Waiter extends Engine {
+public class Manager extends Engine {
+
+    //dodanie znizki
+    /**
+     *
+     * @param description
+     * @param percentage
+     */
+
+    public static void discountAdd(String description, int percentage) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO `discounts` (`description`, `percentage`) "
+                + "VALUES "
+                + "(\"" + description + "\", \"" + String.valueOf(percentage) + "\")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    //usuniecie znizki
+    /**
+     *
+     * @param discount_id
+     */
+    public static void discountRemove(Object discount_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `discounts` "
+                + " WHERE `id`=" + discount_id.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    public static ArrayList managerBillsShow() {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`id` AS `id`, `bills`.`bill_id` AS `bill_id`, `menu`.`name` AS `menu_name`, `discounts`.`percentage` AS `discount_percentage`, `employees`.`surname` AS `waiter`, `bills`.`status` AS `status` " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `menu` ON `bills`.`menu_id`=`menu`.`id` " +
+                    " LEFT JOIN `discounts` ON `bills`.`discount_id`=`discounts`.`id` " +
+                    " LEFT JOIN `employees` ON `bills`.`waiter_id`=`employees`.`id` ");
+            while (rs.next()) {
+                list.add(rs.getString("id") + ": " + rs.getString("bill_id") + ", " + rs.getString("menu_name") + ", " + rs.getString("discount_percentage") + "%, " + rs.getString("waiter") + ", " + rs.getString("status"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    public static ArrayList managerBillsShowID(){
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills`");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    public static void managerBillsRemove(Object ID) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `restaurant`.`bills` "+
+                    "WHERE `bills`.`id`=" + ID.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+
+        // musi usunac powiazanie stolika
+        close(conn);
+    }
+
+    /**
+     * dodanie pozycji do menu
+     * @param name
+     * @param price
+     * @param category
+     */
+    public static void menuAddItem(String name, java.math.BigDecimal price, String category) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO `menu` (`name`, `price`, `category`) "
+                + "VALUES "
+                + "(\"" + name + "\", \"" + String.valueOf(price) + "\", \"" + category + "\")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    //usuniecie pozycji z menu
+    /**
+     *
+     * @param menu_id
+     */
+    public static void menuRemoveItem(Object menu_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `menu` "
+                + "WHERE `id`=" + menu_id.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    //dodanie pracownika
+    /**
+     *
+     * @param name
+     * @param surname
+     * @param function
+     */
+    public static void employeeAdd(String name, String surname, String function) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO `employees` (`name`, `surname`, `function`) "
+                + "VALUES "
+                + "(\"" + name + "\", \"" + surname + "\", \"" + function + "\")");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    //usuniecie pracownika
+    /**
+     *
+     * @param employee_id
+     */
+    public static void employeeRemove(Object employee_id) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `employees` "
+                + "WHERE `id`=" + employee_id.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    /**
+     * usuniecie potrawy z rachunku
+     * @param billID
+     * @param menuID
+     * @param discountID
+     * @param howMany
+     */
+    public static void removeFromBillManager(Object billID, Object menuID, Object discountID, int howMany) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM `restaurant`.`bills` "+
+                    "WHERE `bills`.`bill_id`=" + billID.toString() + " AND `bills`.`menu_id`=" + menuID.toString() + " AND `bills`.`discount_id`=" + discountID.toString() +
+                    " LIMIT " + String.valueOf(howMany));
+
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    /**
+     * wyswietlnie ile rachunkow obsluzyl dany kelner
+     * @param waiter_id
+     * @return
+     */
+    public static ArrayList statisticsBillsFromWaiter(Object waiter_id) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM `bills` " +
+                    " WHERE `waiter_id`=" + waiter_id.toString() +
+                    " GROUP BY `bill_id`");
+            while (rs.next()) {
+                list.add(rs.getInt("bill_id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @param status
+     * @return
+     */
+    public static ArrayList printBillMenuIDByStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`id`" +
+                    " FROM `bills` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id`=`tables`.`table_id` " +
+                    " LEFT JOIN `menu` ON `menu`.`id`=`bills`.`menu_id` " +
+                    " WHERE `bills`.`status`=\"" + status + "\"" +
+                    " ORDER BY `bills`.`id` ASC");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    /**
+     *
+     * @param status
+     * @return
+     */
+    public static ArrayList printBillIDByStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `bills`.`id`" +
+                    " FROM `bills` " +
+                    " WHERE `bills`.`status`=\"" + status + "\"" +
+                    " ORDER BY `bills`.`id` ASC");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    /**
+     *
+     * @param status
+     * @return
+     */
+    public static ArrayList printBillByStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `menu`.`name`, `tables`.`table_id` " +
+                    " FROM `bills` " +
+                    " LEFT JOIN `menu` ON `menu`.`id` = `bills`.`menu_id` " +
+                    " LEFT JOIN `tables` ON `bills`.`bill_id` = `tables`.`bill_id` " +
+                    " WHERE bills.status = \"" + status + "\"" +
+                    " ORDER BY `bills`.`id` ASC");
+            while (rs.next()) {
+                list.add(rs.getString("name") + " (" + rs.getString("table_id") + ")");
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    /**
+     * ustawia status w billu o id (nie bill_id) podanym w parametrach
+     * @param id
+     * @param status
+     */
+    public static void billSetStatus(Object id, String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE `bills` "
+                + "SET `status`=\"" + status + "\""
+                + "WHERE `id`=" + id.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    /**
+     * status: ok, low, nok, wyswiwetla potrawy o danym statusie
+     * @param status
+     * @return
+     */
+    public static ArrayList menuCheckWhichHaveStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `name` FROM `menu` "
+                    + " WHERE `status`=\"" + status + "\"");
+            while (rs.next()) {
+                list.add(rs.getString("name"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    /**
+     *
+     * @param status
+     * @return
+     */
+    public static ArrayList menuIDCheckWhichHaveStatus(String status) {
+        ArrayList list = new ArrayList();
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT `id` FROM `menu` "
+                    + " WHERE `status`=\"" + status + "\"");
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+        return list;
+    }
+
+    /**
+     * ustawienie statusu dla danej potrawy
+     * @param menu_id
+     * @param status
+     */
+    public static void menuSetStatus(Object menu_id, String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE `menu` "
+                + "SET `status`=\"" + status + "\""
+                + "WHERE `id`=" + menu_id.toString());
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+    /**
+     *
+     * @param status
+     */
+    public static void menuWholeSetStatus(String status) {
+        Connection conn = connect();
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE `menu` "
+                + "SET `status`=\"" + status + "\"");
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        close(conn);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * cennik potraw
      * @return
